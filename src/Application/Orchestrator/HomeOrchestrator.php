@@ -22,6 +22,7 @@ final class HomeOrchestrator
 
     public function getAllUsers()
     {
+        
        $user = 'a';
         return $user;
     }
