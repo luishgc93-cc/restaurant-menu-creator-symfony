@@ -53,7 +53,7 @@ class Informacion
     private $fotosInformativas;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Local", inversedBy="informacion", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Domain\Model\Local", inversedBy="informacion", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $local;

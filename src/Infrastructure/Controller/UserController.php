@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\UserOrchestrator;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class UserController extends AbstractController
 {
@@ -28,12 +29,19 @@ final class UserController extends AbstractController
         $this->userOrchestrator = $userOrchestrator;
     }
 
-    public function loginAction()
+    public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser()) {
+             return $this->redirectToRoute('/');
+        }
 
-        return $this->render('/User/login.html.twig');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-
+        return $this->render('/User/login.html.twig',[
+            'last_username'=> $lastUsername,
+            'error'=> $error,
+        ]);
     }
 
 }

@@ -38,7 +38,7 @@ class Menu
     private $fotoMenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Informacion")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Informacion")
      * @ORM\JoinColumn(nullable=false)
      */
     private $informacion;
@@ -49,7 +49,7 @@ class Menu
 
     // Relación con la entidad "producto"
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Producto")
+     * @ORM\ManyToMany(targetEntity="App\Domain\Model\Producto")
      * @ORM\JoinTable(name="menu_producto",
      *   joinColumns={
      *     @ORM\JoinColumn(name="menu_id", referencedColumnName="id")

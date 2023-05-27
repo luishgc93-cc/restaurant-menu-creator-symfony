@@ -14,27 +14,27 @@ declare(strict_types=1 );
 namespace App\Application\Orchestrator;
 
 use App\Domain\Model\Usuario;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Infrastructure\Persistence\Doctrine\Repository\UserRepository;
 
 final class UserOrchestrator
 {
-    private $entityManager;
+    private $userRepository;
     private $passwordHasher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher)
     {
-        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
         $this->passwordHasher = $passwordHasher;
     }
     
 
     public function getAllUsers()
     {
-        // Crear un nuevo usuario
+        
         $user = new Usuario();
-        $user->setEmail('test@example.com');
-        $plaintextPassword = 'zzz';
+        $user->setEmail('a@a.com');
+        $plaintextPassword = 'a';
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             $plaintextPassword
@@ -42,10 +42,8 @@ final class UserOrchestrator
         $user->setPassword($hashedPassword);
         $user->setRoles(['ROLE_USER']);
 
-        // Persistir el usuario en la base de datos
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-    
+        $this->userRepository->save($user, true);
+            
         // Verificación de registro exitoso
         return 'Usuario registrado exitosamente.';
     }

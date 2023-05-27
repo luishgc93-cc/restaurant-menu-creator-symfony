@@ -31,10 +31,10 @@ final class HomeOrchestrator
 
     public function getAllUsers()
     {
-        /*
+        
         $user = new Usuario();
-        $user->setEmail('t3e33ssst@example.com');
-        $plaintextPassword = 'zzz';
+        $user->setEmail('a@a.com');
+        $plaintextPassword = 'a';
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             $plaintextPassword
@@ -43,7 +43,7 @@ final class HomeOrchestrator
         $user->setRoles(['ROLE_USER']);
 
         $this->userRepository->save($user, true);
-        */
+        
         // Verificación de registro exitoso
         return 'Usuario registrado exitosamente.';
     }
