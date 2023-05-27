@@ -32,7 +32,7 @@ final class HomeController extends AbstractController
     {
         $users = $this->homeOrchestrator->getAllUsers();
 
-        return $this->render('base.html.twig', [
+        return $this->render('/home/home.html.twig', [
             'users' => $users,
         ]);
 

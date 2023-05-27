@@ -33,7 +33,7 @@ final class HomeOrchestrator
     {
         // Crear un nuevo usuario
         $user = new Usuario();
-        $user->setEmail('t3est@example.com');
+        $user->setEmail('t3e33ssst@example.com');
         $plaintextPassword = 'zzz';
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
