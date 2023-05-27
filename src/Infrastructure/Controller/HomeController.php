@@ -9,7 +9,7 @@
  * @license  Todos los derechos reservados
  */
 
-declare(strict_types=1 );
+declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
@@ -20,7 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class HomeController extends AbstractController
 {
-
     public function homeAction()
     {
 

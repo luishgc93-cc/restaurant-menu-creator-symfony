@@ -69,63 +69,78 @@ class Menu
     // Resto de propiedades, getters y setters
 
     // ...
-    public function getId(){
-		return $this->id;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getNombreMenu(){
-		return $this->nombreMenu;
-	}
+    public function getNombreMenu()
+    {
+        return $this->nombreMenu;
+    }
 
-	public function setNombreMenu($nombreMenu){
-		$this->nombreMenu = $nombreMenu;
-	}
+    public function setNombreMenu($nombreMenu)
+    {
+        $this->nombreMenu = $nombreMenu;
+    }
 
-	public function getInformacionMenu(){
-		return $this->informacionMenu;
-	}
+    public function getInformacionMenu()
+    {
+        return $this->informacionMenu;
+    }
 
-	public function setInformacionMenu($informacionMenu){
-		$this->informacionMenu = $informacionMenu;
-	}
+    public function setInformacionMenu($informacionMenu)
+    {
+        $this->informacionMenu = $informacionMenu;
+    }
 
-	public function getPrecioMenu(){
-		return $this->precioMenu;
-	}
+    public function getPrecioMenu()
+    {
+        return $this->precioMenu;
+    }
 
-	public function setPrecioMenu($precioMenu){
-		$this->precioMenu = $precioMenu;
-	}
+    public function setPrecioMenu($precioMenu)
+    {
+        $this->precioMenu = $precioMenu;
+    }
 
-	public function getFotoMenu(){
-		return $this->fotoMenu;
-	}
+    public function getFotoMenu()
+    {
+        return $this->fotoMenu;
+    }
 
-	public function setFotoMenu($fotoMenu){
-		$this->fotoMenu = $fotoMenu;
-	}
+    public function setFotoMenu($fotoMenu)
+    {
+        $this->fotoMenu = $fotoMenu;
+    }
 
-	public function getInformacion(){
-		return $this->informacion;
-	}
+    public function getInformacion()
+    {
+        return $this->informacion;
+    }
 
-	public function setInformacion($informacion){
-		$this->informacion = $informacion;
-	}
+    public function setInformacion($informacion)
+    {
+        $this->informacion = $informacion;
+    }
 
-	public function getProductos(){
-		return $this->productos;
-	}
+    public function getProductos()
+    {
+        return $this->productos;
+    }
 
-	public function setProductos($productos){
-		$this->productos = $productos;
-	}
-  
-  public function getEstilo(){
-		return $this->estilo;
-	}
+    public function setProductos($productos)
+    {
+        $this->productos = $productos;
+    }
 
-	public function setEstilo($estilo){
-		$this->estilo = $estilo;
-	}
+  public function getEstilo()
+  {
+      return $this->estilo;
+  }
+
+    public function setEstilo($estilo)
+    {
+        $this->estilo = $estilo;
+    }
 }

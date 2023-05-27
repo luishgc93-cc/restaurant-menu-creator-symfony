@@ -9,7 +9,7 @@
  * @license  Todos los derechos reservados
  */
 
-declare(strict_types=1 );
+declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
@@ -43,13 +43,13 @@ final class UserController extends AbstractController
     public function loginAction(AuthenticationUtils $authenticationUtils, EmailVerifier $emailVerifier): Response
     {
         if ($this->getUser()) {
-             return $this->redirectToRoute('panel');
+            return $this->redirectToRoute('panel');
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('/User/login.html.twig',[
+        return $this->render('/User/login.html.twig', [
             'last_username'=> $lastUsername,
             'error'=> $error,
         ]);
@@ -59,7 +59,7 @@ final class UserController extends AbstractController
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('panel');
-       }
+        }
 
         $user = new Usuario();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -77,7 +77,9 @@ final class UserController extends AbstractController
 
             $this->userRepository->save($user, true);
 
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('mail@mail.er', 'luis'))
                     ->to($user->getEmail())

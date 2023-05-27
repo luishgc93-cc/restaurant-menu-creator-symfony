@@ -57,55 +57,68 @@ class Producto
 
     // Getters y setters
 
-	public function getId(){
-		return $this->id;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getNombreProducto(){
-		return $this->nombreProducto;
-	}
+    public function getNombreProducto()
+    {
+        return $this->nombreProducto;
+    }
 
-	public function setNombreProducto($nombreProducto){
-		$this->nombreProducto = $nombreProducto;
-	}
+    public function setNombreProducto($nombreProducto)
+    {
+        $this->nombreProducto = $nombreProducto;
+    }
 
-	public function getInformacionProducto(){
-		return $this->informacionProducto;
-	}
+    public function getInformacionProducto()
+    {
+        return $this->informacionProducto;
+    }
 
-	public function setInformacionProducto($informacionProducto){
-		$this->informacionProducto = $informacionProducto;
-	}
+    public function setInformacionProducto($informacionProducto)
+    {
+        $this->informacionProducto = $informacionProducto;
+    }
 
-	public function getPrecioProducto(){
-		return $this->precioProducto;
-	}
+    public function getPrecioProducto()
+    {
+        return $this->precioProducto;
+    }
 
-	public function setPrecioProducto($precioProducto){
-		$this->precioProducto = $precioProducto;
-	}
+    public function setPrecioProducto($precioProducto)
+    {
+        $this->precioProducto = $precioProducto;
+    }
 
-	public function getFotoProducto(){
-		return $this->fotoProducto;
-	}
+    public function getFotoProducto()
+    {
+        return $this->fotoProducto;
+    }
 
-	public function setFotoProducto($fotoProducto){
-		$this->fotoProducto = $fotoProducto;
-	}
+    public function setFotoProducto($fotoProducto)
+    {
+        $this->fotoProducto = $fotoProducto;
+    }
 
-	public function getMenus(){
-		return $this->menus;
-	}
+    public function getMenus()
+    {
+        return $this->menus;
+    }
 
-	public function setMenus($menus){
-		$this->menus = $menus;
-	}
+    public function setMenus($menus)
+    {
+        $this->menus = $menus;
+    }
 
-    public function getEstilo(){
-		return $this->estilo;
-	}
+    public function getEstilo()
+    {
+        return $this->estilo;
+    }
 
-	public function setEstilo($estilo){
-		$this->estilo = $estilo;
-	}
+    public function setEstilo($estilo)
+    {
+        $this->estilo = $estilo;
+    }
 }

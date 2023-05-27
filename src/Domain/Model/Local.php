@@ -67,63 +67,78 @@ class Local
      */
     private $estilo;
 
-	public function getId(){
-		return $this->id;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getNombreLocal(){
-		return $this->nombreLocal;
-	}
+    public function getNombreLocal()
+    {
+        return $this->nombreLocal;
+    }
 
-	public function setNombreLocal($nombreLocal){
-		$this->nombreLocal = $nombreLocal;
-	}
+    public function setNombreLocal($nombreLocal)
+    {
+        $this->nombreLocal = $nombreLocal;
+    }
 
-	public function getDescripcionLocal(){
-		return $this->descripcionLocal;
-	}
+    public function getDescripcionLocal()
+    {
+        return $this->descripcionLocal;
+    }
 
-	public function setDescripcionLocal($descripcionLocal){
-		$this->descripcionLocal = $descripcionLocal;
-	}
+    public function setDescripcionLocal($descripcionLocal)
+    {
+        $this->descripcionLocal = $descripcionLocal;
+    }
 
-	public function getFotoLocal(){
-		return $this->fotoLocal;
-	}
+    public function getFotoLocal()
+    {
+        return $this->fotoLocal;
+    }
 
-	public function setFotoLocal($fotoLocal){
-		$this->fotoLocal = $fotoLocal;
-	}
+    public function setFotoLocal($fotoLocal)
+    {
+        $this->fotoLocal = $fotoLocal;
+    }
 
-	public function getUsuario(){
-		return $this->usuario;
-	}
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
 
-	public function setUsuario($usuario){
-		$this->usuario = $usuario;
-	}
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+    }
 
-	public function getInformacion(){
-		return $this->informacion;
-	}
+    public function getInformacion()
+    {
+        return $this->informacion;
+    }
 
-	public function setInformacion($informacion){
-		$this->informacion = $informacion;
-	}
+    public function setInformacion($informacion)
+    {
+        $this->informacion = $informacion;
+    }
 
-	public function getUsuarios(){
-		return $this->usuarios;
-	}
+    public function getUsuarios()
+    {
+        return $this->usuarios;
+    }
 
-	public function setUsuarios($usuarios){
-		$this->usuarios = $usuarios;
-	}
-    
-	public function getEstilo(){
-		return $this->estilo;
-	}
+    public function setUsuarios($usuarios)
+    {
+        $this->usuarios = $usuarios;
+    }
 
-	public function setEstilo($estilo){
-		$this->estilo = $estilo;
-	}
+    public function getEstilo()
+    {
+        return $this->estilo;
+    }
+
+    public function setEstilo($estilo)
+    {
+        $this->estilo = $estilo;
+    }
 }

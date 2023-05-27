@@ -9,7 +9,7 @@
  * @license  Todos los derechos reservados
  */
 
-declare(strict_types=1 );
+declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
@@ -34,19 +34,23 @@ final class PanelController extends AbstractController
         return $this->render('/Panel/panel.html.twig');
 
     }
-    public function createLocalAction(){
+    public function createLocalAction()
+    {
 
     }
 
-    public function showLocalAction(){
+    public function showLocalAction()
+    {
 
     }
 
-    public function editLocalAction(){
+    public function editLocalAction()
+    {
 
     }
 
-    public function deleteLocalAction(){
+    public function deleteLocalAction()
+    {
     }
-    
+
 }

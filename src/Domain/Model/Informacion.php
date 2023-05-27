@@ -59,72 +59,89 @@ class Informacion
     private $local;
 
     // Getters y setters
-	public function getId(){
-		return $this->id;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getTelefono(){
-		return $this->telefono;
-	}
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
 
-	public function setTelefono($telefono){
-		$this->telefono = $telefono;
-	}
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+    }
 
-	public function getDescripcion(){
-		return $this->descripcion;
-	}
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
 
-	public function setDescripcion($descripcion){
-		$this->descripcion = $descripcion;
-	}
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    }
 
-	public function getCalle(){
-		return $this->calle;
-	}
+    public function getCalle()
+    {
+        return $this->calle;
+    }
 
-	public function setCalle($calle){
-		$this->calle = $calle;
-	}
+    public function setCalle($calle)
+    {
+        $this->calle = $calle;
+    }
 
-	public function getLocalidad(){
-		return $this->localidad;
-	}
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
 
-	public function setLocalidad($localidad){
-		$this->localidad = $localidad;
-	}
+    public function setLocalidad($localidad)
+    {
+        $this->localidad = $localidad;
+    }
 
-	public function getCiudad(){
-		return $this->ciudad;
-	}
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
 
-	public function setCiudad($ciudad){
-		$this->ciudad = $ciudad;
-	}
+    public function setCiudad($ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
 
-	public function getEmail(){
-		return $this->email;
-	}
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	public function setEmail($email){
-		$this->email = $email;
-	}
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
-	public function getFotosInformativas(){
-		return $this->fotosInformativas;
-	}
+    public function getFotosInformativas()
+    {
+        return $this->fotosInformativas;
+    }
 
-	public function setFotosInformativas($fotosInformativas){
-		$this->fotosInformativas = $fotosInformativas;
-	}
+    public function setFotosInformativas($fotosInformativas)
+    {
+        $this->fotosInformativas = $fotosInformativas;
+    }
 
-	public function getLocal(){
-		return $this->local;
-	}
+    public function getLocal()
+    {
+        return $this->local;
+    }
 
-	public function setLocal($local){
-		$this->local = $local;
-	}
+    public function setLocal($local)
+    {
+        $this->local = $local;
+    }
 
 }

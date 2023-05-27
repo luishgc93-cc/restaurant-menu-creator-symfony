@@ -9,20 +9,19 @@
  * @license  Todos los derechos reservados
  */
 
-declare(strict_types=1 );
+declare(strict_types=1);
 
 namespace App\Application\Orchestrator;
 
 final class PanelOrchestrator
 {
-
     public function __construct()
     {
     }
 
     public function getAllUsers()
     {
-       $user = 'a';
+        $user = 'a';
         return $user;
     }
 }
