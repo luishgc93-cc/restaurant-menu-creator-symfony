@@ -1,7 +1,7 @@
 #Home, pagina de inicio
 homeController:
   path: /
-  controller: App\Infrastructure\Controller\HomeController::index
+  controller: App\Infrastructure\Controller\HomeController::homeAction
 
 #Login de usuarios
 app_login:

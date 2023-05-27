@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Application\Orchestrator\UserOrchestrator;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
@@ -31,11 +30,10 @@ use App\Domain\Model\Usuario;
 
 final class UserController extends AbstractController
 {
-    private $userOrchestrator;
     private EmailVerifier $emailVerifier;
     private $userRepository;
 
-    public function __construct(userOrchestrator $userOrchestrator,EmailVerifier $emailVerifier, UserRepository $userRepository)
+    public function __construct(EmailVerifier $emailVerifier, UserRepository $userRepository)
     {
         $this->userOrchestrator = $userOrchestrator;
         $this->emailVerifier = $emailVerifier;
