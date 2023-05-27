@@ -35,7 +35,6 @@ final class UserController extends AbstractController
 
     public function __construct(EmailVerifier $emailVerifier, UserRepository $userRepository)
     {
-        $this->userOrchestrator = $userOrchestrator;
         $this->emailVerifier = $emailVerifier;
         $this->userRepository = $userRepository;
     }
