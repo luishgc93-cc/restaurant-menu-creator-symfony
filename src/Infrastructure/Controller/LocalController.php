@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\PanelOrchestrator;
 
-final class PanelController extends AbstractController
+final class LocalController extends AbstractController
 {
     private $panelOrchestrator;
 
@@ -28,7 +28,7 @@ final class PanelController extends AbstractController
         $this->panelOrchestrator = $panelOrchestrator;
     }
 
-    public function panelControllerAction()
+    public function localControllerAction()
     {
 
         return $this->render('/Panel/panel.html.twig');
