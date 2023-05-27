@@ -5,7 +5,7 @@
  * Todos los derechos reservados.
  *
  * @category Controlador
- * @package  App\Infrastructure\Controller
+ * @package  App\Application\Orchestrator\PanelOrchestrator
  * @license  Todos los derechos reservados
  */
 

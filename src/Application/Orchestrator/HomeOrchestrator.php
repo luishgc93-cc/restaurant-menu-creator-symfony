@@ -5,7 +5,7 @@
  * Todos los derechos reservados.
  *
  * @category Controlador
- * @package  App\Infrastructure\Controller
+ * @package  App\Application\Orchestrator\HomeOrchestrator
  * @license  Todos los derechos reservados
  */
 
@@ -14,17 +14,17 @@ declare(strict_types=1 );
 namespace App\Application\Orchestrator;
 
 use App\Domain\Model\Usuario;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Infrastructure\Persistence\Doctrine\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class HomeOrchestrator
 {
-    private $entityManager;
+    private $userRepository;
     private $passwordHasher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher)
     {
-        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
         $this->passwordHasher = $passwordHasher;
     }
     
@@ -33,7 +33,7 @@ final class HomeOrchestrator
     {
         // Crear un nuevo usuario
         $user = new Usuario();
-        $user->setEmail('t2est@example.com');
+        $user->setEmail('t3est@example.com');
         $plaintextPassword = 'zzz';
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
@@ -42,10 +42,8 @@ final class HomeOrchestrator
         $user->setPassword($hashedPassword);
         $user->setRoles(['ROLE_USER']);
 
-        // Persistir el usuario en la base de datos
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-    
+        $this->userRepository->save($user, true);
+
         // Verificación de registro exitoso
         return 'Usuario registrado exitosamente.';
     }
