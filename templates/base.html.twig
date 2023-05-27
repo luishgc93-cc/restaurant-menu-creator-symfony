@@ -10,7 +10,7 @@
 <body>
 
 {% block menuHeader %}
-    {% if app.request.pathinfo not in ['/login', '/'] %}
+    {% if app.request.pathinfo not in ['/login', '/registro', '/'] %}
         {% include '/Includes/menuHeader.html.twig' %}
     {% endif %}
 {% endblock %}
