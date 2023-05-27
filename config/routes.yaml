@@ -9,7 +9,13 @@ app_login:
   controller: App\Infrastructure\Controller\UserController::loginAction
 
 #Registro de usuarios
-
+app_register:
+  path: /registro
+  controller: App\Infrastructure\Controller\UserController::registerUsersAction
+#Confirmación de registro de usuarios
+app_verify_email:
+  path: /verify/email
+  controller: App\Infrastructure\Controller\UserController::verifyUserEmailAction
 #Panel de control de usuarios
 panel:
   path: /panel

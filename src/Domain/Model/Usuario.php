@@ -3,6 +3,7 @@
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,6 +13,7 @@ use App\Persistence\Doctrine\Repository\UserRepository;
  * @ORM\Entity
  * @ORM\Table(name="usuario")
  */
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -40,6 +42,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity="App\Domain\Model\Local", mappedBy="usuario")
      */
     private $locales;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     public function __construct()
     {
@@ -135,5 +140,17 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 }
