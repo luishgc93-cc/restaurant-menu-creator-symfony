@@ -17,7 +17,7 @@ use App\Domain\Model\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class HomeOrchestrator
+final class UserOrchestrator
 {
     private $entityManager;
     private $passwordHasher;
@@ -33,7 +33,7 @@ final class HomeOrchestrator
     {
         // Crear un nuevo usuario
         $user = new Usuario();
-        $user->setEmail('t2est@example.com');
+        $user->setEmail('test@example.com');
         $plaintextPassword = 'zzz';
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
