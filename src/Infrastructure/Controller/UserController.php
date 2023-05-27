@@ -62,7 +62,7 @@ final class UserController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('panel');
        }
-       
+
         $user = new Usuario();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
