@@ -31,7 +31,7 @@ final class HomeOrchestrator
 
     public function getAllUsers()
     {
-        // Crear un nuevo usuario
+        /*
         $user = new Usuario();
         $user->setEmail('t3e33ssst@example.com');
         $plaintextPassword = 'zzz';
@@ -43,7 +43,7 @@ final class HomeOrchestrator
         $user->setRoles(['ROLE_USER']);
 
         $this->userRepository->save($user, true);
-
+        */
         // Verificación de registro exitoso
         return 'Usuario registrado exitosamente.';
     }
