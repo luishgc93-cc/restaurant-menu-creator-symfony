@@ -68,6 +68,8 @@ final class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(['ROLE_USER']);
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -75,8 +77,7 @@ final class UserController extends AbstractController
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->userRepository->save($user, true);
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
