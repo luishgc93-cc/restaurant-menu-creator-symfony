@@ -28,8 +28,10 @@ final class UserController extends AbstractController
         $this->userOrchestrator = $userOrchestrator;
     }
 
-    public function index()
+    public function loginAction()
     {
+
+        return $this->render('/User/login.html.twig');
 
 
     }

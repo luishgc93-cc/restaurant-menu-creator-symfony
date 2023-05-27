@@ -1,3 +1,18 @@
+#Home, pagina de inicio
 homeController:
   path: /
   controller: App\Infrastructure\Controller\HomeController::index
+
+#Login de usuarios
+loginController:
+  path: /login
+  controller: App\Infrastructure\Controller\UserController::loginAction
+
+#Registro de usuarios
+
+
+#Panel de control de usuarios
+
+#Portada de locales
+
+#Editar local
