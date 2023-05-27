@@ -32,7 +32,7 @@ final class UserController extends AbstractController
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-             return $this->redirectToRoute('/');
+             return $this->redirectToRoute('panel');
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();

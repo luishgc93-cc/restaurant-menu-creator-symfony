@@ -4,15 +4,16 @@ homeController:
   controller: App\Infrastructure\Controller\HomeController::index
 
 #Login de usuarios
-loginController:
+app_login:
   path: /login
   controller: App\Infrastructure\Controller\UserController::loginAction
 
 #Registro de usuarios
 
-
 #Panel de control de usuarios
-
+panel:
+  path: /panel
+  controller: App\Infrastructure\Controller\PanelController::panelControllerAction
 #Portada de locales
 
 #Editar local

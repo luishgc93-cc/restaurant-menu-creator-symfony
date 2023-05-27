@@ -28,13 +28,10 @@ final class PanelController extends AbstractController
         $this->panelOrchestrator = $panelOrchestrator;
     }
 
-    public function index()
+    public function panelControllerAction()
     {
-        $users = $this->panelOrchestrator->getAllUsers();
 
-        return $this->render('base.html.twig', [
-            'users' => $users,
-        ]);
+        return $this->render('/Panel/panel.html.twig');
 
     }
 
