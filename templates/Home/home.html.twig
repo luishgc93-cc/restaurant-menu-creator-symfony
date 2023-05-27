@@ -5,8 +5,12 @@
     {{ parent() }}
 {% endblock %}
 {% block body %}
-    <h1>Index</h1>
-    <p class="important">
-        Welcome on my awesome homepage.
-    </p>
+
+{% include '/Home/Components/hero.html.twig' %}
+{% include '/Home/Components/section1.html.twig' %}
+{% include '/Home/Components/section4.html.twig' %}
+{% include '/Home/Components/section3.html.twig' %}
+{% include '/Home/Components/section2.html.twig' %}
+
+
 {% endblock %}

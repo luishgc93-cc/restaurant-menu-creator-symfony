@@ -7,7 +7,10 @@ homeController:
 app_login:
   path: /login
   controller: App\Infrastructure\Controller\UserController::loginAction
-
+#Logout
+app_logout:
+  path: /logout
+  controller: App\Infrastructure\Controller\UserController::logoutAction
 #Registro de usuarios
 app_register:
   path: /registro

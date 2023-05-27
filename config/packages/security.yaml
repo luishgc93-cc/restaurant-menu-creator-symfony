@@ -16,4 +16,9 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: panel    
+                default_target_path: panel
+            logout:
+                path: app_logout
+    access_control:
+        - { path: ^/panel, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN] }              
+        - { path: ^/panel/*, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN] }               

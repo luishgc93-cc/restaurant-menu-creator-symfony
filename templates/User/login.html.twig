@@ -3,7 +3,8 @@
 {% block title %}Login{% endblock %}
 
 {% block head %}
-    {{ parent() }}
+<script src="https://cdn.tailwindcss.com"></script>
+
         <style>
         .body-bg {
             background-color: #9921e8;
@@ -12,7 +13,7 @@
     </style>
 {% endblock %}
 
-{% block content %}
+{% block body %}
 
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

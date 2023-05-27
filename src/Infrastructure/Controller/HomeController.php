@@ -30,11 +30,8 @@ final class HomeController extends AbstractController
 
     public function index()
     {
-        $users = $this->homeOrchestrator->getAllUsers();
 
-        return $this->render('/home/home.html.twig', [
-            'users' => $users,
-        ]);
+        return $this->render('/home/home.html.twig');
 
     }
 

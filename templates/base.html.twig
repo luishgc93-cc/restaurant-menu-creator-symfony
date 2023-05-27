@@ -6,13 +6,20 @@
 <title>{% block title %}{% endblock %} - My Webpage</title>
 </head>
 {% endblock %}
+
 <body>
-    
-<div id="content">{% block body %}{% endblock %}</div>
+
+{% block menuHeader %}
+    {% if app.request.pathinfo not in ['/login', '/'] %}
+        {% include '/Includes/menuHeader.html.twig' %}
+    {% endif %}
+{% endblock %}
+
+<div id="body">{% block body %}{% endblock %}</div>
 
 <div id="footer">
 {% block footer %}
-&copy; Copyright 2022 by <a href="/">you</a>.
+    {% include '/Includes/footer.html.twig' %}
 {% endblock %}
 </div>
 </body>

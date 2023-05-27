@@ -111,4 +111,9 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
+    public function logoutAction(): void
+    {
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
+
 }
