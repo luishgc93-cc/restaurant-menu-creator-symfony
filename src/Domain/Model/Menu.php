@@ -43,6 +43,11 @@ class Menu
      */
     private $informacion;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $estilo;
+
     // Getters y setters
 
     // ...
@@ -114,5 +119,13 @@ class Menu
 
 	public function setProductos($productos){
 		$this->productos = $productos;
+	}
+  
+  public function getEstilo(){
+		return $this->estilo;
+	}
+
+	public function setEstilo($estilo){
+		$this->estilo = $estilo;
 	}
 }

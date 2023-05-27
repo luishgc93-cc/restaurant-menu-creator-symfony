@@ -35,7 +35,12 @@ class Producto
     /**
      * @ORM\Column(type="blob", nullable=true)
      */
+
     private $fotoProducto;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $estilo;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Model\Menu", inversedBy="productos")
@@ -94,5 +99,13 @@ class Producto
 
 	public function setMenus($menus){
 		$this->menus = $menus;
+	}
+
+    public function getEstilo(){
+		return $this->estilo;
+	}
+
+	public function setEstilo($estilo){
+		$this->estilo = $estilo;
 	}
 }

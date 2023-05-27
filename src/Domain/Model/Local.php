@@ -62,6 +62,11 @@ class Local
      */
     private $usuarios;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $estilo;
+
 	public function getId(){
 		return $this->id;
 	}
@@ -113,5 +118,12 @@ class Local
 	public function setUsuarios($usuarios){
 		$this->usuarios = $usuarios;
 	}
+    
+	public function getEstilo(){
+		return $this->estilo;
+	}
 
+	public function setEstilo($estilo){
+		$this->estilo = $estilo;
+	}
 }
