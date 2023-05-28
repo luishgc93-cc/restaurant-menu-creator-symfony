@@ -67,16 +67,16 @@ final class PanelOrchestrator extends AbstractController
             $idLocal = intval($request->attributes->get('id')); 
             $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
 
-            $local = new Informacion();
-            $local->setLocal($local);
-            $local->setTelefono($datosForm['telefono'] ?? '');
-            $local->setDescripcion($datosForm['descripcion'] ?? '');
-            $local->setCalle($datosForm['calle'] ?? '');
-            $local->setLocalidad($datosForm['localidad'] ?? '');
-            $local->setCiudad($datosForm['ciudad'] ?? '');
-            $local->setEmail($datosForm['email'] ?? '');
+            $informacion = new Informacion();
+            $informacion->setLocal($local);
+            $informacion->setTelefono($datosForm['telefono'] ?? '');
+            $informacion->setDescripcion($datosForm['descripcion'] ?? '');
+            $informacion->setCalle($datosForm['calle'] ?? '');
+            $informacion->setLocalidad($datosForm['localidad'] ?? '');
+            $informacion->setCiudad($datosForm['ciudad'] ?? '');
+            $informacion->setEmail($datosForm['email'] ?? '');
 
-            $this->informationRepository->save($local, true);
+            $this->informationRepository->save($informacion, true);
             
             return true;
         }
