@@ -40,7 +40,7 @@ final class PanelController extends AbstractController
         $requestUserSendForm = $this->panelOrchestrator->createLocal($request);
 
         if ($requestUserSendForm) {
-            return $this->redirect($this->generateUrl('panel'));
+            return $this->redirect($this->generateUrl('panel-show-local'));
         }
 
         return $this->render('/Panel/Sections/newLocal.html.twig');
@@ -49,6 +49,10 @@ final class PanelController extends AbstractController
 
     public function showLocalAction()
     {
+        $local = $this->panelOrchestrator->showLocal();
+
+        return $this->render('/Panel/Sections/showLocal.html.twig',
+        ['local' => $local]);
 
     }
 
@@ -59,6 +63,20 @@ final class PanelController extends AbstractController
 
     public function deleteLocalAction()
     {
+    }
+
+    public function editInformationLocalAction(Request $request)
+    {
+
+        $requestUserSendForm = $this->panelOrchestrator->editInformationLocal($request);
+
+        if ($requestUserSendForm) {
+            return $this->redirect($this->generateUrl('panel-show-local'));
+        }
+
+        return $this->render('/Panel/Sections/newInformation.html.twig',
+        ['id' => $request->attributes->get('id')]);
+
     }
 
 }

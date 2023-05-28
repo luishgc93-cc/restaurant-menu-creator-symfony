@@ -23,9 +23,18 @@ app_verify_email:
 panel:
   path: /panel
   controller: App\Infrastructure\Controller\PanelController::panelControllerAction
-#Portada de locales
+#Panel nuevo local
 panel-new-local:
   path: /panel/nuevo-local
   controller: App\Infrastructure\Controller\PanelController::createLocalAction
   methods: [GET, POST]
-#Editar local
+#Ver local
+panel-show-local:
+  path: /panel/ver-local
+  controller: App\Infrastructure\Controller\PanelController::showLocalAction
+  methods: [GET, POST]
+#Editar informacion local
+panel-edit-information:
+  path: /panel/editar-informacion-local/{id}
+  controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
+  methods: [GET, POST]

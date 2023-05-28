@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver Locales{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+
+
+<section class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
+  <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+  <div class="mx-auto max-w-2xl lg:max-w-4xl">
+
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-gray-900">Locales creados</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600">Aqui tienes todos tus locales, puedes generar un QR con la url del local, editar la información, verlos, etc.</p>
+    </div>
+
+<ul role="list" class="divide-y divide-gray-100">
+
+{%for item in local %}
+  {%set idLocal =  item.id %}
+  {%set nombreLocal =  item.nombreLocal %}
+  {%set descripcionLocal =  item.descripcionLocal %}
+  {%set fotoLocal =  item.fotolocal %}
+    <li class="flex justify-between gap-x-6 py-5">
+    <div class="flex gap-x-4">
+      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ fotoLocal }}" alt="">
+      <div class="min-w-0 flex-auto">
+        <p class="text-sm font-semibold leading-6 text-gray-900"> {{ nombreLocal }}</p>
+        <p class="mt-1 truncate text-xs leading-5 text-gray-500"> {{ descripcionLocal }}</p>
+      </div>
+    </div>
+    <div class="hidden sm:flex sm:flex-col sm:items-end">
+      <p class="text-sm leading-6 text-gray-900">Ver Local</p>
+      <div class="mt-1 flex items-center gap-x-1.5">
+        <div class="flex-none rounded-full bg-emerald-500/20 p-1">
+          <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+        </div>
+        <a href="{{ path('panel-edit-information', {'id': idLocal}) }}">
+        <p class="text-xs leading-5 text-gray-500">Editar</p>
+        </a>
+      </div>
+    </div>
+  </li>
+{%endfor%}
+
+</ul>
+  </div>
+</section>
+
+{% endblock %}
