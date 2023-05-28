@@ -30,8 +30,9 @@ final class PanelController extends AbstractController
 
     public function panelControllerAction()
     {
+        $title = 'Panel de Control';
 
-        return $this->render('/Panel/panel.html.twig');
+        return $this->render('/Panel/panel.html.twig', ['title' => $title]);
 
     }
     public function createLocalAction(Request $request)
@@ -43,7 +44,9 @@ final class PanelController extends AbstractController
             return $this->redirect($this->generateUrl('panel-show-local'));
         }
 
-        return $this->render('/Panel/Sections/newLocal.html.twig');
+        $title = 'Crear un Local';
+
+        return $this->render('/Panel/Sections/newLocal.html.twig', ['title' => $title]);
 
     }
 
@@ -51,9 +54,11 @@ final class PanelController extends AbstractController
     {
         $local = $this->panelOrchestrator->showLocal();
 
+        $title = 'Ver Locales Creados';
+
         return $this->render(
             '/Panel/Sections/showLocal.html.twig',
-            ['local' => $local]
+            ['local' => $local,'title' => $title ]
         );
 
     }
@@ -72,9 +77,11 @@ final class PanelController extends AbstractController
 
         $datos = $this->panelOrchestrator->editInformationLocal($request);
 
+        $title = 'Información de tu Local';
+
         return $this->render(
             '/Panel/Sections/newInformation.html.twig',
-            ['id' => $request->attributes->get('id'), 'datos'=> $datos]
+            ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
         );
     }
 
@@ -83,9 +90,11 @@ final class PanelController extends AbstractController
 
         $datos = $this->panelOrchestrator->newMenu($request);
 
+        $title = 'Crea un Menú o Carta para tu Local';
+
         return $this->render(
             '/Panel/Sections/newMenu.html.twig',
-            ['id' => $request->attributes->get('id'), 'datos'=> $datos]
+            ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
         );
     }
 
