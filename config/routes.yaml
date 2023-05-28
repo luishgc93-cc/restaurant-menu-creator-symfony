@@ -38,7 +38,3 @@ panel-edit-information:
   path: /panel/editar-informacion-local/{id}
   controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
   methods: [GET, POST]
-#Editar informacion local
-panel-show-information:
-  path: /panel/ver-informacion-local/{id}
-  controller: App\Infrastructure\Controller\PanelController::showInformationLocalAction

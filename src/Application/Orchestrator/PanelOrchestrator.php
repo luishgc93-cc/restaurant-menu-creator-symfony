@@ -58,16 +58,22 @@ final class PanelOrchestrator extends AbstractController
 
     }
 
-    public function editInformationLocal(Request $request)
+    public function editInformationLocal(Request $request, bool $newInformation = false)
     {
         $userId = $this->getUser()->getId();
         $idLocal = intval($request->attributes->get('id'));
-    
+
         $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
-    
-        if ($request->isMethod('POST') && $this->getUser() && $informacion) {
+
+        if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-    
+            
+            if(!$informacion){
+                $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
+                $informacion = new Informacion();
+                $informacion->setLocal($local);
+            }
+
             $informacion->setTelefono($datosForm['telefono'] ?? '');
             $informacion->setDescripcion($datosForm['descripcion'] ?? '');
             $informacion->setCalle($datosForm['calle'] ?? '');
@@ -77,26 +83,9 @@ final class PanelOrchestrator extends AbstractController
     
             $this->informationRepository->save($informacion, true);
     
-            return true;
         }
     
-        return false;
-    }
-    
-
-    public function showInformationLocal(Request $request)
-    {
-        $userId = $this->getUser()->getId();     
-        $idLocal = intval($request->attributes->get('id')); 
-
-        $datos = $this->informationRepository->findOneBy(array('local' => $idLocal));
-
-        if($datos){
-            return  $datos;
-        }
-
-       return false;
-
+        return $informacion;
     }
 
 }
