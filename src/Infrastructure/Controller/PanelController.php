@@ -51,8 +51,10 @@ final class PanelController extends AbstractController
     {
         $local = $this->panelOrchestrator->showLocal();
 
-        return $this->render('/Panel/Sections/showLocal.html.twig',
-        ['local' => $local]);
+        return $this->render(
+            '/Panel/Sections/showLocal.html.twig',
+            ['local' => $local]
+        );
 
     }
 
@@ -70,8 +72,10 @@ final class PanelController extends AbstractController
 
         $datos = $this->panelOrchestrator->editInformationLocal($request);
 
-        return $this->render('/Panel/Sections/newInformation.html.twig',
-        ['id' => $request->attributes->get('id'), 'datos'=> $datos]);
+        return $this->render(
+            '/Panel/Sections/newInformation.html.twig',
+            ['id' => $request->attributes->get('id'), 'datos'=> $datos]
+        );
     }
 
     public function newMenuOfLocalAction(Request $request)
@@ -79,8 +83,10 @@ final class PanelController extends AbstractController
 
         $datos = $this->panelOrchestrator->newMenu($request);
 
-        return $this->render('/Panel/Sections/newMenu.html.twig',
-        ['id' => $request->attributes->get('id'), 'datos'=> $datos]);
+        return $this->render(
+            '/Panel/Sections/newMenu.html.twig',
+            ['id' => $request->attributes->get('id'), 'datos'=> $datos]
+        );
     }
 
 }

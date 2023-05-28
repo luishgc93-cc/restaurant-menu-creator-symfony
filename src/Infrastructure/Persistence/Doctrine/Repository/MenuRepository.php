@@ -7,7 +7,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
-
 /**
  * @extends ServiceEntityRepository<User>
  *
@@ -16,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
  * @method Menu[]    findAll()
  * @method Menu[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MenuRepository extends ServiceEntityRepository 
+class MenuRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

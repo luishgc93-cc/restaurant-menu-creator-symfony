@@ -12,6 +12,7 @@
 declare(strict_types=1);
 
 namespace App\Application\Orchestrator;
+
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
@@ -44,7 +45,7 @@ final class PanelOrchestrator extends AbstractController
     public function createLocal(Request $request)
     {
 
-        if ($request->isMethod('POST') && $this->getUser() ) {
+        if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
             $local = new Local();
             $local->setUsuario($this->getUser());
@@ -58,9 +59,10 @@ final class PanelOrchestrator extends AbstractController
         return false;
 
     }
-    public function showLocal(){
+    public function showLocal()
+    {
         $userId = $this->getUser()->getId();
-        
+
         return $this->localRepository->findBy(array('usuario' => $userId ));
 
     }
@@ -72,17 +74,17 @@ final class PanelOrchestrator extends AbstractController
 
         $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
-        
+
         $userOwnerOfLocal = $local->getUsuario()->getId();
 
-        if($userId !== $userOwnerOfLocal){
+        if($userId !== $userOwnerOfLocal) {
             throw new HttpException(404, 'Página no encontrada');
         }
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-            
-            if(!$informacion){
+
+            if(!$informacion) {
                 $informacion = new Informacion();
                 $informacion->setLocal($local);
             }
@@ -93,25 +95,26 @@ final class PanelOrchestrator extends AbstractController
             $informacion->setLocalidad($datosForm['localidad'] ?? '');
             $informacion->setCiudad($datosForm['ciudad'] ?? '');
             $informacion->setEmail($datosForm['email'] ?? '');
-    
+
             $this->informationRepository->save($informacion, true);
-    
+
         }
-    
+
         return $informacion;
     }
 
-    public function newMenu(Request $request){
+    public function newMenu(Request $request)
+    {
         $userId = $this->getUser()->getId();
         $idLocal = intval($request->attributes->get('id'));
 
         $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menu = $this->entityManager->getRepository(Menu::class)->find($idLocal);
-        
+
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-            
-            if(!$menu){
+
+            if(!$menu) {
                 $menu = new Menu();
                 $menu->setInformacion($idLocal);
             }
@@ -119,11 +122,11 @@ final class PanelOrchestrator extends AbstractController
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
-    
+
             $this->menuRepository->save($menu, true);
-    
+
         }
-    
+
         return $menu;
     }
 
