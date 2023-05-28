@@ -12,27 +12,33 @@
 declare(strict_types=1);
 
 namespace App\Application\Orchestrator;
-use Symfony\Component\HttpFoundation\Request;
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
+use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
 use App\Domain\Model\Local;
 use App\Domain\Model\Informacion;
+use App\Domain\Model\Menu;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\Request;
 
 final class PanelOrchestrator extends AbstractController
 {
     private $localRepository;
     private $informationRepository;
+    private $menuRepository;
+
     private $entityManager;
 
-    public function __construct(LocalRepository $localRepository, InformationRepository $informationRepository, EntityManagerInterface $entityManager)
+    public function __construct(LocalRepository $localRepository, InformationRepository $informationRepository, MenuRepository $menuRepository, EntityManagerInterface $entityManager)
     {
         $this->localRepository = $localRepository;
         $this->informationRepository = $informationRepository;
-        $this->entityManager = $entityManager;
+        $this->informationRepository = $informationRepository;
+        $this->menuRepository = $menuRepository;
 
+        $this->entityManager = $entityManager;
     }
 
     public function createLocal(Request $request)
@@ -96,7 +102,29 @@ final class PanelOrchestrator extends AbstractController
     }
 
     public function newMenu(Request $request){
+        $userId = $this->getUser()->getId();
+        $idLocal = intval($request->attributes->get('id'));
 
+        $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        $menu = $this->entityManager->getRepository(Menu::class)->find($idLocal);
+        
+        if ($request->isMethod('POST') && $this->getUser()) {
+            $datosForm = $request->request->all();
+            
+            if(!$menu){
+                $menu = new Menu();
+                $menu->setInformacion($idLocal);
+            }
+
+            $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
+            $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
+            $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
+    
+            $this->menuRepository->save($menu, true);
+    
+        }
+    
+        return $menu;
     }
 
 }
