@@ -19,6 +19,7 @@ use App\Domain\Model\Local;
 use App\Domain\Model\Informacion;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class PanelOrchestrator extends AbstractController
 {
@@ -64,12 +65,18 @@ final class PanelOrchestrator extends AbstractController
         $idLocal = intval($request->attributes->get('id'));
 
         $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
+        
+        $userOwnerOfLocal = $local->getUsuario()->getId();
+
+        if($userId !== $userOwnerOfLocal){
+            throw new HttpException(404, 'Página no encontrada');
+        }
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
             
             if(!$informacion){
-                $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
                 $informacion = new Informacion();
                 $informacion->setLocal($local);
             }
