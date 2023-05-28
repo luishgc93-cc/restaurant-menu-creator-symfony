@@ -18,16 +18,20 @@ use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
 use App\Domain\Model\Local;
 use App\Domain\Model\Informacion;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class PanelOrchestrator extends AbstractController
 {
     private $localRepository;
     private $informationRepository;
+    private $entityManager;
 
-    public function __construct(LocalRepository $localRepository, InformationRepository $informationRepository)
+    public function __construct(LocalRepository $localRepository, InformationRepository $informationRepository, EntityManagerInterface $entityManager)
     {
         $this->localRepository = $localRepository;
         $this->informationRepository = $informationRepository;
+        $this->entityManager = $entityManager;
+
     }
 
     public function createLocal(Request $request)
@@ -56,14 +60,12 @@ final class PanelOrchestrator extends AbstractController
 
     public function editInformationLocal(Request $request)
     {
-        $userId = $this->getUser()->getId();
-
-        $idLocal = intval($request->attributes->get('id')); 
-
-        $local =  $this->localRepository->getRepository(Local::class)->find($idLocal); 
-
+        $userId = $this->getUser()->getId();     
+        
         if ($request->isMethod('POST') && $this->getUser() ) {
             $datosForm = $request->request->all();
+            $idLocal = intval($request->attributes->get('id')); 
+            $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
 
             $local = new Informacion();
             $local->setLocal($local);
