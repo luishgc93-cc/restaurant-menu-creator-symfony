@@ -68,15 +68,23 @@ final class PanelController extends AbstractController
     public function editInformationLocalAction(Request $request)
     {
 
-        $requestUserSendForm = $this->panelOrchestrator->editInformationLocal($request);
+        $datos = $this->panelOrchestrator->editInformationLocal($request);
 
-        if ($requestUserSendForm) {
+        if ($datos) {
             return $this->redirect($this->generateUrl('panel-show-local'));
         }
 
         return $this->render('/Panel/Sections/newInformation.html.twig',
-        ['id' => $request->attributes->get('id')]);
+        ['id' => $request->attributes->get('id'), 'datos'=> $datos]);
+    }
 
+    public function showInformationLocalAction(Request $request)
+    {
+
+        $datos = $this->panelOrchestrator->showInformationLocal($request);
+
+        return $this->render('/Panel/Sections/showInformation.html.twig',
+        ['id' => $request->attributes->get('id'), 'datos'=> $datos]);
     }
 
 }
