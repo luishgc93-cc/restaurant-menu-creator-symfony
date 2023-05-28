@@ -24,5 +24,8 @@ panel:
   path: /panel
   controller: App\Infrastructure\Controller\PanelController::panelControllerAction
 #Portada de locales
-
+panel-new-local:
+  path: /panel/nuevo-local
+  controller: App\Infrastructure\Controller\PanelController::createLocalAction
+  methods: [GET, POST]
 #Editar local

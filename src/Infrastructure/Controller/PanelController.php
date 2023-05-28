@@ -34,8 +34,16 @@ final class PanelController extends AbstractController
         return $this->render('/Panel/panel.html.twig');
 
     }
-    public function createLocalAction()
+    public function createLocalAction(Request $request)
     {
+
+        $requestUserSendForm = $this->panelOrchestrator->createLocal($request);
+
+        if ($requestUserSendForm) {
+            return $this->redirect($this->generateUrl('panel'));
+        }
+
+        return $this->render('/Panel/Sections/newLocal.html.twig');
 
     }
 
