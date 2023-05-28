@@ -38,3 +38,8 @@ panel-edit-information:
   path: /panel/editar-informacion-local/{id}
   controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
   methods: [GET, POST]
+#Nuevo Menu Carta
+panel-new-menu:
+  path: /panel/editar-informacion-local/{id}/nuevo-menu
+  controller: App\Infrastructure\Controller\PanelController::newMenuOfLocalAction
+  methods: [GET, POST]

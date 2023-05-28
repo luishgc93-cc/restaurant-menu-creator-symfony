@@ -59,7 +59,7 @@ final class PanelOrchestrator extends AbstractController
 
     }
 
-    public function editInformationLocal(Request $request, bool $newInformation = false)
+    public function editInformationLocal(Request $request)
     {
         $userId = $this->getUser()->getId();
         $idLocal = intval($request->attributes->get('id'));
@@ -93,6 +93,10 @@ final class PanelOrchestrator extends AbstractController
         }
     
         return $informacion;
+    }
+
+    public function newMenu(Request $request){
+
     }
 
 }

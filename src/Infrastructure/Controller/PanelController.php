@@ -74,4 +74,13 @@ final class PanelController extends AbstractController
         ['id' => $request->attributes->get('id'), 'datos'=> $datos]);
     }
 
+    public function newMenuOfLocalAction(Request $request)
+    {
+
+        $datos = $this->panelOrchestrator->newMenu($request);
+
+        return $this->render('/Panel/Sections/newMenu.html.twig',
+        ['id' => $request->attributes->get('id'), 'datos'=> $datos]);
+    }
+
 }
