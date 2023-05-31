@@ -108,6 +108,11 @@ final class PanelOrchestrator extends AbstractController
 
             $this->informationRepository->save($informacion, true);
 
+            $this->addFlash(
+                'sucess',
+                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
+            );
+
         }
 
         return $informacion;
