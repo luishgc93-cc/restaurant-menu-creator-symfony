@@ -48,27 +48,13 @@ class Menu
      */
     private $estilo;
 
-    // Getters y setters
-
-    // ...
-
-    // Relación con la entidad "producto"
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Model\Producto")
-     * @ORM\JoinTable(name="menu_producto",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
-     *   }
-     * )
      */
     private $productos;
 
     // Resto de propiedades, getters y setters
 
-    // ...
     public function getId()
     {
         return $this->id;

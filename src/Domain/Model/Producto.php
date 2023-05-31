@@ -44,14 +44,6 @@ class Producto
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Model\Menu", inversedBy="productos")
-     * @ORM\JoinTable(name="menu_producto",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
-     *   }
-     * )
      */
     private $menus;
 

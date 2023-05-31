@@ -89,12 +89,32 @@ final class PanelController extends AbstractController
     {
 
         $datos = $this->panelOrchestrator->newMenu($request);
+        $menus = $this->panelOrchestrator->showMenusCreated($request);
 
         $title = 'Crea un Menú o Carta para tu Local';
 
         return $this->render(
             '/Panel/Sections/newMenu.html.twig',
-            ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
+            ['id' => $request->attributes->get('id'), 
+            'datos'=> $datos, 
+            'title'=>$title,
+            'menus'=>$menus,
+            ]
+        );
+    }
+
+    public function newProductAction(Request $request)
+    {
+
+        $datos = $this->panelOrchestrator->newProduct($request);
+
+        $title = 'Añade un Producto a tu Local';
+
+        return $this->render(
+            '/Panel/Sections/newProduct.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'datos'=> $datos, 
+            'title'=>$title]
         );
     }
 

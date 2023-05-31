@@ -43,3 +43,13 @@ panel-new-menu:
   path: /panel/editar-informacion-local/{id}/nuevo-menu
   controller: App\Infrastructure\Controller\PanelController::newMenuOfLocalAction
   methods: [GET, POST]
+#Nuevo producto asociado a un menu
+panel-new-product:
+  path: /panel/editar-informacion-local/menu-{id}/nuevo-producto
+  controller: App\Infrastructure\Controller\PanelController::newProductAction
+  methods: [GET, POST]
+#Nuevo producto asociado a un menu
+panel-new-product-alone:
+  path: /panel/editar-informacion-local/{id}/nuevo-producto
+  controller: App\Infrastructure\Controller\PanelController::newProductAction
+  methods: [GET, POST]
