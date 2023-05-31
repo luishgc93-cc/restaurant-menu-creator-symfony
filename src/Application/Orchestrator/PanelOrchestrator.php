@@ -159,7 +159,7 @@ final class PanelOrchestrator extends AbstractController
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
             $producto = new Producto(); 
-            $producto->setMenus($menu);         
+            $producto->setMenus([$menu]);         
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');
