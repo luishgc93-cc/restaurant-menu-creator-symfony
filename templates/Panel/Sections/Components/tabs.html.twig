@@ -1,11 +1,20 @@
 <div class="text-xl font-bold m-5 text-center">Estos son los menus o cartas creados</div>
+            
+            {% set showSignals = false %}
+            {% for menu in menus %}
+              {% if loop.length > 1 %}
+                  {% set showSignals = true %}
+              {% endif %}
+            {% endfor %}
 
     <div class="gallery border-2 rounded mx-auto m-5 bg-white" style="width:900px;">
         <div class="top flex p-2 border-b select-none">
           <div class="heading text-gray-800 w-full pl-3 font-semibold my-auto"></div>
           <div class="buttons ml-auto flex text-gray-600 mr-1">
+          {% if showSignals %}
             <svg action="prev" class="w-7 border-2 rounded-l-lg p-1 cursor-pointer border-r-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path action="prev" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             <svg action="next" class="w-7 border-2 rounded-r-lg p-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path action="next" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          {% endif %}
           </div>
         </div>
         <div class="content-area w-full h-96 overflow-hidden">
