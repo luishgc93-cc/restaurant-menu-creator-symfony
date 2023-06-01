@@ -166,6 +166,10 @@ final class PanelOrchestrator extends AbstractController
             return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
         }
 
+        if(!$saveProductWithIdInformation && $request->isMethod('GET')){
+            return $this->productRepository->findBy(array('menus' => $menu->getId()));
+        }
+
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
             $producto = new Producto(); 
