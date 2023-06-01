@@ -126,10 +126,11 @@ final class PanelController extends AbstractController
         $title = 'Añade un Producto a tu Local sin incluirlo en ningún Menú';
 
         return $this->render(
-            '/Panel/Sections/newProductAlone.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            '/Panel/Sections/newProductAlone.html.twig',[
+            'id' => $request->attributes->get('id'), 
             'datos'=> $datos, 
-            'title'=>$title]
+            'title'=>$title
+            ]
         );
     }
 }
