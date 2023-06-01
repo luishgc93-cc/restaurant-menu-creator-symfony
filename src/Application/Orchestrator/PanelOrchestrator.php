@@ -155,7 +155,7 @@ final class PanelOrchestrator extends AbstractController
         return $menu;
     }
 
-    public function newProduct(Request $request)
+    public function newProduct(Request $request, bool $saveProductWithIdInformation = false)
     {
         $userId = $this->getUser()->getId();
         $idMenu = intval($request->attributes->get('id'));
@@ -164,7 +164,11 @@ final class PanelOrchestrator extends AbstractController
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
             $producto = new Producto(); 
-            $producto->setMenus($menu);         
+            $producto->setMenus($menu);
+            if($saveProductWithIdInformation){
+                $informacion = $this->informationRepository->findOneBy(array('local' => $idMenu));
+                $producto->setInformacion($informacion);             
+            }
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');

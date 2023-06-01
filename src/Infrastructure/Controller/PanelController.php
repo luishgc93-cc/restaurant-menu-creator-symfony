@@ -118,4 +118,18 @@ final class PanelController extends AbstractController
         );
     }
 
+    public function newProductAloneAction(Request $request)
+    {
+
+        $datos = $this->panelOrchestrator->newProduct($request, true);
+
+        $title = 'Añade un Producto a tu Local sin incluirlo en ningún Menú';
+
+        return $this->render(
+            '/Panel/Sections/newProductAlone.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'datos'=> $datos, 
+            'title'=>$title]
+        );
+    }
 }

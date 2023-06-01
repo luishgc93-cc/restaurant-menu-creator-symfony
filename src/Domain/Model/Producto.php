@@ -48,6 +48,12 @@ class Producto
      */
     private $menus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Informacion")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $informacion;
+
     // Getters y setters
 
     public function getId()
@@ -113,5 +119,15 @@ class Producto
     public function setEstilo($estilo)
     {
         $this->estilo = $estilo;
+    }
+
+    public function getInformacion()
+    {
+        return $this->informacion;
+    }
+
+    public function setInformacion($informacion)
+    {
+        $this->informacion = $informacion;
     }
 }
