@@ -61,16 +61,25 @@ final class UserController extends AbstractController
         }
 
         $user = new Usuario();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->isMethod('POST')) {
+
+            $datosForm = $request->request->all();
+
+            if(null == $datosForm['email'] && null == $datosForm['plainPassword'] ){
+                $this->addFlash(
+                    'error',
+                    'Rellena todos los campos.'
+                );
+                return $this->render('/Registration/register.html.twig');
+            }
+
             $user->setRoles(['ROLE_USER']);
-
+            $user->setEmail($datosForm['email']);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $datosForm['plainPassword']
                 )
             );
 
@@ -81,7 +90,7 @@ final class UserController extends AbstractController
                 $user,
                 (new TemplatedEmail())
                     ->from(new Address('mail@mail.er', 'luis'))
-                    ->to($user->getEmail())
+                    ->to($datosForm['email'])
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('Registration/confirmation_email.html.twig')
             );
@@ -89,9 +98,7 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('panel');
         }
 
-        return $this->render('/Registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $this->render('/Registration/register.html.twig');
     }
 
     public function verifyUserEmailAction(Request $request): Response
