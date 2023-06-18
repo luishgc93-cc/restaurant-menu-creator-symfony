@@ -17,15 +17,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Application\Orchestrator\PanelOrchestrator;
+use App\Application\Orchestrator\LocalOrchestrator;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class LocalController extends AbstractController
 {
-    private $panelOrchestrator;
+    private $localOrchestrator;
 
-    public function __construct(panelOrchestrator $panelOrchestrator)
+    public function __construct(localOrchestrator $localOrchestrator)
     {
-        $this->panelOrchestrator = $panelOrchestrator;
+        $this->localOrchestrator = $localOrchestrator;
     }
 
     public function localControllerAction()
@@ -34,23 +35,25 @@ final class LocalController extends AbstractController
         return $this->render('/Panel/panel.html.twig');
 
     }
-    public function createLocalAction()
+
+    public function showLocalAction(Request $request)
     {
+        $locals = $this->localOrchestrator->showLocal();
+        foreach($locals as $local){
+            $url = $local->getUrl();
+            $uri = \str_replace('/', '', $request->getPathInfo() );
+            if($url === $uri){
+                $title = 'Ver Locales Creados';
+                $estile = $local->getEstilo() ?? 1;
+                return $this->render(
+                    '/Local/Themes/' . $estile . '/index.html.twig',
+                    ['local' => $local ]
+                );
+            }
+        }
 
-    }
+        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
 
-    public function showLocalAction()
-    {
-
-    }
-
-    public function editLocalAction()
-    {
-
-    }
-
-    public function deleteLocalAction()
-    {
     }
 
 }

@@ -67,6 +67,11 @@ class Local
      */
     private $estilo;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
+    
     public function getId()
     {
         return $this->id;
@@ -140,5 +145,15 @@ class Local
     public function setEstilo($estilo)
     {
         $this->estilo = $estilo;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 }

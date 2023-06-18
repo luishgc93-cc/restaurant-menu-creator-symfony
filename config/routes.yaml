@@ -53,3 +53,8 @@ panel-new-product-alone:
   path: /panel/editar-informacion-local/{id}/nuevo-producto
   controller: App\Infrastructure\Controller\PanelController::newProductAloneAction
   methods: [GET, POST]
+#Ver local informacion
+panel-show-local-online:
+  path: /{local}
+  controller: App\Infrastructure\Controller\LocalController::showLocalAction
+  methods: [GET, POST]
