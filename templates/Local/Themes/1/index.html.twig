@@ -82,8 +82,8 @@ https://templatemo.com/tm-558-klassy-cafe
                 <div class="col-lg-4">
                     <div class="left-content">
                         <div class="inner-content">
-                            <h4>{{ local.nombreLocal }}</h4>
-                            <h6>{{ local.descripcionLocal }}</h6>
+                            <h4>{{ content.local.nombreLocal }}</h4>
+                            <h6>{{ content.local.descripcionLocal }}</h6>
                             <div class="main-white-button scroll-to-section">
                                 <a href="#reservation">Reservar o Contactar</a>
                             </div>
@@ -178,9 +178,12 @@ https://templatemo.com/tm-558-klassy-cafe
                                 <div class="row">
                                     <div class="col-lg-6 offset-lg-3">
                                         <ul>
-                                          <li><a href='#tabs-1'><img src="themes/1/assets/images/tab-icon-01.png" alt="">Breakfast</a></li>
-                                          <li><a href='#tabs-2'><img src="themes/1/assets/images/tab-icon-02.png" alt="">Lunch</a></a></li>
-                                          <li><a href='#tabs-3'><img src="themes/1/assets/images/tab-icon-03.png" alt="">Dinner</a></a></li>
+                                            {% set menus = content.menus %}
+                                            {% for menu in menus %}
+                                                {% set nombreMenu = menu.nombreMenu %}                                                                                        
+                                                <li><a href='#tabs-{{ loop.index }}'><img src="themes/1/assets/images/tab-icon-01.png" alt="">{{ nombreMenu }}</a></li>
+                                            {% endfor %}
+
                                         </ul>
                                     </div>
                                 </div>

@@ -52,12 +52,39 @@ final class LocalOrchestrator extends AbstractController
     }
 
 
-    public function showLocal()
+    public function showLocal($request)
     {
         $userId = $this->getUser()->getId();
 
-        return $this->localRepository->findBy(array('usuario' => $userId ));
+        $locals = $this->localRepository->findBy(array('usuario' => $userId ));
 
+        foreach($locals as $local){
+            $url = $local->getUrl();
+            $uri = \str_replace('/', '', $request->getPathInfo() );
+            if($url === $uri){
+                $title = 'Ver Locales Creados';
+                $estile = $local->getEstilo() ?? 1;
+                $menus = $this->getMenusForLocal($local->getId());
+                $content = [
+                'estile' => $estile,
+                'local' => $local, 
+                'menus' => $menus,
+                ];
+
+                return $content;
+            }
+        }
+
+        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+
+    }
+
+    public function getMenusForLocal(int $idLocal)
+    {
+
+        $informacionData = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        return $menuData = $this->menuRepository->findBy(array('informacion' => $informacionData->getId()));
+        
     }
 
 }

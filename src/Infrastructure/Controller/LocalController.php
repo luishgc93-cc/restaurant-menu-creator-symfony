@@ -38,19 +38,13 @@ final class LocalController extends AbstractController
 
     public function showLocalAction(Request $request)
     {
-        $locals = $this->localOrchestrator->showLocal();
-        foreach($locals as $local){
-            $url = $local->getUrl();
-            $uri = \str_replace('/', '', $request->getPathInfo() );
-            if($url === $uri){
-                $title = 'Ver Locales Creados';
-                $estile = $local->getEstilo() ?? 1;
-                return $this->render(
-                    '/Local/Themes/' . $estile . '/index.html.twig',
-                    ['local' => $local ]
-                );
-            }
-        }
+        $content = $this->localOrchestrator->showLocal($request);
+        $estile = $content['estile'] ?? 1;
+
+        return $this->render(
+            '/Local/Themes/' . $estile . '/index.html.twig',
+            ['content' => $content ]
+        );
 
         throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
 
