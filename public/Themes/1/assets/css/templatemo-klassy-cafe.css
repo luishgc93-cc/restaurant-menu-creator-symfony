@@ -854,6 +854,9 @@ about
   z-index: 9;
 }
 
+#about .section-heading h2 {
+  padding-right: 120px;
+}
 
 #about img {
   width: 100%;
@@ -1202,7 +1205,6 @@ reservation
 }
 
 #reservation {
-  margin-top: 120px;
   padding: 120px 0px;
   background-image: url(../images/reservation-bg.jpg);
   background-position: center center;
