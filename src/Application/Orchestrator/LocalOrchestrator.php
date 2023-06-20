@@ -52,11 +52,9 @@ final class LocalOrchestrator extends AbstractController
     }
 
 
-    public function showLocal($request)
+    public function showLocal($request): array
     {
-        $userId = $this->getUser()->getId();
-
-        $locals = $this->localRepository->findBy(array('usuario' => $userId ));
+        $locals = $this->localRepository->findAll();
 
         foreach($locals as $local){
             $url = $local->getUrl();
@@ -79,7 +77,7 @@ final class LocalOrchestrator extends AbstractController
 
     }
 
-    public function getMenusForLocal(int $idLocal)
+    public function getMenusForLocal(int $idLocal) : array
     {
 
         $informacionData = $this->informationRepository->findOneBy(array('local' => $idLocal));

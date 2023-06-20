@@ -36,11 +36,11 @@ final class PanelOrchestrator extends AbstractController
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-    LocalRepository $localRepository, 
-    InformationRepository $informationRepository,
-    MenuRepository $menuRepository, 
-    ProductRepository $productRepository, 
-    EntityManagerInterface $entityManager,
+        LocalRepository        $localRepository,
+        InformationRepository  $informationRepository,
+        MenuRepository         $menuRepository,
+        ProductRepository      $productRepository,
+        EntityManagerInterface $entityManager,
     )
 
     {
@@ -69,11 +69,12 @@ final class PanelOrchestrator extends AbstractController
         return false;
 
     }
+
     public function showLocal(): array
     {
         $userId = $this->getUser()->getId();
 
-        return $this->localRepository->findBy(array('usuario' => $userId ));
+        return $this->localRepository->findBy(array('usuario' => $userId));
 
     }
 
@@ -87,14 +88,14 @@ final class PanelOrchestrator extends AbstractController
 
         $userOwnerOfLocal = $local->getUsuario()->getId();
 
-        if($userId !== $userOwnerOfLocal) {
+        if ($userId !== $userOwnerOfLocal) {
             throw new HttpException(404, 'Página no encontrada');
         }
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
 
-            if(!$informacion) {
+            if (!$informacion) {
                 $informacion = new Informacion();
                 $informacion->setLocal($local);
             }
@@ -117,13 +118,14 @@ final class PanelOrchestrator extends AbstractController
 
         return $informacion;
     }
+
     public function showMenusCreated(Request $request): ?array
     {
         $idLocal = intval($request->attributes->get('id'));
         $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
-        if($menuData){
-            return $menuData;   
+        if ($menuData) {
+            return $menuData;
         }
 
         return null;
@@ -140,7 +142,7 @@ final class PanelOrchestrator extends AbstractController
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
 
-            if(!$menu) {
+            if (!$menu) {
                 $menu = new Menu();
                 $menu->setInformacion($idLocal);
             }
@@ -163,20 +165,20 @@ final class PanelOrchestrator extends AbstractController
         $menu = $this->menuRepository->findOneBy(array('id' => $idMenu));
         $informacion = $this->informationRepository->findOneBy(array('local' => $idMenu));
 
-        if($saveProductWithIdInformation && $request->isMethod('GET')){
+        if ($saveProductWithIdInformation && $request->isMethod('GET')) {
             return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
         }
 
-        if(!$saveProductWithIdInformation && $request->isMethod('GET')){
+        if (!$saveProductWithIdInformation && $request->isMethod('GET')) {
             return $this->productRepository->findBy(array('menus' => $menu->getId()));
         }
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-            $producto = new Producto(); 
+            $producto = new Producto();
             $producto->setMenus($menu);
-            if($saveProductWithIdInformation){
-                $producto->setInformacion($informacion);             
+            if ($saveProductWithIdInformation) {
+                $producto->setInformacion($informacion);
             }
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
