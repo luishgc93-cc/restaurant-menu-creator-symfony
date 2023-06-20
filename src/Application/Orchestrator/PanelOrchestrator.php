@@ -21,10 +21,14 @@ use App\Domain\Model\Local;
 use App\Domain\Model\Informacion;
 use App\Domain\Model\Menu;
 use App\Domain\Model\Producto;
+use Cloudinary\Api\ApiResponse;
+use Cloudinary\Cloudinary;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
+use Cloudinary\Api\Upload\UploadApi;
+use Cloudinary\Configuration\Configuration;
 
 final class PanelOrchestrator extends AbstractController
 {
@@ -94,7 +98,8 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-
+            $files = $request->files->get('file-upload');
+            $foto = $this->uploadPhotos($files);
             if (!$informacion) {
                 $informacion = new Informacion();
                 $informacion->setLocal($local);
@@ -106,6 +111,8 @@ final class PanelOrchestrator extends AbstractController
             $informacion->setLocalidad($datosForm['localidad'] ?? '');
             $informacion->setCiudad($datosForm['ciudad'] ?? '');
             $informacion->setEmail($datosForm['email'] ?? '');
+            $informacion->setFotosInformativas($foto);
+
 
             $this->informationRepository->save($informacion, true);
 
@@ -190,5 +197,25 @@ final class PanelOrchestrator extends AbstractController
 
         }
         return false;
+    }
+
+    public function uploadPhotos($files)
+    {
+        $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/';
+        $fileName = uniqid().'.'.$files->guessExtension();
+        $files->move($destination, $fileName);
+        $filePath = $destination.$fileName;
+
+        $config = Configuration::instance();
+        $config->cloud->cloudName = 'dmo3iliks';
+        $config->cloud->apiKey = '982421683171437';
+        $config->cloud->apiSecret = 'iqY0a7gPn-3ozoBlf6MsmwMI4yo';
+        $config->url->secure = true;
+
+        $uploadApi = new UploadApi();
+        /** @var ApiResponse $response */
+        $response = $uploadApi->upload($filePath);
+        return $response['url'];
+
     }
 }

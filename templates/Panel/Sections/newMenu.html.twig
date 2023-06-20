@@ -15,7 +15,7 @@
   {% include '/Panel/Sections/Components/tabs.html.twig' with {'menus': menus} only %}
 {% endif %}
 
-<form  action="{{ path('panel-new-menu',{'id': id }) }}" method="post" >
+<form  action="{{ path('panel-new-menu',{'id': id }) }}" method="post" enctype="multipart/form-data">>
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">{{ menus == true ? 'Añade otro menú para tu Local si lo necesitas. Posteriormente podrás añadir tus productos con toda la información correspondiente' : 'Crea el primer menú de tu Local, para posteriormente crear los Productos que tiene.' }}</h2>
