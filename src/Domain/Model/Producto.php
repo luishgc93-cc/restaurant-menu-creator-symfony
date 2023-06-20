@@ -33,7 +33,7 @@ class Producto
     private $precioProducto;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="string", length=1000)
      */
 
     private $fotoProducto;

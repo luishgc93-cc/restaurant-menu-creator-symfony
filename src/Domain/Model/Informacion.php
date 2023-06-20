@@ -48,7 +48,7 @@ class Informacion
     private $email;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="string", length=1000)
      */
     private $fotosInformativas;
 
