@@ -22,21 +22,21 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class LocalController extends AbstractController
 {
-    private $localOrchestrator;
+    private LocalOrchestrator $localOrchestrator;
 
     public function __construct(localOrchestrator $localOrchestrator)
     {
         $this->localOrchestrator = $localOrchestrator;
     }
 
-    public function localControllerAction()
+    public function localControllerAction(): Response
     {
 
         return $this->render('/Panel/panel.html.twig');
 
     }
 
-    public function showLocalAction(Request $request)
+    public function showLocalAction(Request $request): Response
     {
         $content = $this->localOrchestrator->showLocal($request);
         $estile = $content['estile'] ?? 1;

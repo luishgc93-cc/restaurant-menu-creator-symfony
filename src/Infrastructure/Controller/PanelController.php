@@ -21,7 +21,7 @@ use App\Application\Orchestrator\PanelOrchestrator;
 
 final class PanelController extends AbstractController
 {
-    private $panelOrchestrator;
+    private PanelOrchestrator $panelOrchestrator;
 
     public function __construct(panelOrchestrator $panelOrchestrator)
     {
@@ -35,7 +35,7 @@ final class PanelController extends AbstractController
         return $this->render('/Panel/panel.html.twig', ['title' => $title]);
 
     }
-    public function createLocalAction(Request $request)
+    public function createLocalAction(Request $request): Response
     {
 
         $requestUserSendForm = $this->panelOrchestrator->createLocal($request);
@@ -50,7 +50,7 @@ final class PanelController extends AbstractController
 
     }
 
-    public function showLocalAction()
+    public function showLocalAction(): Response
     {
         $local = $this->panelOrchestrator->showLocal();
 
@@ -72,7 +72,7 @@ final class PanelController extends AbstractController
     {
     }
 
-    public function editInformationLocalAction(Request $request)
+    public function editInformationLocalAction(Request $request): Response
     {
 
         $datos = $this->panelOrchestrator->editInformationLocal($request);
@@ -85,7 +85,7 @@ final class PanelController extends AbstractController
         );
     }
 
-    public function newMenuOfLocalAction(Request $request)
+    public function newMenuOfLocalAction(Request $request): Response
     {
 
         $datos = $this->panelOrchestrator->newMenu($request);
@@ -103,7 +103,7 @@ final class PanelController extends AbstractController
         );
     }
 
-    public function newProductAction(Request $request)
+    public function newProductAction(Request $request): Response
     {
 
         $datos = $this->panelOrchestrator->newProduct($request);

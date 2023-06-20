@@ -20,10 +20,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class HomeController extends AbstractController
 {
-    public function homeAction()
+    public function homeAction(): Response
     {
 
-        return $this->render('/home/home.html.twig');
+        return $this->render('/Home/home.html.twig');
 
     }
 

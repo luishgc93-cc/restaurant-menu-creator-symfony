@@ -28,12 +28,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class PanelOrchestrator extends AbstractController
 {
-    private $localRepository;
-    private $informationRepository;
+    private LocalRepository $localRepository;
+    private InformationRepository $informationRepository;
+    private ProductRepository $productRepository;
     private $menuRepository;
-    private $productRepository;
 
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
     LocalRepository $localRepository, 
@@ -52,7 +52,7 @@ final class PanelOrchestrator extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    public function createLocal(Request $request)
+    public function createLocal(Request $request): bool
     {
 
         if ($request->isMethod('POST') && $this->getUser()) {
@@ -69,7 +69,7 @@ final class PanelOrchestrator extends AbstractController
         return false;
 
     }
-    public function showLocal()
+    public function showLocal(): array
     {
         $userId = $this->getUser()->getId();
 
@@ -77,7 +77,7 @@ final class PanelOrchestrator extends AbstractController
 
     }
 
-    public function editInformationLocal(Request $request)
+    public function editInformationLocal(Request $request): ?Informacion
     {
         $userId = $this->getUser()->getId();
         $idLocal = intval($request->attributes->get('id'));
@@ -117,7 +117,8 @@ final class PanelOrchestrator extends AbstractController
 
         return $informacion;
     }
-    public function showMenusCreated(Request $request){
+    public function showMenusCreated(Request $request): ?array
+    {
         $idLocal = intval($request->attributes->get('id'));
         $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
@@ -155,7 +156,7 @@ final class PanelOrchestrator extends AbstractController
         return $menu;
     }
 
-    public function newProduct(Request $request, bool $saveProductWithIdInformation = false)
+    public function newProduct(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto
     {
         $userId = $this->getUser()->getId();
         $idMenu = intval($request->attributes->get('id'));

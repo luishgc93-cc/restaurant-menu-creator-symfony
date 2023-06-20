@@ -31,7 +31,7 @@ use App\Domain\Model\Usuario;
 final class UserController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct(EmailVerifier $emailVerifier, UserRepository $userRepository)
     {

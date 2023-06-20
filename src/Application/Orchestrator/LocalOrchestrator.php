@@ -28,10 +28,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class LocalOrchestrator extends AbstractController
 {
-    private $localRepository;
-    private $informationRepository;
-    private $menuRepository;
-    private $productRepository;
+    private LocalRepository $localRepository;
+    private InformationRepository $informationRepository;
+    private MenuRepository $menuRepository;
+    private ProductRepository $productRepository;
 
     private $entityManager;
 
