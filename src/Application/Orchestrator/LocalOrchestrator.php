@@ -23,8 +23,8 @@ use App\Domain\Model\Menu;
 use App\Domain\Model\Producto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
 
 final class LocalOrchestrator extends AbstractController
 {
@@ -63,10 +63,12 @@ final class LocalOrchestrator extends AbstractController
                 $title = 'Ver Locales Creados';
                 $estile = $local->getEstilo() ?? 1;
                 $menus = $this->getMenusForLocal($local->getId());
+                $informationForLocal = $this->getInformationForLocal($local->getId());
                 $content = [
                 'estile' => $estile,
                 'local' => $local, 
                 'menus' => $menus,
+                'informationForLocal' => $informationForLocal
                 ];
 
                 return $content;
@@ -74,15 +76,17 @@ final class LocalOrchestrator extends AbstractController
         }
 
         throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
-
     }
 
     public function getMenusForLocal(int $idLocal) : array
     {
-
-        $informacionData = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        return $menuData = $this->menuRepository->findBy(array('informacion' => $informacionData->getId()));
-        
+        $informationData = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        return $this->menuRepository->findBy(array('informacion' => $informationData->getId()));
     }
 
+    public function getInformationForLocal(int $idLocal): ?Informacion
+    {
+        $informationData = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        return $this->informationRepository->find($informationData->getId());
+    }
 }
