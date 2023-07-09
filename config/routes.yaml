@@ -58,3 +58,8 @@ panel-show-local-online:
   path: /{local}
   controller: App\Infrastructure\Controller\LocalController::showLocalAction
   methods: [GET, POST]
+#Escoger diseño del local
+panel-select-theme:
+  path: /seleccionar-plantilla/{id}
+  controller: App\Infrastructure\Controller\PanelController::selectThemeOfLocalAction
+  methods: [GET, POST]

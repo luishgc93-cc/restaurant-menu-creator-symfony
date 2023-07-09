@@ -133,4 +133,18 @@ final class PanelController extends AbstractController
             ]
         );
     }
+
+    public function selectThemeOfLocalAction(Request $request): Response
+    {
+        $idLocal = (int)$request->attributes->get('id');
+        $content = $this->panelOrchestrator->selectThemeOfLocal($idLocal);
+        $title = 'Escoge la plantilla web para tu Local';
+
+        return $this->render('/Panel/Sections/selectThemeOfLocal.html.twig',[
+            'title'=>$title
+        ]);
+
+        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+
+    }
 }

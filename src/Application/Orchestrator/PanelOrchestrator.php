@@ -218,4 +218,10 @@ final class PanelOrchestrator extends AbstractController
         return $response['url'];
 
     }
+
+    public function selectThemeOfLocal(int $idLocal): ?Informacion
+    {
+        $informationData = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        return $this->informationRepository->find($informationData->getId());
+    }
 }
