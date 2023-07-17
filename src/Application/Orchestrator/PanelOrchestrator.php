@@ -219,8 +219,24 @@ final class PanelOrchestrator extends AbstractController
 
     }
 
-    public function selectThemeOfLocal(int $idLocal): ?Informacion
+    public function selectThemeOfLocal(Request $request): ?Informacion
     {
+        $idLocal = (int)$request->attributes->get('id');
+
+        if ($request->isMethod('POST') && $this->getUser()) {
+            $datosForm = $request->request->all();
+
+            $informacion->setEstilo($datosForm['theme'] ?? 1);
+
+            $this->informationRepository->save($informacion, true);
+
+            $this->addFlash(
+                'sucess',
+                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
+            );
+
+        }
+
         $informationData = $this->informationRepository->findOneBy(array('local' => $idLocal));
         return $this->informationRepository->find($informationData->getId());
     }

@@ -136,8 +136,7 @@ final class PanelController extends AbstractController
 
     public function selectThemeOfLocalAction(Request $request): Response
     {
-        $idLocal = (int)$request->attributes->get('id');
-        $content = $this->panelOrchestrator->selectThemeOfLocal($idLocal);
+        $content = $this->panelOrchestrator->selectThemeOfLocal($request);
         $title = 'Escoge la plantilla web para tu Local';
 
         return $this->render('/Panel/Sections/selectThemeOfLocal.html.twig',[
