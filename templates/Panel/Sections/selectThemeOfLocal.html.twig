@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Añade un nuevo Producto a tu Local{% endblock %}
-{% block head %}
-    {{ parent() }}
-{% endblock %}
+{% block title %}Escoge la plantilla web para tu Local{% endblock %}
+
 {% block body %}
 
 <section class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -11,14 +9,17 @@
   <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
   <div class="mx-auto max-w-2xl lg:max-w-4xl">
 
-{% if datos|default %}
-  {% include '/Panel/Sections/Components/tabsProducts.html.twig' with {'productos': datos, 'type': 'productmenu'} only %}
-{% endif %}
+{% include '/Panel/Sections/Components/flashAlert.html.twig' %}
+
+{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'id': app.request.attributes.get('id') } only %}
+
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Selecciona el diseño de tu local</h2>
     </div>
   </div>
+
+{% set href = "/panel/editar-informacion-local/" ~ app.request.attributes.get('id') ~ "/seleccionar-plantilla/" %}
 
 <section class="text-gray-600 body-font">
   <div class="container px-5 py-24 mx-auto">
@@ -29,7 +30,7 @@
         </div>
         <h2 class="text-xl font-medium title-font text-gray-900 mt-5">Plantilla 1</h2>
         <p class="text-base leading-relaxed mt-2">Diseño limpio y elegante, perfecto para restaurantes con cartas, productos sueltos, etc.</p>
-        <a class="text-indigo-500 inline-flex items-center mt-3">Seleccionar Plantilla
+        <a class="text-indigo-500 inline-flex items-center mt-3" href="{{ href }}?theme=1">Seleccionar Plantilla
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
@@ -41,7 +42,7 @@
         </div>
         <h2 class="text-xl font-medium title-font text-gray-900 mt-5">Plantilla 2</h2>
         <p class="text-base leading-relaxed mt-2">Especialmente diseñado para restaurantes de pizzas o restaurantes Italianos.</p>
-        <a class="text-indigo-500 inline-flex items-center mt-3">Seleccionar Plantilla
+        <a class="text-indigo-500 inline-flex items-center mt-3" href="{{ href }}?theme=2">Seleccionar Plantilla
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
@@ -53,7 +54,7 @@
         </div>
         <h2 class="text-xl font-medium title-font text-gray-900 mt-5">Plantilla 3</h2>
         <p class="text-base leading-relaxed mt-2">Diseñado para todo tipo de restaurantes.</p>
-        <a class="text-indigo-500 inline-flex items-center mt-3">Seleccionar Plantilla
+        <a class="text-indigo-500 inline-flex items-center mt-3" href="{{ href }}?theme=3">Seleccionar Plantilla
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
