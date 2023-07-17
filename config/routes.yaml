@@ -60,6 +60,6 @@ panel-show-local-online:
   methods: [GET, POST]
 #Escoger diseño del local
 panel-select-theme:
-  path: /seleccionar-plantilla/{id}
+  path: /panel/editar-informacion-local/{id}/seleccionar-plantilla/
   controller: App\Infrastructure\Controller\PanelController::selectThemeOfLocalAction
   methods: [GET, POST]
