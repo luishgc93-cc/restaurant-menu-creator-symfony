@@ -81,7 +81,14 @@ final class LocalOrchestrator extends AbstractController
     public function getMenusForLocal(int $idLocal) : array
     {
         $informationData = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        return $this->menuRepository->findBy(array('informacion' => $informationData->getId()));
+        $menus = $this->menuRepository->findBy(array('informacion' => $informationData->getId()));
+        $data = [];
+        foreach($menus as $menu){
+            $menuId = $menu->getId();
+            $products = $this->productRepository->findBy(array('menus' => $menuId));
+            $data []=  $products;
+        }
+        return $data;
     }
 
     public function getInformationForLocal(int $idLocal): ?Informacion
