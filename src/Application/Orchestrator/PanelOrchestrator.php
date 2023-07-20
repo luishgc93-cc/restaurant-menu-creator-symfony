@@ -223,13 +223,14 @@ final class PanelOrchestrator extends AbstractController
     {
         $idLocal = (int)$request->attributes->get('id');
         $local = $this->localRepository->findOneBy(array('id' => $idLocal));
+        $localThemeSaveOnDb = $local->getEstilo();
 
-        $theme = $request->query->get('theme');
+        $themeQuerySelected = $request->query->get('theme');
 
-        if ($theme && $this->getUser()) {
+        if ($themeQuerySelected && $this->getUser()) {
             $datosForm = $request->request->all();
 
-            $local->setEstilo($theme ?? 1);
+            $local->setEstilo($themeQuerySelected ?? 1);
 
             $this->localRepository->save($local, true);
 
@@ -240,6 +241,6 @@ final class PanelOrchestrator extends AbstractController
 
         }
 
-        return true;
+        return $localThemeSaveOnDb;
     }
 }

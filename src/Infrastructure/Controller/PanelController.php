@@ -140,7 +140,8 @@ final class PanelController extends AbstractController
         $title = 'Escoge la plantilla web para tu Local';
 
         return $this->render('/Panel/Sections/selectThemeOfLocal.html.twig',[
-            'title'=>$title
+            'title'=>$title,
+            'content' => $content
         ]);
 
         throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
