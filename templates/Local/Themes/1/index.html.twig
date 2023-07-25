@@ -165,7 +165,7 @@ https://templatemo.com/tm-558-klassy-cafe
             <div class="row">
                 <div class="col-lg-4 offset-lg-4 text-center">
                     <div class="section-heading">
-                        <h6>Klassy Week</h6>
+                        <h6>Menús</h6>
                         <h2>This Week’s Special Meal Offers</h2>
                     </div>
                 </div>
@@ -178,13 +178,17 @@ https://templatemo.com/tm-558-klassy-cafe
                                 <div class="row">
                                     <div class="col-lg-6 offset-lg-3">
                                         <ul>
-                                            {% set menus = content.menus %}
-                                            {% for menu in menus %}
-                                                {% for product in menus %}
-                                                    {{ dump(product) }}
+                                            {# Accediendo a la variable 'menus' del array #}
+                                            {% for menu in content.menus %}
+                                                {% for producto in menu %}
+                                                    {# Accediendo a las propiedades de cada Producto #}
+                                                    <p>Menu: {{ producto.menus.nombreMenu }}</p>
+                                                    <p>Nombre: {{ producto.nombreProducto }}</p>
+                                                    {{ loop.index }}
                                                 {% endfor %}
                                             {% endfor %}
-                                            <li><a href='#tabs-{{ loop.index }}'><img src="themes/1/assets/images/tab-icon-01.png" alt="">{{ nombreMenu }}</a></li> 
+                                            <li><a href='#tabs-1'><img src="themes/1/assets/images/tab-icon-01.png" alt=""></a></li>
+                                            <li><a href='#tabs-2'><img src="themes/1/assets/images/tab-icon-01.png" alt=""></a></li>  
                                         </ul>
                                     </div>
                                 </div>
