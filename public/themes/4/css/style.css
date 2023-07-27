@@ -188,8 +188,8 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 .intro h1 {
 	font-family: 'Dancing Script', cursive;
 	color: #fff;
-	font-size: 10em;
-	font-weight: 700;
+	font-size: 5em;
+	font-weight: 600;
 	margin-top: 0;
 	margin-bottom: 10px;
 }

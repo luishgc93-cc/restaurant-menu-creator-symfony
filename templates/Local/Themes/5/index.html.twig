@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
      <!-- Site Metas -->
-    <title>Yamifood Restaurant - Responsive HTML5 Template</title>  
+    <title>{{ content.local.nombreLocal }}</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -158,7 +158,7 @@
 			<div class="row special-list">
 
 				{% for menu in content.menus %}
-				
+
                     {% for producto in menu %}
 						<div class="col-lg-4 col-md-6 special-grid {{ producto.menus.nombreMenu|replace({' ': ''}) }}">
 							<div class="gallery-single fix">
