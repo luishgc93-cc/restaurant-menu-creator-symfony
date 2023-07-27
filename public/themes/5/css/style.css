@@ -322,6 +322,14 @@ button:focus{
 .inner-column h1 span{
 	color: #d0a772;
 }
+.inner-column h2{
+	font-family: 'Arbutus Slab', serif;
+	font-size: 30px;
+	color: #010101;
+}
+.inner-column h2 span{
+	color: #d0a772;
+}
 .inner-column h4{
 	font-size: 16px;
 	font-weight: 500;
@@ -768,7 +776,12 @@ button:focus{
 	font-family: 'Arbutus Slab', serif;
 	padding: 0px;
 }
-
+.all-page-title h2{
+	font-size: 38px;
+	color: #ffffff;
+	font-family: 'Arbutus Slab', serif;
+	padding: 0px;
+}
 .inner-pt{
 	margin-top: 30px;
 }
