@@ -12,6 +12,7 @@
         "doctrine/collections": "^2.1",
         "doctrine/doctrine-bundle": "^2.9",
         "doctrine/orm": "^2.15",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
