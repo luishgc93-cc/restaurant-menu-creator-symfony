@@ -3,6 +3,7 @@
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection; 
 
 /**
  * @ORM\Entity
@@ -33,9 +34,9 @@ class Menu
     private $precioMenu;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\MenuPhoto", mappedBy="menu", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $fotoMenu;
+    private $photos;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Model\Informacion")
@@ -54,6 +55,28 @@ class Menu
     private $productos;
 
     // Resto de propiedades, getters y setters
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
+    
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(MenuPhoto $photo)
+    {
+        $this->photos->add($photo);
+        $photo->setMenu($this);
+    }
+
+    public function removePhoto(MenuPhoto $photo)
+    {
+        $this->photos->removeElement($photo);
+        $photo->setMenu(null);
+    }
 
     public function getId()
     {

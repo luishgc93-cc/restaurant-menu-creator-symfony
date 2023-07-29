@@ -23,6 +23,7 @@ use App\Domain\Model\Menu;
 use App\Domain\Model\Producto;
 use Cloudinary\Api\ApiResponse;
 use Cloudinary\Cloudinary;
+use App\Domain\Model\MenuPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -148,12 +149,15 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-
+            $files = $request->files->get('file-upload');
+            $foto = $files;
             if (!$menu) {
                 $menu = new Menu();
                 $menu->setInformacion($idLocal);
             }
-
+            $menuPhoto = new MenuPhoto();
+            $menuPhoto->setPhotoPath($foto); 
+            $menu->addPhoto($menuPhoto);
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
