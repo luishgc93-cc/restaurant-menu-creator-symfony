@@ -17,7 +17,7 @@
   {% include '/Panel/Sections/Components/tabsProducts.html.twig' with {'productos': datos, 'type': 'productAlone'} only %}
 {% endif %}
 
-<form  action="{{ path('panel-new-product-alone',{'id': id }) }}" method="post" enctype="multipart/form-data">>
+<form  action="{{ path('panel-new-product-alone',{'id': id }) }}" method="post" enctype="multipart/form-data">
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Añade Productos sin necesidad de asociarlo a un Menú</h2>
@@ -72,7 +72,7 @@
   </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ datos|default ? 'Editar' : 'Guardar ' }} Producto del Local</button>
+    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Añadir Productos sueltos, sin Menú</button>
   </div>
 </form>
 
