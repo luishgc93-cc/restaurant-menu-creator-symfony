@@ -76,6 +76,37 @@ final class PanelOrchestrator extends AbstractController
 
     }
 
+    public function editConfigLocal(Request $request)
+    {
+        $userId = $this->getUser()->getId();
+        $idLocal = intval($request->attributes->get('id'));
+
+        $local = $this->localRepository->findOneBy(array('id' => $idLocal));
+
+        $userOwnerOfLocal = $local->getUsuario()->getId();
+
+        if ($userId !== $userOwnerOfLocal) {
+            throw new HttpException(404, 'Página no encontrada');
+        }
+
+        if ($request->isMethod('POST') && $this->getUser()) {
+            $datosForm = $request->request->all();
+
+            $local->setNombreLocal($datosForm['nombreLocal'] ?? '');
+            $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
+            $local->setUrl($datosForm['url'] ?? '');
+
+            $this->localRepository->save($local, true);
+
+            $this->addFlash(
+                'sucess',
+                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
+            );
+
+        }
+        return $local;
+    }
+
     public function showLocal(): array
     {
         $userId = $this->getUser()->getId();

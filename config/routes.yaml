@@ -63,3 +63,8 @@ panel-select-theme:
   path: /panel/editar-informacion-local/{id}/seleccionar-plantilla/
   controller: App\Infrastructure\Controller\PanelController::selectThemeOfLocalAction
   methods: [GET, POST]
+#Escoger diseño del local
+panel-modify-config-local:
+  path: /panel/editar-local/{id}/
+  controller: App\Infrastructure\Controller\PanelController::configLocalAction
+  methods: [GET, POST]

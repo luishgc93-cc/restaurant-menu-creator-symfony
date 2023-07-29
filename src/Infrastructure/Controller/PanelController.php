@@ -50,6 +50,19 @@ final class PanelController extends AbstractController
 
     }
 
+    public function configLocalAction(Request $request): Response
+    {
+
+        $datos = $this->panelOrchestrator->editConfigLocal($request);
+
+        $title = 'Edita la Configuración de tu Local';
+
+        return $this->render(
+            '/Panel/Sections/localOptions.html.twig',
+            ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
+        );
+    }
+
     public function showLocalAction(): Response
     {
         $local = $this->panelOrchestrator->showLocal();
