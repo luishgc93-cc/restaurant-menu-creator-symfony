@@ -38,10 +38,6 @@ class Local
      */
     private $usuario;
 
-    // Getters y setters
-
-    // ...
-
     // Relación con la entidad "informacion"
     /**
      * @ORM\OneToOne(targetEntity="App\Domain\Model\Informacion", mappedBy="local", cascade={"persist", "remove"})

@@ -15,7 +15,7 @@
   {% include '/Panel/Sections/Components/tabsProducts.html.twig' with {'productos': datos, 'type': 'productmenu'} only %}
 {% endif %}
 
-<form  action="{{ path('panel-new-product',{'id': id }) }}" method="post" >
+<form  action="{{ path('panel-new-product',{'id': id }) }}" method="post" enctype="multipart/form-data">
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Añade Productos a tu Menú</h2>

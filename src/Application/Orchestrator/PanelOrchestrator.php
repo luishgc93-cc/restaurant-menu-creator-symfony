@@ -24,6 +24,7 @@ use App\Domain\Model\Producto;
 use Cloudinary\Api\ApiResponse;
 use Cloudinary\Cloudinary;
 use App\Domain\Model\MenuPhoto;
+use App\Domain\Model\ProductoPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -194,6 +195,10 @@ final class PanelOrchestrator extends AbstractController
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');
+            $foto = $request->files->get('file-upload');
+            $productoPhoto = new ProductoPhoto();
+            $productoPhoto->setPhotoPath($foto); 
+            $producto->addPhoto($productoPhoto);
 
             $this->productRepository->save($producto, true);
 

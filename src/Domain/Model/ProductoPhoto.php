@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class MenuPhoto
+class ProductoPhoto
 {
     /**
      * @ORM\Id
@@ -17,15 +17,15 @@ class MenuPhoto
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1000)
      */
     private $photoPath;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Menu", inversedBy="photos")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Producto", inversedBy="photos")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $menu;
+    private $producto;
 
     public function getId()
     {
@@ -42,13 +42,13 @@ class MenuPhoto
         $this->photoPath = $photoPath;
     }
 
-    public function getMenu()
+    public function getProducto()
     {
-        return $this->menu;
+        return $this->producto;
     }
 
-    public function setMenu($menu)
+    public function setProducto($producto)
     {
-        $this->menu = $menu;
+        $this->producto = $producto;
     }
 }

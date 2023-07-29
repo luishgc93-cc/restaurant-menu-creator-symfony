@@ -54,8 +54,6 @@ class Menu
      */
     private $productos;
 
-    // Resto de propiedades, getters y setters
-
     public function __construct()
     {
         $this->photos = new ArrayCollection();

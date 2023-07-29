@@ -3,6 +3,7 @@
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -33,10 +34,10 @@ class Producto
     private $precioProducto;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\ProductoPhoto", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
      */
+    private $photos;
 
-    private $fotoProducto;
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -54,7 +55,27 @@ class Producto
      */
     private $informacion;
 
-    // Getters y setters
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
+    
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(ProductoPhoto $photo)
+    {
+        $this->photos->add($photo);
+        $photo->setProducto($this);
+    }
+
+    public function removePhoto(ProductoPhoto $photo)
+    {
+        $this->photos->removeElement($photo);
+        $photo->setProducto(null);
+    }
 
     public function getId()
     {
