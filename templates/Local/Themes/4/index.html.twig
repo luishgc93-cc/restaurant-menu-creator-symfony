@@ -105,7 +105,7 @@
     <div class="row">
 				{% set processedMenus = [] %}
 				{% for menu in content.menus %}
-            {% set menuName = menu[0].menus.nombreMenu %}
+            {% set menuName = menu[0].menus.nombreMenu|default %}
             {% if menuName not in processedMenus %}
               {% set _ = processedMenus|merge([menuName]) %}
             {% endif %}

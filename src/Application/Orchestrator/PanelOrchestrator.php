@@ -181,14 +181,14 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-            $files = $request->files->get('file-upload');
-            $foto = $files;
+            $photoRequest = $request->files->get('file-upload');
+            $photo = $this->uploadPhotos($photoRequest);
             if (!$menu) {
                 $menu = new Menu();
                 $menu->setInformacion($idLocal);
             }
             $menuPhoto = new MenuPhoto();
-            $menuPhoto->setPhotoPath($foto); 
+            $menuPhoto->setPhotoPath($photo);
             $menu->addPhoto($menuPhoto);
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
@@ -226,9 +226,10 @@ final class PanelOrchestrator extends AbstractController
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');
-            $foto = $request->files->get('file-upload');
+            $photoRequest = $request->files->get('file-upload');
+            $photo = $this->uploadPhotos($photoRequest);
             $productoPhoto = new ProductoPhoto();
-            $productoPhoto->setPhotoPath($foto); 
+            $productoPhoto->setPhotoPath($photo);
             $producto->addPhoto($productoPhoto);
 
             $this->productRepository->save($producto, true);
