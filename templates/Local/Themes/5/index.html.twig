@@ -142,14 +142,14 @@
 				<div class="col-lg-12">
 					<div class="special-menu text-center">
 						<div class="button-group filter-button-group">
-									{% set processedMenus = [] %}
-                                    {% for menu in content.menus %}
-                                        {% set menuName = menu[0].menus.nombreMenu %}
-                                        {% if menuName not in processedMenus %}
-                                            {% set _ = processedMenus|merge([menuName]) %}
-											<button data-filter=".{{ menuName|replace({' ': ''}) }}">{{ menuName }}</button>
-                                        {% endif %}
-                                    {% endfor %}
+							{% set processedMenus = [] %}
+							{% for menu in content.menus %}
+								{% set menuName = menu[0].menus.nombreMenu|default %}
+								{% if menuName not in processedMenus %}
+									{% set _ = processedMenus|merge([menuName]) %}
+									<button data-filter=".{{ menuName|replace({' ': ''}) }}">{{ menuName }}</button>
+								{% endif %}
+							{% endfor %}
 						</div>
 					</div>
 				</div>
