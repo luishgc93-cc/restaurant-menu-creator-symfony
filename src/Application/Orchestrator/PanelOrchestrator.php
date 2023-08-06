@@ -37,7 +37,7 @@ final class PanelOrchestrator extends AbstractController
     private LocalRepository $localRepository;
     private InformationRepository $informationRepository;
     private ProductRepository $productRepository;
-    private $menuRepository;
+    private MenuRepository $menuRepository;
 
     private EntityManagerInterface $entityManager;
 

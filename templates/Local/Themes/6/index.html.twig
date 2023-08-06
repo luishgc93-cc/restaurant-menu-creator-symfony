@@ -135,7 +135,10 @@
 				{% for menu in content.menus %}
 					<div class="col-md-6">
 						<div class="fh5co-food-menu to-animate-2">
-						{% set menuName = menu[0].menus.nombreMenu|default %}
+						{% set menuName = menu[0].menus.nombreMenu|default(null) %}
+
+						{% if menuName %}
+
 						{% if menuName not in processedMenus %}
 							{% set _ = processedMenus|merge([menuName]) %}
 							<h2 class="fh5co-drinks">{{ menuName }}</h2>
@@ -158,6 +161,7 @@
 								</li>
 								{% endfor %}
 							</ul>
+							{% endif %}
 						</div>
 					</div>
 				{% endfor %}
