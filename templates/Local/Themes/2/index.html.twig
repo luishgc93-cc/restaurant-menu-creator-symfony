@@ -212,7 +212,7 @@
 					{% if menuName not in processedMenus %}
 						{% set _ = processedMenus|merge([menuName]) %}
 						<div class="themenu_col_title">{{ menuName }}</div>
-						{% endif %}
+					{% endif %}
 
 						<div class="dish_list">
 						{% for producto in menu %}
