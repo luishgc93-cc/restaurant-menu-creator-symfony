@@ -30,8 +30,7 @@
 					<div class="header_content d-flex flex-row align-items-center justify-content-start">
 						<div class="logo">
 							<a href="#">
-								<div>The Venue</div>
-								<div>restaurant</div>
+								<div>{{ content.local.nombreLocal }}</div>
 							</a>
 						</div>
 						<nav class="main_nav">
@@ -44,7 +43,7 @@
 								<li><a href="contact.html">contact</a></li>
 							</ul>
 						</nav>
-						<div class="reservations_phone ml-auto">Reservations: +34 586 778 8892</div>
+						<div class="reservations_phone ml-auto">Contactar: {{ content.informationForLocal.telefono }}</div>
 					</div>
 				</div>
 			</div>
@@ -81,7 +80,7 @@
 				<li><a href="contact.html">contact</a></li>
 			</ul>
 		</div>
-		<div class="menu_reservations_phone ml-auto">Reservations: +34 586 778 8892</div>
+		<div class="menu_reservations_phone ml-auto">Contactar: {{ content.informationForLocal.telefono }}</div>
 	</div>
 	
 	<!-- Home -->
@@ -93,10 +92,9 @@
 				<div class="row">
 					<div class="col">
 						<div class="home_content text-center">
-							<div class="home_subtitle page_subtitle">The Venue is</div>
-							<div class="home_title"><h1>An Extraordinery Experience</h1></div>
+							<div class="home_title"><h1>{{ content.local.nombreLocal }}</h1></div>
 							<div class="home_text ml-auto mr-auto">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+								<p>{{ content.local.descripcionLocal }}</p>
 							</div>
 						</div>
 					</div>
@@ -204,291 +202,35 @@
 			</div>
 			<div class="row themenu_row">
 
-				<!-- Starters -->
+				{% set processedMenus = [] %}
+				{% for menu in content.menus %}
+
 				<div class="col-lg-4 themenu_column">
+
 					<div class="themenu_col">
-						<div class="themenu_col_title">Starters</div>
+					{% set menuName = menu[0].menus.nombreMenu|default %}
+					{% if menuName not in processedMenus %}
+						{% set _ = processedMenus|merge([menuName]) %}
+						<div class="themenu_col_title">{{ menuName }}</div>
+						{% endif %}
+
 						<div class="dish_list">
-
-							<!-- Dish -->
+						{% for producto in menu %}
 							<div class="dish">
 								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Pork Tenderloin in Green Pepper</div>
-									<div class="dish_price">$20</div>
+									<div class="dish_title">{{ producto.nombreProducto }}</div>
+									<div class="dish_price">{{ producto.precioProducto }}€</div>
 								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
 							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Shrimp with Garlic</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Wild Mushroom with Chicken</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Oysters with Baked Potatoes</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Roast Pork</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
+						{% endfor %}
 
 						</div>
 					</div>
+
 				</div>
+				{% endfor %}
 
-				<!-- Main -->
-				<div class="col-lg-4 themenu_column">
-					<div class="themenu_col">
-						<div class="themenu_col_title">Main</div>
-						<div class="dish_list">
-							
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Chicken with Lemon</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
 
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Pork Tenderloin in Green Pepper</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Shrimp with Garlic</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Wild Mushroom with Chicken</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Oysters with Baked Potatoes</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Roast Pork</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-
-				<!-- Deserts -->
-				<div class="col-lg-4 themenu_column">
-					<div class="themenu_col">
-						<div class="themenu_col_title">Deserts</div>
-						<div class="dish_list">
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Lava Cake</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Orange Tart</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Cheese Cake</div>
-									<div class="dish_price">$20</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Chocolatte Mausse</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-							<!-- Dish -->
-							<div class="dish">
-								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">Ice Cream</div>
-									<div class="dish_price">$17</div>
-								</div>
-								<div class="dish_contents">
-									<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-										<li>Pork</li>
-										<li>Tenderloin</li>
-										<li>Green Pepper</li>
-									</ul>
-								</div>
-								<div class="dish_order"><a href="#">Order Now</a></div>
-							</div>
-
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div>		
