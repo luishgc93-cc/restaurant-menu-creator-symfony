@@ -18,50 +18,19 @@
 <div id="body">{% block body %}{% endblock %}</div>
 
 {% block footer %}
+
+{% set route = app.request.attributes.get('_route') %}
+
 <div id="footer">
     {% include '/Includes/footer.html.twig' %}
 </div>
-<style>
-.imagesToUpload{
-    width: 30%;
-    display: flex;
-}
-</style>
-<script>
 
-const imagesContainer = document.querySelector('.imagesToUpload');
-const fileInput = document.getElementById('file-upload');
+{% include '/Panel/Sections/JsComponents/showPhotosReviewOnForm.html.twig' %}
 
-fileInput.addEventListener('change', function(event) {
-    readURL(this);
-});
+{% if 'panel-new-menu' == route %}
+    {% include '/Panel/Sections/JsComponents/preventFormEmptyOnNewMenu.html.twig' %}
+{% endif %}
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        Array.from(input.files).forEach(function(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imgElement = document.createElement('img');
-                imgElement.src = e.target.result;
-
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Quitar Foto';
-                removeButton.className = 'remove-button'; // Agregar la clase para el estilo
-                removeButton.addEventListener('click', function() {
-                    imagesContainer.removeChild(imgElement);
-                    imagesContainer.removeChild(this);
-                });
-
-                imagesContainer.appendChild(imgElement);
-                imagesContainer.appendChild(removeButton);
-            }
-            reader.readAsDataURL(file);
-        });
-    }
-}
-
-
-</script>
 
 {% endblock %}
 </body>

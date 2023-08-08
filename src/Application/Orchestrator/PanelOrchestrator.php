@@ -181,6 +181,11 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
+
+            if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
+                throw new HttpException(Response::HTTP_BAD_REQUEST, 'No puedes dejar campos vacios');
+            }
+
             $photoRequests = $request->files->get('file-upload');
             if($photoRequests){
                 foreach ($photoRequests as $photoRequest) {
