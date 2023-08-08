@@ -181,12 +181,14 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-            $photoRequest = $request->files->get('file-upload');
-            if($photoRequest){
-                $photo = $this->uploadPhotos($photoRequest);
-                $menuPhoto = new MenuPhoto();
-                $menuPhoto->setPhotoPath($photo);
-                $menu->addPhoto($menuPhoto);
+            $photoRequests = $request->files->get('file-upload');
+            if($photoRequests){
+                foreach ($photoRequests as $photoRequest) {
+                    $photo = $this->uploadPhotos($photoRequest);
+                    $menuPhoto = new MenuPhoto();
+                    $menuPhoto->setPhotoPath($photo);
+                    $menu->addPhoto($menuPhoto);
+                }
             }
 
             if (!$menu) {
@@ -230,12 +232,14 @@ final class PanelOrchestrator extends AbstractController
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');
-            $photoRequest = $request->files->get('file-upload');
-            if($photoRequest){
-                $photo = $this->uploadPhotos($photoRequest);
-                $productoPhoto = new ProductoPhoto();
-                $productoPhoto->setPhotoPath($photo);
-                $producto->addPhoto($productoPhoto);
+            $photoRequests = $request->files->get('file-upload');
+            if($photoRequests){
+                foreach ($photoRequests as $photoRequest) {
+                    $photo = $this->uploadPhotos($photoRequest);
+                    $productoPhoto = new ProductoPhoto();
+                    $productoPhoto->setPhotoPath($photo);
+                    $producto->addPhoto($productoPhoto);
+                }
             }
             $this->productRepository->save($producto, true);
 
