@@ -3,6 +3,7 @@
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -48,9 +49,9 @@ class Informacion
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\InformacionPhoto", mappedBy="informacion", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $fotosInformativas;
+    private $photos;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Domain\Model\Local", inversedBy="informacion", cascade={"persist", "remove"})
@@ -58,7 +59,28 @@ class Informacion
      */
     private $local;
 
-    // Getters y setters
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
+
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(InformacionPhoto $photo)
+    {
+        $this->photos->add($photo);
+        $photo->setInformacion($this);
+    }
+
+    public function removePhoto(InformacionPhoto $photo)
+    {
+        $this->photos->removeElement($photo);
+        $photo->setInformacion(null);
+    }
+
     public function getId()
     {
         return $this->id;
