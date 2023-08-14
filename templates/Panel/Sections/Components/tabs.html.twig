@@ -30,7 +30,7 @@
       <header class="flex items-center justify-between p-4">
         <span class="text-sm text-gray-700">4 Productos</span>
 
-        <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-new-product',{'id': menu.id }) }}">
+        <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-new-product',{'local':app.request.attributes.get('id') ,'id': menu.id }) }}">
           Añadir
         </a>
       </header>
