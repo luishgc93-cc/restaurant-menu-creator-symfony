@@ -1,10 +1,3 @@
-{% set showSignals = false %}
-{% for menu in menus %}
-  {% if loop.length > 1 %}
-      {% set showSignals = true %}
-  {% endif %}
-{% endfor %}
-
 <div class="space-y-2">
 {% for menu in menus %}
   <details
