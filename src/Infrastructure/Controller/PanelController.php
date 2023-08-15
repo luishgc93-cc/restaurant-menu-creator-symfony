@@ -15,7 +15,6 @@ namespace App\Infrastructure\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\PanelOrchestrator;
 
@@ -76,15 +75,6 @@ final class PanelController extends AbstractController
 
     }
 
-    public function editLocalAction()
-    {
-
-    }
-
-    public function deleteLocalAction()
-    {
-    }
-
     public function editInformationLocalAction(Request $request): Response
     {
 
@@ -95,55 +85,6 @@ final class PanelController extends AbstractController
         return $this->render(
             '/Panel/Sections/newInformation.html.twig',
             ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
-        );
-    }
-
-    public function newMenuOfLocalAction(Request $request): Response
-    {
-
-        $datos = $this->panelOrchestrator->newMenu($request);
-        $menus = $this->panelOrchestrator->showMenusCreated($request);
-
-        $title = 'Crea un Menú o Carta para tu Local';
-
-        return $this->render(
-            '/Panel/Sections/newMenu.html.twig',
-            ['id' => $request->attributes->get('id'), 
-            'datos'=> $datos, 
-            'title'=>$title,
-            'menus'=>$menus,
-            ]
-        );
-    }
-
-    public function newProductAction(Request $request): Response
-    {
-
-        $datos = $this->panelOrchestrator->newProduct($request);
-
-        $title = 'Añade un Producto a tu Local';
-
-        return $this->render(
-            '/Panel/Sections/newProduct.html.twig',
-            ['id' => $request->attributes->get('id'), 
-            'datos'=> $datos, 
-            'title'=>$title]
-        );
-    }
-
-    public function newProductAloneAction(Request $request)
-    {
-
-        $datos = $this->panelOrchestrator->newProduct($request, true);
-
-        $title = 'Añade un Producto a tu Local sin incluirlo en ningún Menú';
-
-        return $this->render(
-            '/Panel/Sections/newProductAlone.html.twig',[
-            'id' => $request->attributes->get('id'), 
-            'datos'=> $datos, 
-            'title'=>$title
-            ]
         );
     }
 

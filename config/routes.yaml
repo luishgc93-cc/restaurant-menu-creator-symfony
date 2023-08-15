@@ -41,17 +41,17 @@ panel-edit-information:
 #Nuevo Menu Carta
 panel-new-menu:
   path: /panel/editar-informacion-local/{id}/nuevo-menu
-  controller: App\Infrastructure\Controller\PanelController::newMenuOfLocalAction
+  controller: App\Infrastructure\Controller\MenuController::newMenuOfLocalAction
   methods: [GET, POST]
 #Nuevo producto asociado a un menu
 panel-new-product:
   path: /panel/editar-informacion-local-{local}/menu-{id}/nuevo-producto
-  controller: App\Infrastructure\Controller\PanelController::newProductAction
+  controller: App\Infrastructure\Controller\ProductController::newProductAction
   methods: [GET, POST]
 #Nuevo producto solo
 panel-new-product-alone:
   path: /panel/editar-informacion-local/{id}/nuevo-producto
-  controller: App\Infrastructure\Controller\PanelController::newProductAloneAction
+  controller: App\Infrastructure\Controller\ProductController::newProductAloneAction
   methods: [GET, POST]
 #Ver local informacion
 panel-show-local-online:
