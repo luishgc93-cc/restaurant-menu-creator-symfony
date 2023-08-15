@@ -195,7 +195,7 @@
 					{% for producto in content.productsAlone|slice(0, 5) %}
 					<div class="col-sm-12 col-md-4 col-lg-4">
 						<a class="lightbox">
-							<img class="img-fluid" src="{{ producto.photos.0.photoPath }}" alt="{{  producto.nombreProducto }}">
+							<img class="img-fluid" src="{{ producto.photos.0.photoPath|default }}" alt="{{  producto.nombreProducto }}">
 						</a>
 					</div>
 					{% endfor %}
