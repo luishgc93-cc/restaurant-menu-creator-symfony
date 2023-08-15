@@ -282,7 +282,7 @@ https://templatemo.com/tm-558-klassy-cafe
                 <div class="owl-menu-item owl-carousel">
                     {% for producto in content.productsAlone|slice(0, 5) %}
                     <div class="item">
-                        <div class='card card{{ loop.index }}' style="background-image: url({{ producto.photos.0.photoPath }});">
+                        <div class='card card{{ loop.index }}' style="background-image: url({{ producto.photos.0.photoPath|default }});">
                             <div class="price"><h6>{{ producto.precioProducto }}€</h6></div>
                             <div class='info'>
                               <h1 class='title'>{{ producto.nombreProducto }}</h1>
