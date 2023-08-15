@@ -164,6 +164,7 @@ final class PanelOrchestrator extends AbstractController
         $idLocal = intval($request->attributes->get('id'));
         $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
+        //dd($menuData);
         if ($menuData) {
             return $menuData;
         }
@@ -186,6 +187,11 @@ final class PanelOrchestrator extends AbstractController
                 throw new HttpException(Response::HTTP_BAD_REQUEST, 'No puedes dejar campos vacios');
             }
 
+            if (!$menu) {
+                $menu = new Menu();
+                $menu->setInformacion($idLocal);
+            }
+
             $photoRequests = $request->files->get('file-upload');
             if($photoRequests){
                 foreach ($photoRequests as $photoRequest) {
@@ -195,18 +201,11 @@ final class PanelOrchestrator extends AbstractController
                     $menu->addPhoto($menuPhoto);
                 }
             }
-
-            if (!$menu) {
-                $menu = new Menu();
-                $menu->setInformacion($idLocal);
-            }
-
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
 
             $this->menuRepository->save($menu, true);
-
         }
 
         return $menu;
