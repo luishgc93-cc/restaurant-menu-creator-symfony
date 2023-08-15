@@ -21,16 +21,13 @@ use App\Domain\Model\Local;
 use App\Domain\Model\Informacion;
 use App\Domain\Model\Menu;
 use App\Domain\Model\Producto;
-use Cloudinary\Api\ApiResponse;
-use Cloudinary\Cloudinary;
 use App\Domain\Model\MenuPhoto;
 use App\Domain\Model\ProductoPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Cloudinary\Api\Upload\UploadApi;
-use Cloudinary\Configuration\Configuration;
+use App\Application\Utils\UploadPhoto;
 
 final class PanelOrchestrator extends AbstractController
 {
@@ -38,8 +35,8 @@ final class PanelOrchestrator extends AbstractController
     private InformationRepository $informationRepository;
     private ProductRepository $productRepository;
     private MenuRepository $menuRepository;
-
     private EntityManagerInterface $entityManager;
+    private UploadPhoto $uploadPhoto;
 
     public function __construct(
         LocalRepository        $localRepository,
@@ -47,6 +44,7 @@ final class PanelOrchestrator extends AbstractController
         MenuRepository         $menuRepository,
         ProductRepository      $productRepository,
         EntityManagerInterface $entityManager,
+        UploadPhoto $uploadPhoto
     )
 
     {
@@ -54,8 +52,8 @@ final class PanelOrchestrator extends AbstractController
         $this->informationRepository = $informationRepository;
         $this->menuRepository = $menuRepository;
         $this->productRepository = $productRepository;
-
         $this->entityManager = $entityManager;
+        $this->uploadPhoto = $uploadPhoto;
     }
 
     public function createLocal(Request $request): bool
@@ -195,7 +193,7 @@ final class PanelOrchestrator extends AbstractController
             $photoRequests = $request->files->get('file-upload');
             if($photoRequests){
                 foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhotos($photoRequest);
+                    $photo = $this->uploadPhoto->upload($photoRequest);
                     $menuPhoto = new MenuPhoto();
                     $menuPhoto->setPhotoPath($photo);
                     $menu->addPhoto($menuPhoto);
@@ -257,26 +255,6 @@ final class PanelOrchestrator extends AbstractController
 
         }
         return false;
-    }
-
-    public function uploadPhotos($files)
-    {
-        $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/';
-        $fileName = uniqid().'.'.$files->guessExtension();
-        $files->move($destination, $fileName);
-        $filePath = $destination.$fileName;
-
-        $config = Configuration::instance();
-        $config->cloud->cloudName = 'dmo3iliks';
-        $config->cloud->apiKey = '982421683171437';
-        $config->cloud->apiSecret = 'iqY0a7gPn-3ozoBlf6MsmwMI4yo';
-        $config->url->secure = true;
-
-        $uploadApi = new UploadApi();
-        /** @var ApiResponse $response */
-        $response = $uploadApi->upload($filePath);
-        return $response['url'];
-
     }
 
     public function selectThemeOfLocal(Request $request)
