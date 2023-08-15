@@ -164,7 +164,7 @@ final class PanelOrchestrator extends AbstractController
         $idLocal = intval($request->attributes->get('id'));
         $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
-        //dd($menuData);
+
         if ($menuData) {
             return $menuData;
         }
