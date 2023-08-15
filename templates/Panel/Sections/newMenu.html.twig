@@ -19,7 +19,7 @@
       <section aria-labelledby="products-heading" class="pb-24 pt-6">
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
         {% if menus|default %}
-          {% include '/Panel/Sections/Components/tabs.html.twig' with {'menus': menus} only %}
+          {% include '/Panel/Sections/Components/tabsMenusWithProducts.html.twig' with {'menus': menus} only %}
         {% endif %}
           <div class="lg:col-span-3">
             <form  action="{{ path('panel-new-menu',{'id': id }) }}" method="post" enctype="multipart/form-data">

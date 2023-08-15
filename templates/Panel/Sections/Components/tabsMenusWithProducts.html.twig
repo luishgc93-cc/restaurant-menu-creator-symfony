@@ -37,11 +37,9 @@
         </a>
       </header>
       <ul class="space-y-1 border-t border-gray-200 p-4">
-        <li>producto 1        </li>
-
-        <li>producto 2   </li>
-
-        <li>producto 3 </li>
+      {% for product in menu.productos %}
+        <li>{{ product.nombreProducto }}</li>
+      {% endfor %}
       </ul>
     </div>
   </details>

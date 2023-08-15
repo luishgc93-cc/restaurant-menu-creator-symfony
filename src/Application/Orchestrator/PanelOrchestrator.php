@@ -236,6 +236,11 @@ final class PanelOrchestrator extends AbstractController
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');
+
+            if($menu){
+                $menu->agregarProducto($producto);
+            }
+
             $photoRequests = $request->files->get('file-upload');
             if($photoRequests){
                 foreach ($photoRequests as $photoRequest) {
@@ -245,6 +250,7 @@ final class PanelOrchestrator extends AbstractController
                     $producto->addPhoto($productoPhoto);
                 }
             }
+
             $this->productRepository->save($producto, true);
 
             return $producto;

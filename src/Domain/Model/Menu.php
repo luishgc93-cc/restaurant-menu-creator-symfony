@@ -50,13 +50,18 @@ class Menu
     private $estilo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Model\Producto")
+     * @ORM\ManyToMany(targetEntity="Producto")
+     * @ORM\JoinTable(name="menu_producto",
+     *      joinColumns={@ORM\JoinColumn(name="menu_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="producto_id", referencedColumnName="id")}
+     * )
      */
     private $productos;
 
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->productos = new ArrayCollection();
     }
     
     public function getPhotos()
@@ -136,9 +141,9 @@ class Menu
         return $this->productos;
     }
 
-    public function setProductos($productos)
+    public function agregarProducto(Producto $producto)
     {
-        $this->productos = $productos;
+        $this->productos[] = $producto;
     }
 
   public function getEstilo()
