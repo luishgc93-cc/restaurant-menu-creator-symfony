@@ -86,7 +86,7 @@
 	<!-- Home -->
 
 	<div class="home">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="themes/2/images/home.jpg" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src=" {{ content.informationForLocal.photos.0.photoPath|default(themes/2/images/home.jpg) }}" data-speed="0.8"></div>
 		<div class="home_container">
 			<div class="container">
 				<div class="row">
@@ -119,10 +119,10 @@
 					</div>
 					<div class="row">
 						<div class="col-xl-4 col-md-6 intro_col">
-							<div class="intro_image"><img src="themes/2/images/intro_1.jpg" alt="https://unsplash.com/@quanle2819"></div>
+							<div class="intro_image"><img src=" {{ content.informationForLocal.photos.2.photoPath|default }}" alt="https://unsplash.com/@quanle2819"></div>
 						</div>
 						<div class="col-xl-4 col-md-6 intro_col">
-							<div class="intro_image"><img src="themes/2/images/intro_2.jpg" alt="https://unsplash.com/@fabmag"></div>
+							<div class="intro_image"><img src=" {{ content.informationForLocal.photos.1.photoPath|default }}" alt="https://unsplash.com/@fabmag"></div>
 						</div>
 					</div>
 				</div>	
