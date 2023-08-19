@@ -60,7 +60,6 @@ final class LocalOrchestrator extends AbstractController
             $url = $local->getUrl();
             $uri = \str_replace('/', '', $request->getPathInfo() );
             if($url === $uri){
-                $title = 'Ver Locales Creados';
                 $estile = $local->getEstilo() ?? 1;
                 $menus = $this->getMenusForLocal($local->getId());
                 $productsAlone = $this->getProductsAloneForLocal($local->getId());
@@ -83,14 +82,7 @@ final class LocalOrchestrator extends AbstractController
     public function getMenusForLocal(int $idLocal) : array
     {
         $informationData = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $menus = $this->menuRepository->findBy(array('informacion' => $informationData->getId()));
-        $data = [];
-        foreach($menus as $menu){
-            $menuId = $menu->getId();
-            $products = $this->productRepository->findBy(array('menus' => $menuId));
-            $data []=  $products;
-        }
-        return $data;
+       return $this->menuRepository->findBy(array('informacion' => $informationData->getId()));
     }
 
     public function getProductsAloneForLocal(int $idLocal) : array

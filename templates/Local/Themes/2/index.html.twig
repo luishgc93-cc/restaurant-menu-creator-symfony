@@ -86,7 +86,7 @@
 	<!-- Home -->
 
 	<div class="home">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src=" {{ content.informationForLocal.photos.0.photoPath|default(themes/2/images/home.jpg) }}" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src=" {{ content.informationForLocal.photos.0.photoPath|default('themes/2/images/home.jpg') }}" data-speed="0.8"></div>
 		<div class="home_container">
 			<div class="container">
 				<div class="row">
@@ -111,10 +111,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="intro_content">
-						<div class="intro_subtitle page_subtitle">Something new</div>
-						<div class="intro_title"><h2>An Extraordinery Experience</h2></div>
+						<div class="intro_title"><h2>Sobre Nosotros</h2></div>
 						<div class="intro_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Ut non justo eleifend, facilisis nibh ut, interdum odio. Suspendisse potenti. Vivamus luctus diam eu neque rutrum, vitae aliquet dolor venenatis. Nulla consequat fringilla massa.</p>
+							<p> {{ content.informationForLocal.descripcion  }}</p>
 						</div>
 					</div>
 					<div class="row">
@@ -202,20 +201,16 @@
 			</div>
 			<div class="row themenu_row">
 
-				{% set processedMenus = [] %}
 				{% for menu in content.menus %}
 
 				<div class="col-lg-4 themenu_column">
 
 					<div class="themenu_col">
-					{% set menuName = menu[0].menus.nombreMenu|default %}
-					{% if menuName not in processedMenus %}
-						{% set _ = processedMenus|merge([menuName]) %}
-						<div class="themenu_col_title">{{ menuName }}</div>
-					{% endif %}
+
+						<div class="themenu_col_title">{{ menu.nombreMenu }}</div>
 
 						<div class="dish_list">
-						{% for producto in menu %}
+						{% for producto in menu.productos %}
 							<div class="dish">
 								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
 									<div class="dish_title">{{ producto.nombreProducto }}</div>
