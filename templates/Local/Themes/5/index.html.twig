@@ -142,13 +142,8 @@
 				<div class="col-lg-12">
 					<div class="special-menu text-center">
 						<div class="button-group filter-button-group">
-							{% set processedMenus = [] %}
 							{% for menu in content.menus %}
-								{% set menuName = menu[0].menus.nombreMenu|default %}
-								{% if menuName not in processedMenus %}
-									{% set _ = processedMenus|merge([menuName]) %}
-									<button data-filter=".{{ menuName|replace({' ': ''}) }}">{{ menuName }}</button>
-								{% endif %}
+									<button data-filter=".{{  menu.nombreMenu|replace({' ': ''}) }}">{{  menu.nombreMenu }}</button>
 							{% endfor %}
 						</div>
 					</div>
@@ -159,8 +154,10 @@
 
 				{% for menu in content.menus %}
 
-                    {% for producto in menu %}
-						<div class="col-lg-4 col-md-6 special-grid {{ producto.menus.nombreMenu|replace({' ': ''}) }}">
+					{% set nombreMenu = menu.nombreMenu|replace({' ': ''}) %}
+
+                    {% for producto in  menu.productos %}
+						<div class="col-lg-4 col-md-6 special-grid {{  nombreMenu }}">
 							<div class="gallery-single fix">
 							<img src="themes/5/images/img-01.jpg" class="img-fluid" alt="Image">
 								<div class="why-text">

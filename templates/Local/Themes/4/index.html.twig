@@ -103,18 +103,14 @@
   <div class="container">
 
     <div class="row">
-				{% set processedMenus = [] %}
 				{% for menu in content.menus %}
-            {% set menuName = menu[0].menus.nombreMenu|default %}
-            {% if menuName not in processedMenus %}
-              {% set _ = processedMenus|merge([menuName]) %}
-            {% endif %}
+
         <div class="col-xs-12 col-sm-6">
             <div class="menu-section">
-              <h2 class="menu-section-title">{{ menuName }}</h2>
+              <h2 class="menu-section-title">{{  menu.nombreMenu }}</h2>
               <hr>
 
-            {% for producto in menu %}
+            {% for producto in  menu.productos %}
 
               <div class="menu-item">
                 <div class="menu-item-name"> {{ producto.nombreProducto }} </div>
