@@ -164,8 +164,6 @@ final class PanelOrchestrator extends AbstractController
         $themeQuerySelected = $request->query->get('theme');
 
         if ($themeQuerySelected && $this->getUser()) {
-            $datosForm = $request->request->all();
-
             $local->setEstilo($themeQuerySelected ?? 1);
 
             $this->localRepository->save($local, true);
