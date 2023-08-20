@@ -33,6 +33,9 @@
     {% include '/Panel/Sections/JsComponents/preventFormEmptyOnNewMenu.html.twig' %}
 {% endif %}
 
+{% if 'panel-modify-config-local' == route %}
+    {% include '/Panel/Sections/JsComponents/configForm.html.twig' %}
+{% endif %}
 
 {% endblock %}
 </body>
