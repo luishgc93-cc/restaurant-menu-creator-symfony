@@ -324,16 +324,16 @@ p {
   color: #fb6e14;
 }
 .fh5co-main-nav .fh5co-menu-1 {
-  text-align: right;
-  width: 40.33%;
+  text-align: center;
+  width: 20%;
 }
 .fh5co-main-nav .fh5co-menu-1 a {
   vertical-align: middle;
 }
 .fh5co-main-nav .fh5co-logo {
   text-align: center;
-  width: 19.33%;
-  font-size: 40px;
+  width: 50%;
+  font-size: 20px;
   font-family: "Playfair Display", serif;
   font-weight: 700;
   font-style: italic;
@@ -344,8 +344,8 @@ p {
   display: inline-block;
 }
 .fh5co-main-nav .fh5co-menu-2 {
-  text-align: left;
-  width: 40.33%;
+  text-align: center;
+  width: 20%;
 }
 
 .fh5co-heading .heading {
@@ -440,8 +440,8 @@ p {
 #fh5co-about .fh5co-text p span.firstcharacter {
   float: left;
   color: #903;
-  font-size: 75px;
-  line-height: 60px;
+  font-size: 25px;
+  line-height: 30px;
   padding-top: 4px;
   padding-right: 10px;
   padding-left: 3px;
