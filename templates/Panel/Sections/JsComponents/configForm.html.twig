@@ -1,0 +1,7 @@
+    <script defer>
+        function sanitizeURL(input) {
+            let inputValue = input.value;
+            let sanitizedValue = inputValue.replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+            input.value = sanitizedValue;
+        }
+    </script>
