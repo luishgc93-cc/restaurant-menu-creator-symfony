@@ -20,11 +20,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class StaticController extends AbstractController
 {
-    public function homeAction(): Response
+    public function avisoLegalAction(): Response
     {
+        $title = 'Aviso Legal';
 
-        return $this->render('/Home/home.html.twig');
-
+        return $this->render('/Static/aviso-legal.html.twig',['title'=>$title]);
     }
 
 }

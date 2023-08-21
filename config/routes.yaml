@@ -53,11 +53,7 @@ panel-new-product-alone:
   path: /panel/editar-informacion-local/{id}/nuevo-producto
   controller: App\Infrastructure\Controller\ProductController::newProductAloneAction
   methods: [GET, POST]
-#Ver local informacion
-panel-show-local-online:
-  path: /{local}
-  controller: App\Infrastructure\Controller\LocalController::showLocalAction
-  methods: [GET, POST]
+
 #Escoger diseño del local
 panel-select-theme:
   path: /panel/editar-informacion-local/{id}/seleccionar-plantilla/
@@ -68,3 +64,14 @@ panel-modify-config-local:
   path: /panel/editar-local/{id}/
   controller: App\Infrastructure\Controller\PanelController::configLocalAction
   methods: [GET, POST]
+
+static-aviso-legal:
+  path: /aviso-legal/
+  controller: App\Infrastructure\Controller\StaticController::avisoLegalAction
+  methods: [GET]
+
+#Ver local informacion
+panel-show-local-online:
+  path: /{local}
+  controller: App\Infrastructure\Controller\LocalController::showLocalAction
+  methods: [ GET, POST ]
