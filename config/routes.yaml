@@ -70,6 +70,21 @@ static-aviso-legal:
   controller: App\Infrastructure\Controller\StaticController::avisoLegalAction
   methods: [GET]
 
+static-politica-privacidad:
+  path: /politica-de-privacidad/
+  controller: App\Infrastructure\Controller\StaticController::privacidadAction
+  methods: [GET]
+
+static-terminos-y-condiciones:
+  path: /terminos-y-condiciones-de-uso/
+  controller: App\Infrastructure\Controller\StaticController::terminosYCondicionesAction
+  methods: [GET]
+
+static-faq:
+  path: /faq/
+  controller: App\Infrastructure\Controller\StaticController::faqAction
+  methods: [GET]
+
 #Ver local informacion
 panel-show-local-online:
   path: /{local}

@@ -23,8 +23,24 @@ final class StaticController extends AbstractController
     public function avisoLegalAction(): Response
     {
         $title = 'Aviso Legal';
-
         return $this->render('/Static/aviso-legal.html.twig',['title'=>$title]);
     }
 
+    public function privacidadAction(): Response
+    {
+        $title = 'Política de Privacidad';
+        return $this->render('/Static/aviso-legal.html.twig',['title'=>$title]);
+    }
+
+    public function terminosYCondicionesAction(): Response
+    {
+        $title = 'Terminos & Condiciones de Uso';
+        return $this->render('/Static/aviso-legal.html.twig',['title'=>$title]);
+    }
+
+    public function faqAction(): Response
+    {
+        $title = 'FAQ';
+        return $this->render('/Static/faq.html.twig',['title'=>$title]);
+    }
 }
