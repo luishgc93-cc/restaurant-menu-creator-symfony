@@ -54,29 +54,25 @@ final class LocalOrchestrator extends AbstractController
 
     public function showLocal($request): array
     {
-        $locals = $this->localRepository->findAll();
+        $NameLocalFromRequest = \str_replace('/', '', $request->getPathInfo());
+        $localRepository = $this->localRepository->findOneBy(array('url' => $NameLocalFromRequest));
 
-        foreach($locals as $local){
-            $url = $local->getUrl();
-            $uri = \str_replace('/', '', $request->getPathInfo() );
-            if($url === $uri){
-                $estile = $local->getEstilo() ?? 1;
-                $menus = $this->getMenusForLocal($local->getId());
-                $productsAlone = $this->getProductsAloneForLocal($local->getId());
-                $informationForLocal = $this->getInformationForLocal($local->getId());
-                $content = [
-                'estile' => $estile,
-                'local' => $local, 
-                'menus' => $menus,
-                'productsAlone' => $productsAlone,
-                'informationForLocal' => $informationForLocal
-                ];
-
-                return $content;
-            }
+        if (!$localRepository){
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url, no encontrado en la base de datos');
         }
 
-        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+        $estile = $localRepository->getEstilo() ?? 1;
+        $menus = $this->getMenusForLocal($localRepository->getId());
+        $productsAlone = $this->getProductsAloneForLocal($localRepository->getId());
+        $informationForLocal = $this->getInformationForLocal($localRepository->getId());
+
+        return [
+        'estile' => $estile,
+        'local' => $localRepository,
+        'menus' => $menus,
+        'productsAlone' => $productsAlone,
+        'informationForLocal' => $informationForLocal
+        ];
     }
 
     public function getMenusForLocal(int $idLocal) : array
