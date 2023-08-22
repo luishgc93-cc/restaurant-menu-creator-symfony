@@ -43,4 +43,16 @@ final class StaticController extends AbstractController
         $title = 'FAQ';
         return $this->render('/Static/faq.html.twig',['title'=>$title]);
     }
+
+    public function soporteAction(): Response
+    {
+        $title = 'Soporte al usuario';
+        return $this->render('/Static/soporte.html.twig',['title'=>$title]);
+    }
+
+    public function contactoAction(): Response
+    {
+        $title = 'Contacto';
+        return $this->render('/Static/contacto.html.twig',['title'=>$title]);
+    }
 }

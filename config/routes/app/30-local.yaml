@@ -1,0 +1,5 @@
+#Ver local informacion
+panel-show-local-online:
+  path: /{local}
+  controller: App\Infrastructure\Controller\LocalController::showLocalAction
+  methods: [ GET, POST ]

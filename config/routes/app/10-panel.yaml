@@ -1,0 +1,66 @@
+#Home, pagina de inicio
+homeController:
+  path: /
+  controller: App\Infrastructure\Controller\HomeController::homeAction
+
+#Login de usuarios
+app_login:
+  path: /login
+  controller: App\Infrastructure\Controller\UserController::loginAction
+#Logout
+app_logout:
+  path: /logout
+  controller: App\Infrastructure\Controller\UserController::logoutAction
+#Registro de usuarios
+app_register:
+  path: /registro
+  controller: App\Infrastructure\Controller\UserController::registerUsersAction
+#Confirmación de registro de usuarios
+app_verify_email:
+  path: /verify/email
+  controller: App\Infrastructure\Controller\UserController::verifyUserEmailAction
+#Panel de control de usuarios
+panel:
+  path: /panel
+  controller: App\Infrastructure\Controller\PanelController::panelControllerAction
+#Panel nuevo local
+panel-new-local:
+  path: /panel/nuevo-local
+  controller: App\Infrastructure\Controller\PanelController::createLocalAction
+  methods: [GET, POST]
+#Ver local
+panel-show-local:
+  path: /panel/ver-local
+  controller: App\Infrastructure\Controller\PanelController::showLocalAction
+  methods: [GET, POST]
+#Editar informacion local
+panel-edit-information:
+  path: /panel/editar-informacion-local/{id}
+  controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
+  methods: [GET, POST]
+#Nuevo Menu Carta
+panel-new-menu:
+  path: /panel/editar-informacion-local/{id}/nuevo-menu
+  controller: App\Infrastructure\Controller\MenuController::newMenuOfLocalAction
+  methods: [GET, POST]
+#Nuevo producto asociado a un menu
+panel-new-product:
+  path: /panel/editar-informacion-local-{local}/menu-{id}/nuevo-producto
+  controller: App\Infrastructure\Controller\ProductController::newProductAction
+  methods: [GET, POST]
+#Nuevo producto solo
+panel-new-product-alone:
+  path: /panel/editar-informacion-local/{id}/nuevo-producto
+  controller: App\Infrastructure\Controller\ProductController::newProductAloneAction
+  methods: [GET, POST]
+
+#Escoger diseño del local
+panel-select-theme:
+  path: /panel/editar-informacion-local/{id}/seleccionar-plantilla/
+  controller: App\Infrastructure\Controller\PanelController::selectThemeOfLocalAction
+  methods: [GET, POST]
+#Escoger diseño del local
+panel-modify-config-local:
+  path: /panel/editar-local/{id}/
+  controller: App\Infrastructure\Controller\PanelController::configLocalAction
+  methods: [GET, POST]
