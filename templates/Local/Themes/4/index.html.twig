@@ -47,11 +47,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about" class="page-scroll">About</a></li>
         <li><a href="#restaurant-menu" class="page-scroll">Menu</a></li>
-        <li><a href="#portfolio" class="page-scroll">Gallery</a></li>
-        <li><a href="#team" class="page-scroll">Chefs</a></li>
-        <li><a href="#call-reservation" class="page-scroll">Contact</a></li>
+        <li><a href="#call-reservation" class="page-scroll">Contactar</a></li>
       </ul>
     </div>
     <!-- /.navbar-collapse --> 
@@ -81,11 +78,9 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
-          <h2>Our Restaurant</h2>
+          <h2>Sobre nosotros</h2>
           <hr>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh.</p>
-          <h3>Awarded Chefs</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare.</p>
+          <p>{{ content.informationForLocal.descripcion }}</p>
         </div>
       </div>
     </div>
@@ -97,7 +92,6 @@
     <div class="overlay">
       <h2>Menu</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed.</p>
     </div>
   </div>
   <div class="container">
@@ -132,16 +126,15 @@
 <!-- Call Reservation Section -->
 <div id="call-reservation" class="text-center">
   <div class="container">
-    <h2>Puedes reservar <strong>1-887-654-3210</strong></h2>
+    <h2>Puedes reservar llamando a: <strong>1-887-654-3210</strong></h2>
   </div>
 </div>
 <!-- Contact Section -->
 <div id="contact" class="text-center">
   <div class="container">
     <div class="section-title text-center">
-      <h2>Contact Form</h2>
+      <h2>Contactar</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed.</p>
     </div>
     <div class="col-md-10 col-md-offset-1">
       <form name="sentMessage" id="contactForm" novalidate>
@@ -172,24 +165,23 @@
 <div id="footer">
   <div class="container text-center">
     <div class="col-md-4">
-      <h3>Address</h3>
+      <h3>Dirección</h3>
       <div class="contact-item">
-        <p>4321 California St,</p>
-        <p>San Francisco, CA 12345</p>
+        <p>{{ content.informationForLocal.calle }} {{ content.informationForLocal.localidad }} {{ content.informationForLocal.ciudad }}</p>
       </div>
     </div>
     <div class="col-md-4">
-      <h3>Opening Hours</h3>
+      <h3>Horario</h3>
       <div class="contact-item">
         <p>Mon-Thurs: 10:00 AM - 11:00 PM</p>
         <p>Fri-Sun: 11:00 AM - 02:00 AM</p>
       </div>
     </div>
     <div class="col-md-4">
-      <h3>Contact Info</h3>
+      <h3>Teléfono y Email de Contacto</h3>
       <div class="contact-item">
-        <p>Phone: +1 123 456 1234</p>
-        <p>Email: info@company.com</p>
+        <p>Teléfono: {{ content.informationForLocal.telefono }}</p>
+        <p>Email: {{ content.informationForLocal.email }}</p>
       </div>
     </div>
   </div>
