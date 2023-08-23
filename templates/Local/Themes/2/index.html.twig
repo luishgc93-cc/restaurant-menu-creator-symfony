@@ -239,22 +239,20 @@
 			<div class="row">
 				<div class="col">
 					<div class="reservations_content d-flex flex-column align-items-center justify-content-center">
-						<div class="res_stars page_subtitle">5 Stars</div>
-						<div class="res_title">Make a Reservation</div>
+						<div class="res_title">Contactar</div>
 						<div class="res_form_container">
 							<form action="#" id="res_form" class="res_form">
 								<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start">
-									<input type="text" id="datepicker" class="res_input" required="required">
-									<input type="text" class="res_input timepicker" required="required">
-									<select class="res_select">
-										<option disabled="" selected="">2 person</option>
-										<option>3 person</option>
-										<option>4 person</option>
-										<option>5 person</option>
-										<option>6 person</option>
-									</select>
+									<label class="res_title" style="font-size: 30px">Nombre: </label>
+									<input type="text" class="res_input" required="required" style="font-size: 30px">
+									<label class="res_title" style="font-size: 30px">Email: </label>
+									<input type="text" class="res_input" required="required" style="font-size: 30px">
 								</div>
-								<button class="res_button">Make a Reservation</button>
+								<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start">
+									<label class="res_title" style="font-size: 30px">Mensaje: </label>
+									<textarea type="text" cols="30" rows="5"  class="res_input" required="required" style="font-size: 30px"> </textarea>
+								</div>
+								<button class="res_button">Enviar</button>
 							</form>
 						</div>
 					</div>
@@ -272,8 +270,7 @@
 				<!-- Footer Logo -->
 				<div class="col-lg-3 footer_col">
 					<div class="footer_logo">
-						<div class="footer_logo_title">The Venue</div>
-						<div class="footer_logo_subtitle">restaurant</div>
+						<div class="footer_logo_title">{{ content.local.nombreLocal }}</div>
 					</div>
 					<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 <p style="line-height: 1.2;">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
@@ -283,7 +280,7 @@
 				<!-- Footer About -->
 				<div class="col-lg-6 footer_col">
 					<div class="footer_about">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Ut non justo eleifend, facilisis nibh ut, interdum odio.</p>
+						<p>{{ content.informationForLocal.descripcion }}</p>
 					</div>
 				</div>
 
@@ -292,16 +289,16 @@
 					<div class="footer_contact">
 						<ul>
 							<li class="d-flex flex-row align-items-start justify-content-start">
-								<div><div class="footer_contact_title">Address:</div></div>
-								<div class="footer_contact_text">481 Creekside Lane Avila CA 93424</div>
+								<div><div class="footer_contact_title">Dirección:</div></div>
+								<div class="footer_contact_text">{{ content.informationForLocal.calle }} {{  content.informationForLocal.localidad }}</div>
 							</li>
 							<li class="d-flex flex-row align-items-start justify-content-start">
-								<div><div class="footer_contact_title">Address:</div></div>
-								<div class="footer_contact_text">+53 345 7953 32453</div>
+								<div><div class="footer_contact_title">Email:</div></div>
+								<div class="footer_contact_text">{{ content.informationForLocal.email }}</div>
 							</li>
 							<li class="d-flex flex-row align-items-start justify-content-start">
-								<div><div class="footer_contact_title">Address:</div></div>
-								<div class="footer_contact_text">yourmail@gmail</div>
+								<div><div class="footer_contact_title">Teléfono:</div></div>
+								<div class="footer_contact_text">{{ content.informationForLocal.telefono }}</div>
 							</li>
 						</ul>
 					</div>
