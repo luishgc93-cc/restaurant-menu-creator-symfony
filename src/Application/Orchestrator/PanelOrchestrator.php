@@ -164,9 +164,10 @@ final class PanelOrchestrator extends AbstractController
         $themeQuerySelected = $request->query->get('theme');
 
         if ($themeQuerySelected && $this->getUser()) {
-            $local->setEstilo($themeQuerySelected ?? 1);
 
+            $local->setEstilo($themeQuerySelected ?? 1);
             $this->localRepository->save($local, true);
+            $localThemeSaveOnDb = $themeQuerySelected ?? 1;
 
             $this->addFlash(
                 'sucess',
