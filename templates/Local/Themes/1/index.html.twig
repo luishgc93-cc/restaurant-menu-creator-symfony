@@ -104,8 +104,9 @@
 				</div>
 			</div>
 		</div>
-
-	{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 1 }%}
+	{% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 1 }%}
+	{% endif %}
 
 	</section>
 
@@ -130,8 +131,10 @@
 		<div class="container">
 			<div class="row d-flex">
 				<div class="col-md-6 d-flex">
-					{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2 } %}
-					{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 3', 'idPhoto': 3 } %}
+					{% if content.userIsAdmin|default(false) %}
+						{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2 } %}
+						{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 3', 'idPhoto': 3 } %}
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -191,9 +194,9 @@
 			</div>
 		</div>
 	</section>
-
-	{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 4', 'idPhoto': 4  } %}
-
+	{% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 4', 'idPhoto': 4  } %}
+	{% endif %}
 	<section class="ftco-section bg-light">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">

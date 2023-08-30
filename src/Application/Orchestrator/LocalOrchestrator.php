@@ -61,6 +61,13 @@ final class LocalOrchestrator extends AbstractController
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url, no encontrado en la base de datos');
         }
 
+        $userId = $localRepository->getUsuario()->getId();
+        $userOwnerOfLocal = $localRepository->getUsuario()->getId();
+
+        if ($userId === $userOwnerOfLocal && 'true' === $request->query->get('edit-photos')) {
+            $userIsAdmin = true;
+        }
+
         $estile = $localRepository->getEstilo() ?? 1;
         $menus = $this->getMenusForLocal($localRepository->getId());
         $productsAlone = $this->getProductsAloneForLocal($localRepository->getId());
@@ -71,7 +78,8 @@ final class LocalOrchestrator extends AbstractController
         'local' => $localRepository,
         'menus' => $menus,
         'productsAlone' => $productsAlone,
-        'informationForLocal' => $informationForLocal
+        'informationForLocal' => $informationForLocal,
+        'userIsAdmin' => $userIsAdmin??= false,
         ];
     }
 
