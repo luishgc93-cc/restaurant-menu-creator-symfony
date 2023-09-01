@@ -27,6 +27,11 @@ class InformacionPhoto
      */
     private $informacion;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $orden;
+
     public function getId()
     {
         return $this->id;
@@ -50,5 +55,14 @@ class InformacionPhoto
     public function setInformacion($informacion)
     {
         $this->informacion = $informacion;
+    }
+    public function getOrden()
+    {
+        return $this->orden;
+    }
+
+    public function setOrden($orden)
+    {
+        $this->orden = $orden;
     }
 }

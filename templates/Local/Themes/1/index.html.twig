@@ -275,6 +275,36 @@ function mostrarFormulario(idPhoto) {
   });
 }
 
+function subirFoto(idPhoto) {
+  const fileInput = document.getElementById('file-input-' + idPhoto);
+
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+
+    const formData = new FormData();
+    formData.append('photo', file);
+
+    const apiUrl = 'https://127.0.0.1:8000/api/change-photo-theme-of-local' + window.location.pathname + '/' + idPhoto ;
+
+    fetch(apiUrl, {
+      method: 'POST', 
+      body: formData,
+    })
+      .then((response) => {
+		console.log(response);
+        if (response.ok) {
+          console.log('Foto subida con éxito');
+        } else {
+          console.error('Error al subir la foto');
+        }
+      })
+      .catch((error) => {
+        console.error('Error en la llamada a la API:', error);
+      });
+  }
+}
+
+
 function handleFileChange(idPhoto) {
   const fileInput = document.getElementById('file-input-' + idPhoto);
   const imageDiv = document.getElementById(`image-${idPhoto}`); 

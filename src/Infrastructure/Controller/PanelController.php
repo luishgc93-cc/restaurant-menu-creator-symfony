@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -101,4 +102,13 @@ final class PanelController extends AbstractController
         throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
 
     }
+    public function panelChangePhotoThemeFromLocalAction(Request $request): JsonResponse
+    {
+        $local = $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
+        $response['status'] = 'error';
+        if($local === 1){
+            $response['status'] = 'success';
+        }
+        return new JsonResponse($response);
+    }    
 }

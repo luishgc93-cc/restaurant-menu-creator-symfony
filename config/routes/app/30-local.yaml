@@ -3,3 +3,9 @@ panel-show-local-online:
   path: /{local}
   controller: App\Infrastructure\Controller\LocalController::showLocalAction
   methods: [ GET, POST ]
+
+#Cambiar Fotos del local theme
+panel-change-photo-theme-from-local:
+  path: /api/change-photo-theme-of-local/{local}/{orden}
+  controller: App\Infrastructure\Controller\PanelController::panelChangePhotoThemeFromLocalAction
+  methods: [POST]

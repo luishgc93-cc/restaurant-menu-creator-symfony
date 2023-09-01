@@ -1,8 +1,9 @@
+
 <button onclick="mostrarFormulario({{idPhoto}})" class="button button3">{{ textButton|default('Cambiar Foto Destacada') }}</button>
 
 <div id="formulario-{{idPhoto}}" style="display:none;">
   <form id="upload-form">
     <input type="file" id="file-input-{{idPhoto}}" accept="image/*">
-    <button type="button" onclick="cargarImagen()">Guardar Imagen</button>
+    <button type="button" onclick="subirFoto({{idPhoto}})">Guardar Imagen</button>
   </form>
 </div>

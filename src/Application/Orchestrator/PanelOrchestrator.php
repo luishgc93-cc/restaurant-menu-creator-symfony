@@ -178,4 +178,25 @@ final class PanelOrchestrator extends AbstractController
 
         return $localThemeSaveOnDb;
     }
+    public function panelChangePhotoThemeFromLocal(Request $request) : int
+    {
+
+        $photoRequests = $request->files->get('file-upload');
+        if($photoRequests){
+        $local = $this->localRepository->findOneBy(array('url' => $request->attributes->get('local')));
+        $orden = $request->attributes->get('orden');
+        $informacion = $this->informationRepository->findOneBy(array('local' => $local->getId()));
+        $photo = $this->uploadPhoto->upload($photoRequests);
+            if($photo && $orden){
+                $menuPhoto = new InformacionPhoto();
+                $menuPhoto->setPhotoPath($photo);
+                $menuPhoto->setOrden($orden);
+                $informacion->addPhoto($menuPhoto);
+                $this->informationRepository->save($informacion, true);
+                return 1;
+            }
+        }
+        return 0;
+
+    }
 }
