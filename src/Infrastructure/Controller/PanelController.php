@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\PanelOrchestrator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 final class PanelController extends AbstractController
 {
@@ -102,13 +103,18 @@ final class PanelController extends AbstractController
         throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
 
     }
-    public function panelChangePhotoThemeFromLocalAction(Request $request): JsonResponse
+    public function panelChangePhotoThemeFromLocalAction(Request $request): RedirectResponse
     {
-        $local = $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
-        $response['status'] = 'error';
-        if($local === 1){
-            $response['status'] = 'success';
-        }
-        return new JsonResponse($response);
-    }    
+        $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
+    
+        return new RedirectResponse(
+            $this->generateUrl(
+                'panel-show-local-online',
+                array(
+                'local' => $request->attributes->get('local'),
+                'edit-photos' => 'true'
+                )
+            )
+        );
+    }  
 }

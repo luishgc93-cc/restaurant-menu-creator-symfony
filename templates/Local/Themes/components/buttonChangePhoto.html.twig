@@ -2,8 +2,8 @@
 <button onclick="mostrarFormulario({{idPhoto}})" class="button button3">{{ textButton|default('Cambiar Foto Destacada') }}</button>
 
 <div id="formulario-{{idPhoto}}" style="display:none;">
-  <form id="upload-form">
-    <input type="file" id="file-input-{{idPhoto}}" accept="image/*">
-    <button type="button" onclick="subirFoto({{idPhoto}})">Guardar Imagen</button>
+  <form id="upload-form"  action="{{ path('panel-change-photo-theme-from-local',{'local':app.request.attributes.get('local'), 'orden': idPhoto }) }}" method="post" enctype="multipart/form-data">
+    <input type="file" id="file-input-{{idPhoto}}" name="file-upload" accept="image/*">
+    <button type="submit">Guardar Imagen</button>
   </form>
 </div>
