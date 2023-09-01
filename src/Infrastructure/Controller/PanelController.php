@@ -105,8 +105,15 @@ final class PanelController extends AbstractController
     }
     public function panelChangePhotoThemeFromLocalAction(Request $request): RedirectResponse
     {
-        $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
-    
+        $uploadPhotoOnTheme = $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
+
+        if($uploadPhotoOnTheme === 1){
+            $this->addFlash(
+                'sucess',
+                'Tu Foto ha sido actualizada correctamente.'
+            );
+        }
+
         return new RedirectResponse(
             $this->generateUrl(
                 'panel-show-local-online',

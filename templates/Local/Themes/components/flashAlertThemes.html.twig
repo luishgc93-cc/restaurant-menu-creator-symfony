@@ -1,0 +1,45 @@
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+
+{% for flash_message in app.session.flashbag.get('sucess') %}
+
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+     {{ flash_message }}
+</div>
+
+{% endfor %}
+
+{% for flash_message in app.session.flashbag.get('error') %}
+
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+     {{ flash_message }}
+</div>
+
+{% endfor %}
