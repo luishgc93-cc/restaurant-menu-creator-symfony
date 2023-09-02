@@ -120,15 +120,6 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
-            $photoRequests = $request->files->get('file-upload');
-            if($photoRequests){
-                foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhoto->upload($photoRequest);
-                    $menuPhoto = new InformacionPhoto();
-                    $menuPhoto->setPhotoPath($photo);
-                    $informacion->addPhoto($menuPhoto);
-                }
-            }
 
             if (!$informacion) {
                 $informacion = new Informacion();
