@@ -44,6 +44,26 @@
 </style>
 </head>
 <body>
+
+{% set photosTheme = content.informationForLocal.photos %}
+
+{% set photo1 = 'themes/1/images/bg_6.jpg' %}
+{% set photo2 = 'themes/1/images/bg_4.jpg' %}
+{% set photo3 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo4 = 'themes/1/images/breakfast-1.jpg' %}
+
+{% for photo in photosTheme %}
+	{% if photo.orden == 1 %}
+		{% set photo1 = photo.photoPath %}
+	{% elseif photo.orden == 2 %}
+		{% set photo2 = photo.photoPath %}
+	{% elseif photo.orden == 3 %}
+		{% set photo3 = photo.photoPath %}
+	{% elseif photo.orden == 4 %}
+		{% set photo4 = photo.photoPath %}		
+	{% endif %}
+{% endfor %}
+
 	{% include '/Local/Themes/Components/flashAlertThemes.html.twig' %}
 	<div class="wrap">
 		<div class="container">
@@ -114,8 +134,8 @@
 		<div class="container">
 			<div class="row d-flex">
 				<div class="col-md-6 d-flex">
-					<div id="image-2" class="img img-2 w-100 mr-md-2" style="background-image: url(themes/1/images/bg_6.jpg);"></div>
-					<div id="image-3" class="img img-2 w-100 ml-md-2" style="background-image: url(themes/1/images/bg_4.jpg);"></div>
+					<div id="image-2" class="img img-2 w-100 mr-md-2" style="background-image: url({{ photo2 }});"></div>
+					<div id="image-3" class="img img-2 w-100 ml-md-2" style="background-image: url({{ photo3 }});"></div>
 				</div>
 				<div class="col-md-6 ftco-animate makereservation p-4 p-md-5">
 					<div class="heading-section ftco-animate mb-5">
@@ -184,7 +204,7 @@
 
 	</section>
 
-	<section id="image-4"class="ftco-section ftco-intro" style="background-image: url(themes/1/images/bg_3.jpg);">
+	<section id="image-4"class="ftco-section ftco-intro" style="background-image: url({{ photo4 }});">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
