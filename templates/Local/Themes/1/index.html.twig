@@ -105,7 +105,7 @@
 	
 	<section class="hero-wrap">
 		<div class="home-slider owl-carousel js-fullheight">
-			<div id="image-1" class="slider-item js-fullheight" style="background-image: url(themes/1/images/bg_1.jpg);">
+			<div id="image-1" class="slider-item js-fullheight" style="background-image: url({{ photo1 }});">
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
@@ -120,7 +120,7 @@
 			</div>
 		</div>
 	{% if content.userIsAdmin|default(false) %}
-		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 1 }%}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 0 }%}
 	{% endif %}
 
 	</section>
