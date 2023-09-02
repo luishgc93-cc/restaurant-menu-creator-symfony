@@ -97,12 +97,6 @@
             </div>
           </div>
         </div>
-
-        {% set allPhotosUploaded = datos.photos|default %}
-        {% if allPhotosUploaded %}
-          {% include '/Panel/Sections/Components/photosUploaded.html.twig' with {'allPhotosUploaded': allPhotosUploaded } only %}
-        {% endif %}
-
   </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
