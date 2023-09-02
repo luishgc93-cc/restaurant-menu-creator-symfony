@@ -16,8 +16,6 @@ namespace App\Application\Orchestrator;
 use App\Domain\Model\InformacionPhoto;
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
-use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
-use App\Infrastructure\Persistence\Doctrine\Repository\ProductRepository;
 use App\Domain\Model\Local;
 use App\Domain\Model\Informacion;
 
@@ -186,17 +184,21 @@ final class PanelOrchestrator extends AbstractController
         $local = $this->localRepository->findOneBy(array('url' => $request->attributes->get('local')));
         $orden = $request->attributes->get('orden');
         $informacion = $this->informationRepository->findOneBy(array('local' => $local->getId()));
+        $informacionPhoto = $this->entityManager->getRepository(InformacionPhoto::class)->findOneBy(array('informacion' => $informacion->getId(), 'orden'=> $orden));
+
         $photo = $this->uploadPhoto->upload($photoRequests);
             if($photo && $orden){
-                $menuPhoto = new InformacionPhoto();
-                $menuPhoto->setPhotoPath($photo);
-                $menuPhoto->setOrden($orden);
-                $informacion->addPhoto($menuPhoto);
+                if(!$informacionPhoto){
+                    $informacionPhoto = new InformacionPhoto();
+                }
+                $informacionPhoto->setPhotoPath($photo);
+                $informacionPhoto->setOrden($orden);
+                $informacion->addPhoto($informacionPhoto);
                 $this->informationRepository->save($informacion, true);
                 return 1;
             }
         }
         return 0;
-
     }
+    
 }
