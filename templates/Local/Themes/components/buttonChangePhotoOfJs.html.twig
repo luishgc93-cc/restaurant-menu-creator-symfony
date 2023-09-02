@@ -1,0 +1,26 @@
+<script>
+function mostrarFormulario(idPhoto) {
+  document.getElementById('formulario-' + idPhoto).style.display = 'block';
+  
+  const fileInput = document.getElementById('file-input-' + idPhoto);
+  fileInput.addEventListener('change', function() {
+    handleFileChange(idPhoto); 
+  });
+}
+
+function handleFileChange(idPhoto) {
+  const fileInput = document.getElementById('file-input-' + idPhoto);
+  const imageDiv = document.getElementById(`image-${idPhoto}`); 
+
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    if(imageDiv.style.backgroundImage){
+    imageDiv.style.backgroundImage = `url(${imageUrl})`;
+    }
+    if(imageDiv.src){
+        imageDiv.src = `${imageUrl}`;
+    }
+  }
+}
+</script>

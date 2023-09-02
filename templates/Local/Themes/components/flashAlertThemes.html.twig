@@ -1,3 +1,5 @@
+{% if app.request.query.get('edit-photos')%}
+
 <style>
 .alert {
   padding: 20px;
@@ -25,7 +27,7 @@
   color: black;
 }
 </style>
-
+{% endif %}
 {% for flash_message in app.session.flashbag.get('sucess') %}
 
 <div class="alert">

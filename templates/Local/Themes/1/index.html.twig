@@ -23,6 +23,7 @@
 	
 	<link rel="stylesheet" href="themes/1/css/flaticon.css">
 	<link rel="stylesheet" href="themes/1/css/style.css">
+{% if app.request.query.get('edit-photos')%}
 	<style>
 .button {
   background-color: #4CAF50; /* Green */
@@ -42,6 +43,7 @@
 .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
 .button5 {background-color: #555555;} /* Black */
 </style>
+{% endif %}
 </head>
 <body>
 
@@ -255,7 +257,6 @@
 		</div>
 	</section>
 
-
 		<script src="themes/1/js/jquery.min.js"></script>
 		<script src="themes/1/js/jquery-migrate-3.0.1.min.js"></script>
 		<script src="themes/1/js/popper.min.js"></script>
@@ -270,28 +271,8 @@
 		<script src="themes/1/js/jquery.timepicker.min.js"></script>
 		<script src="themes/1/js/scrollax.min.js"></script>
 		<script src="themes/1/js/main.js"></script>
-
-<script>
-
-function mostrarFormulario(idPhoto) {
-  document.getElementById('formulario-' + idPhoto).style.display = 'block';
-  
-  const fileInput = document.getElementById('file-input-' + idPhoto);
-  fileInput.addEventListener('change', function() {
-    handleFileChange(idPhoto); 
-  });
-}
-
-function handleFileChange(idPhoto) {
-  const fileInput = document.getElementById('file-input-' + idPhoto);
-  const imageDiv = document.getElementById(`image-${idPhoto}`); 
-  if (fileInput.files.length > 0) {
-    const file = fileInput.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    imageDiv.style.backgroundImage = `url(${imageUrl})`;
-  }
-}
-
-</script>
+		{% if app.request.query.get('edit-photos')%}
+			{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
+		{% endif %}
 	</body>
 	</html>

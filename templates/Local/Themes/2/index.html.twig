@@ -17,7 +17,47 @@
 <link rel="stylesheet" type="text/css" href="themes/2/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="themes/2/styles/responsive.css">
 </head>
+	<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #f44336;} /* Red */ 
+.button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+.button5 {background-color: #555555;} /* Black */
+</style>
 <body>
+
+{% set photosTheme = content.informationForLocal.photos %}
+
+{% set photo1 = 'themes/1/images/bg_6.jpg' %}
+{% set photo2 = 'themes/1/images/bg_4.jpg' %}
+{% set photo3 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo4 = 'themes/1/images/breakfast-1.jpg' %}
+
+{% for photo in photosTheme %}
+	{% if photo.orden == 1 %}
+		{% set photo1 = photo.photoPath %}
+	{% elseif photo.orden == 2 %}
+		{% set photo2 = photo.photoPath %}
+	{% elseif photo.orden == 3 %}
+		{% set photo3 = photo.photoPath %}
+	{% elseif photo.orden == 4 %}
+		{% set photo4 = photo.photoPath %}		
+	{% endif %}
+{% endfor %}
+
+	{% include '/Local/Themes/Components/flashAlertThemes.html.twig' %}
 
 <div class="super_container">
 	
@@ -86,7 +126,7 @@
 	<!-- Home -->
 
 	<div class="home">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src=" {{ content.informationForLocal.photos.0.photoPath|default('themes/2/images/home.jpg') }}" data-speed="0.8"></div>
+		<div id="image-1" class="parallax_background parallax-window" data-parallax="scroll" style="background-image: url({{ photo1 }});" data-speed="0.8"></div>
 		<div class="home_container">
 			<div class="container">
 				<div class="row">
@@ -101,9 +141,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="scroll_icon"></div>
 	</div>
-
+	{% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 1 }%}
+	{% endif %}
 	<!-- Intro -->
 
 	<div class="intro">
@@ -118,14 +159,18 @@
 					</div>
 					<div class="row">
 						<div class="col-xl-4 col-md-6 intro_col">
-							<div class="intro_image"><img src=" {{ content.informationForLocal.photos.2.photoPath|default }}" alt="https://unsplash.com/@quanle2819"></div>
+							<div class="intro_image"><img id="image-2" src=" {{ photo2 }}"></div>
 						</div>
 						<div class="col-xl-4 col-md-6 intro_col">
-							<div class="intro_image"><img src=" {{ content.informationForLocal.photos.1.photoPath|default }}" alt="https://unsplash.com/@fabmag"></div>
+							<div class="intro_image"><img  id="image-3" src=" {{ photo3 }}"></div>
 						</div>
 					</div>
 				</div>	
 			</div>
+			{% if content.userIsAdmin|default(false) %}
+				{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2 } %}
+				{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 3', 'idPhoto': 3 } %}
+			{% endif %}
 		</div>
 	</div>
 
@@ -138,7 +183,9 @@
 			<div class="video_section_icon"><a class="vimeo video_button" href="https://player.vimeo.com/video/99340873?autoplay=1&loop=1&title=0&autopause=0"><i class="fa fa-play" aria-hidden="true"></i></a></div>
 		</div>
 	</div>
-
+	{% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 4', 'idPhoto': 4  } %}
+	{% endif %}
 	<!-- Signature Dish -->
 
 	<div class="sig">
@@ -162,7 +209,6 @@
 									<li>Veggies</li>
 								</ul>
 							</div>
-							<div class="button sig_button trans_200"><a href="#">Order Now</a></div>
 						</div>
 					</div>
 				</div>
@@ -176,6 +222,9 @@
 							<div class="background_image" style="background-image:url(themes/2/images/sig.jpg)"></div>
 							<img src="themes/2/images/sig.jpg" alt="">
 						</div>
+							{% if content.userIsAdmin|default(false) %}
+								{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 5', 'idPhoto': 5  } %}
+							{% endif %}
 					</div>
 				</div>
 			</div>
@@ -232,7 +281,9 @@
 	</div>
 
 	<!-- Reservations -->
-
+	{% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 5', 'idPhoto': 6  } %}
+	{% endif %}
 	<div class="reservations text-center">
 		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="themes/2/images/reservations.jpg" data-speed="0.8"></div>
 		<div class="container">
@@ -260,7 +311,6 @@
 			</div>
 		</div>		
 	</div>
-
 	<!-- Footer -->
 
 	<footer class="footer">
@@ -323,5 +373,7 @@
 <script src="themes/2/plugins/jquery-datepicker/jquery-ui.js"></script>
 <script src="themes/2/plugins/jquery-timepicker/jquery.timepicker.js"></script>
 <script src="themes/2/js/custom.js"></script>
+{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
+
 </body>
 </html>
