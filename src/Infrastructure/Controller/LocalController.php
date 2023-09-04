@@ -15,10 +15,11 @@ namespace App\Infrastructure\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\LocalOrchestrator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Contracts\Cache\ItemInterface;
+use Psr\Cache\CacheItemPoolInterface; // Importa la interfaz PSR
 
 final class LocalController extends AbstractController
 {
@@ -36,18 +37,25 @@ final class LocalController extends AbstractController
 
     }
 
-    public function showLocalAction(Request $request): Response
+    public function showLocalAction(Request $request, CacheItemPoolInterface $cache): Response
     {
-        $content = $this->localOrchestrator->showLocal($request);
-        $estile = $content['estile'] ?? 1;
+        $cacheKey = 'show_local_' . md5($request->getPathInfo());
 
-        return $this->render(
-            '/Local/Themes/' . $estile . '/index.html.twig',
-            ['content' => $content ]
-        );
+        $response = $cache->get($cacheKey, function (ItemInterface $item) use ($request) {
+            $content = $this->localOrchestrator->showLocal($request);
+            $estile = $content['estile'] ?? 1;
 
-        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+            return $this->render(
+                '/Local/Themes/' . $estile . '/index.html.twig',
+                ['content' => $content]
+            );
+        });
 
+        if ($response->getStatusCode() === Response::HTTP_BAD_REQUEST) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+        }
+
+        return $response;
     }
 
 }
