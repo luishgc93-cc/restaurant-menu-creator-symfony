@@ -79,7 +79,19 @@ final class PanelOrchestrator extends AbstractController
         }
 
         if ($request->isMethod('POST') && $this->getUser()) {
+            
             $datosForm = $request->request->all();
+            $getUrlSaved = $this->localRepository->findOneBy(array('url' => $datosForm['url']));
+
+            if($getUrlSaved){
+                if($getUrlSaved->getId() !== $idLocal){
+                    $this->addFlash(
+                        'error',
+                        '¡La url del local ya está registrada! Indica otra por favor.'
+                    );
+                    return $local;
+                }
+            }
 
             $local->setNombreLocal($datosForm['nombreLocal'] ?? '');
             $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
