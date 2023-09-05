@@ -52,10 +52,21 @@ final class PanelOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser()) {
             $datosForm = $request->request->all();
+            $getUrlSaved = $this->localRepository->findOneBy(array('url' => $datosForm['url']));
+
+            if($getUrlSaved){
+                $this->addFlash(
+                    'error',
+                    '¡La url del local ya está registrada! Indica otra por favor.'
+                );
+                return false;                
+            }
+
             $local = new Local();
             $local->setUsuario($this->getUser());
             $local->setNombreLocal($datosForm['local'] ?? '');
             $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
+            $local->setUrl($datosForm['url'] ?? '');
             $this->localRepository->save($local, true);
 
             return true;
@@ -79,7 +90,7 @@ final class PanelOrchestrator extends AbstractController
         }
 
         if ($request->isMethod('POST') && $this->getUser()) {
-            
+
             $datosForm = $request->request->all();
             $getUrlSaved = $this->localRepository->findOneBy(array('url' => $datosForm['url']));
 
