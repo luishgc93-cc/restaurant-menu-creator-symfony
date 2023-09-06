@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-09-2023 a las 18:18:03
+-- Tiempo de generación: 06-09-2023 a las 17:15:09
 -- Versión del servidor: 8.0.27
 -- Versión de PHP: 8.1.0
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `informacion` (
   `local_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_E4B777A55D5A2101` (`local_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `informacion`
@@ -62,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `informacion` (
 INSERT INTO `informacion` (`id`, `telefono`, `descripcion`, `calle`, `localidad`, `ciudad`, `email`, `local_id`) VALUES
 (10, 111, 'cac', 'c', 'c', 'c', 'luishomerogonzales93@gmail.com', 3),
 (12, 333, 'casa', 'c', 'c', 'c', 'Lydiaelorrio48@gmail.com', 13),
-(13, 23232323, 'Le ofrecemos la mejor comida china de CÁCERES, de gran calidad y al mejor precio con total confianza en todo.\r\n', 'cordoba', 'caceres', 'caceres', 'luishomerogonzales93@gmail.com', 14);
+(13, 23232323, 'Le ofrecemos la mejor comida china de CÁCERES, de gran calidad y al mejor precio con total confianza en todo.\r\n', 'cordoba', 'caceres', 'caceres', 'luishomerogonzales93@gmail.com', 14),
+(14, 44, 'd', 'd', 'd', 'd', 'luishomerogonzales93@gmail.com', 19);
 
 -- --------------------------------------------------------
 
@@ -102,17 +103,19 @@ CREATE TABLE IF NOT EXISTS `local` (
   `usuario_id` int DEFAULT NULL,
   `estilo` int DEFAULT '0',
   `url` varchar(20) COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
+  `bloquear_web` int DEFAULT NULL,
+  `ocultar_formulario_contacto` int DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `url` (`url`),
   KEY `usuario_id` (`usuario_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `local`
 --
 
-INSERT INTO `local` (`id`, `nombre_local`, `descripcion_local`, `foto_local`, `usuario_id`, `estilo`, `url`) VALUES
-(14, 'Restaurante Chino Pekin 2222', 'restaurante chino pekin, todo lo que necesitas.', NULL, 8, 1, 'chino-pekin'),
-(15, 'local 2', 'local 2', NULL, 8, 2, 'aaaa');
+INSERT INTO `local` (`id`, `nombre_local`, `descripcion_local`, `foto_local`, `usuario_id`, `estilo`, `url`, `bloquear_web`, `ocultar_formulario_contacto`) VALUES
+(14, 'Restaurante Chino Pekin 2222', 'restaurante chino pekin, todo lo que necesitas.', NULL, 8, 1, 'chino-pekin', 0, 1);
 
 -- --------------------------------------------------------
 

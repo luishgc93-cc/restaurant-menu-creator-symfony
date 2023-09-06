@@ -92,8 +92,10 @@ final class PanelOrchestrator extends AbstractController
         if ($request->isMethod('POST') && $this->getUser()) {
 
             $datosForm = $request->request->all();
-            $getUrlSaved = $this->localRepository->findOneBy(array('url' => $datosForm['url']));
+            $bloquearWeb = $datosForm['bloquearWeb'] ?? '';
+            $ocultarFormulario = $datosForm['ocultarFormulario'] ?? '';
 
+            $getUrlSaved = $this->localRepository->findOneBy(array('url' => $datosForm['url']));
             if($getUrlSaved){
                 if($getUrlSaved->getId() !== $idLocal){
                     $this->addFlash(
@@ -107,12 +109,14 @@ final class PanelOrchestrator extends AbstractController
             $local->setNombreLocal($datosForm['nombreLocal'] ?? '');
             $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
             $local->setUrl($datosForm['url'] ?? '');
+            $local->setBloquearWeb('on' === $bloquearWeb ? 1 : 0);
+            $local->setOcultarFormularioContacto('on' === $ocultarFormulario? 1 : 0);
 
             $this->localRepository->save($local, true);
 
             $this->addFlash(
                 'sucess',
-                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
+                '¡Tus cambios se han guardado!'
             );
 
         }

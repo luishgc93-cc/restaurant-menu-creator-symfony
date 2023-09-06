@@ -67,7 +67,17 @@ class Local
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $url;
-    
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $bloquearWeb;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ocultarFormularioContacto;
+
     public function getId()
     {
         return $this->id;
@@ -151,5 +161,24 @@ class Local
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+    public function getBloquearWeb()
+    {
+        return $this->bloquearWeb;
+    }
+
+    public function setBloquearWeb($bloquearWeb)
+    {
+        $this->bloquearWeb = $bloquearWeb;
+    }
+
+    public function getOcultarFormularioContacto()
+    {
+        return $this->ocultarFormularioContacto;
+    }
+
+    public function setOcultarFormularioContacto($ocultarFormularioContacto)
+    {
+        $this->ocultarFormularioContacto = $ocultarFormularioContacto;
     }
 }
