@@ -56,11 +56,16 @@ final class LocalOrchestrator extends AbstractController
     {
         $NameLocalFromRequest = \str_replace('/', '', $request->getPathInfo());
         $localRepository = $this->localRepository->findOneBy(array('url' => $NameLocalFromRequest));
+        $userId =  $this->getUser()?->getId() ?? '';
 
         if (!$localRepository){
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url, no encontrado en la base de datos');
         }
-        $userId =  $this->getUser()?->getId() ?? '';
+
+        if(1 === $localRepository->getBloquearWeb() && $userId !== $localRepository->getUsuario()->getId() ){
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Web deshabilitada desde administración');
+        }
+
         $userOwnerOfLocal = $localRepository->getUsuario()->getId();
 
         if ($userId === $userOwnerOfLocal && 'true' === $request->query->get('edit-photos')) {
