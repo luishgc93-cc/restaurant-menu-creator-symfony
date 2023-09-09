@@ -281,4 +281,10 @@ final class ProductOrchestrator extends AbstractController
 
         return $localThemeSaveOnDb;
     }
+    
+    public function showProductsCreated(Request $request)
+    {
+        $idMenu = (int)$request->attributes->get('menuId');
+        return $this->productRepository->findBy(array('menus' => $idMenu));
+    }
 }

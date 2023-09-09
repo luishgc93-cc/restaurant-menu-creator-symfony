@@ -96,5 +96,39 @@ final class MenuOrchestrator extends AbstractController
 
         return $menu;
     }
+    public function editMenu(Request $request)
+    {
+        $userId = $this->getUser()->getId();
+        $menuId = intval($request->attributes->get('menuId'));
+        $menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
 
+        if ($request->isMethod('POST') && $this->getUser()) {
+            $datosForm = $request->request->all();
+
+            if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
+                throw new HttpException(Response::HTTP_BAD_REQUEST, 'No puedes dejar campos vacios');
+            }
+
+            if (!$menu) {
+                $menu = new Menu();
+            }
+
+            $photoRequests = $request->files->get('file-upload');
+            if($photoRequests){
+                foreach ($photoRequests as $photoRequest) {
+                    $photo = $this->uploadPhoto->upload($photoRequest);
+                    $menuPhoto = new MenuPhoto();
+                    $menuPhoto->setPhotoPath($photo);
+                    $menu->addPhoto($menuPhoto);
+                }
+            }
+            $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
+            $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
+            $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
+
+            $this->menuRepository->save($menu, true);
+        }
+
+        return $menu;
+    }
 }

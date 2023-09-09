@@ -15,19 +15,20 @@ namespace App\Infrastructure\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\MenuOrchestrator;
+use App\Application\Orchestrator\ProductOrchestrator;
 
 final class MenuController extends AbstractController
 {
     private MenuOrchestrator $menuOrchestrator;
+    private ProductOrchestrator $productOrchestrator;
 
-    public function __construct(MenuOrchestrator $menuOrchestrator)
+    public function __construct(MenuOrchestrator $menuOrchestrator, ProductOrchestrator $productOrchestrator)
     {
         $this->menuOrchestrator = $menuOrchestrator;
+        $this->productOrchestrator = $productOrchestrator;
     }
-
 
     public function newMenuOfLocalAction(Request $request): Response
     {
@@ -47,4 +48,36 @@ final class MenuController extends AbstractController
         );
     }
 
+    public function showMenuOfLocalAction(Request $request): Response
+    {
+
+        $menus = $this->menuOrchestrator->showMenusCreated($request);
+        $title = 'Edita un Menú o los Productos asociados';
+
+        return $this->render(
+            '/Panel/Sections/editMenu.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'title'=>$title,
+            'menus'=>$menus,
+            ]
+        );
+    }
+
+    public function editMenuOfLocalAction(Request $request): Response
+    {
+
+        $menu = $this->menuOrchestrator->editMenu($request);
+        $products = $this->productOrchestrator->showProductsCreated($request);
+
+        $title = 'Edita el Menú seleccionado o el Producto asociado';
+
+        return $this->render(
+            '/Panel/Sections/editMenu.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'menu'=> $menu, 
+            'title'=>$title,
+            'productos'=>$products,
+            ]
+        );
+    }
 }
