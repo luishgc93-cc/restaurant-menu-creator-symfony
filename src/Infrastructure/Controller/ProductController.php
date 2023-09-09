@@ -57,5 +57,21 @@ final class ProductController extends AbstractController
             ]
         );
     }
+    public function editProductOfMenuAction(Request $request): Response
+    {
 
+        $productToEdit = $this->productOrchestrator->editProduct($request);
+        $productsRelated = $this->productOrchestrator->showProductsCreated($request);
+
+        $title = 'Edita el Producto seleccionado o escoge otro para editar';
+
+        return $this->render(
+            '/Panel/Sections/editProduct.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'title'=>$title,
+            'productToEdit'=>$productToEdit,
+            'productsRelated' => $productsRelated
+            ]
+        );
+    }
 }

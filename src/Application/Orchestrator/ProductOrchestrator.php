@@ -163,7 +163,47 @@ final class ProductOrchestrator extends AbstractController
         }
         return false;
     }
-    
+    public function editProduct(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto
+    {
+        $idProducto = intval($request->attributes->get('productoId'));
+        $producto = $this->productRepository->findOneBy(array('id' => $idProducto));
+
+        $informacion = $this->informationRepository->findOneBy(array('local' => $idProducto));
+
+        if ($saveProductWithIdInformation && $request->isMethod('GET')) {
+            return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
+        }
+
+        if ($request->isMethod('POST') && $this->getUser()) {
+            $datosForm = $request->request->all();
+
+            if(!$producto){
+                $producto = new Producto();
+            }
+            if ($saveProductWithIdInformation) {
+                $producto->setInformacion($informacion);
+            }
+            $producto->setNombreProducto($datosForm['nombre_producto'] ?? '');
+            $producto->setInformacionProducto($datosForm['informacion_producto'] ?? '');
+            $producto->setPrecioProducto($datosForm['precio_producto'] ?? '');
+
+            $photoRequests = $request->files->get('file-upload');
+            if($photoRequests){
+                foreach ($photoRequests as $photoRequest) {
+                    $photo = $this->uploadPhoto->upload($photoRequest);
+                    $productoPhoto = new ProductoPhoto();
+                    $productoPhoto->setPhotoPath($photo);
+                    $producto->addPhoto($productoPhoto);
+                }
+            }
+
+            $this->productRepository->save($producto, true);
+
+            return $producto;
+
+        }
+        return $producto;
+    }
     public function showProductsCreated(Request $request)
     {
         $idMenu = (int)$request->attributes->get('menuId');
