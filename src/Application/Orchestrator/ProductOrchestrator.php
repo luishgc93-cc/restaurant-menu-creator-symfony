@@ -56,105 +56,12 @@ final class ProductOrchestrator extends AbstractController
         $this->uploadPhoto = $uploadPhoto;
     }
 
-    public function createLocal(Request $request): bool
-    {
-
-        if ($request->isMethod('POST') && $this->getUser()) {
-            $datosForm = $request->request->all();
-            $local = new Local();
-            $local->setUsuario($this->getUser());
-            $local->setNombreLocal($datosForm['local'] ?? '');
-            $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
-            $this->localRepository->save($local, true);
-
-            return true;
-        }
-
-        return false;
-
-    }
-
-    public function editConfigLocal(Request $request)
-    {
-        $userId = $this->getUser()->getId();
-        $idLocal = intval($request->attributes->get('id'));
-
-        $local = $this->localRepository->findOneBy(array('id' => $idLocal));
-
-        $userOwnerOfLocal = $local->getUsuario()->getId();
-
-        if ($userId !== $userOwnerOfLocal) {
-            throw new HttpException(404, 'Página no encontrada');
-        }
-
-        if ($request->isMethod('POST') && $this->getUser()) {
-            $datosForm = $request->request->all();
-
-            $local->setNombreLocal($datosForm['nombreLocal'] ?? '');
-            $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
-            $local->setUrl($datosForm['url'] ?? '');
-
-            $this->localRepository->save($local, true);
-
-            $this->addFlash(
-                'sucess',
-                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
-            );
-
-        }
-        return $local;
-    }
-
     public function showLocal(): array
     {
         $userId = $this->getUser()->getId();
 
         return $this->localRepository->findBy(array('usuario' => $userId));
 
-    }
-
-    public function editInformationLocal(Request $request): ?Informacion
-    {
-        $userId = $this->getUser()->getId();
-        $idLocal = intval($request->attributes->get('id'));
-
-        $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
-
-        $userOwnerOfLocal = $local->getUsuario()->getId();
-
-        if ($userId !== $userOwnerOfLocal) {
-            throw new HttpException(404, 'Página no encontrada');
-        }
-
-        if ($request->isMethod('POST') && $this->getUser()) {
-            $datosForm = $request->request->all();
-            $files = $request->files->get('file-upload');
-            $foto = $this->uploadPhotos($files);
-            if (!$informacion) {
-                $informacion = new Informacion();
-                $informacion->setLocal($local);
-            }
-
-            $informacion->setTelefono($datosForm['telefono'] ?? '');
-            $informacion->setDescripcion($datosForm['descripcion'] ?? '');
-            $informacion->setCalle($datosForm['calle'] ?? '');
-            $informacion->setLocalidad($datosForm['localidad'] ?? '');
-            $informacion->setCiudad($datosForm['ciudad'] ?? '');
-            $informacion->setEmail($datosForm['email'] ?? '');
-            $informacion->setFotosInformativas($foto);
-
-
-            $this->informationRepository->save($informacion, true);
-
-            $this->addFlash(
-                'sucess',
-                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
-            );
-
-        }
-
-        return $informacion;
     }
 
     public function showMenusCreated(Request $request): ?array
@@ -255,31 +162,6 @@ final class ProductOrchestrator extends AbstractController
 
         }
         return false;
-    }
-
-    public function selectThemeOfLocal(Request $request)
-    {
-        $idLocal = (int)$request->attributes->get('id');
-        $local = $this->localRepository->findOneBy(array('id' => $idLocal));
-        $localThemeSaveOnDb = $local->getEstilo();
-
-        $themeQuerySelected = $request->query->get('theme');
-
-        if ($themeQuerySelected && $this->getUser()) {
-            $datosForm = $request->request->all();
-
-            $local->setEstilo($themeQuerySelected ?? 1);
-
-            $this->localRepository->save($local, true);
-
-            $this->addFlash(
-                'sucess',
-                '¡Tus cambios se han guardado! Puedes ir de nuevo a la web de tu Local y ver el nuevo diseño escogido.'
-            );
-
-        }
-
-        return $localThemeSaveOnDb;
     }
     
     public function showProductsCreated(Request $request)
