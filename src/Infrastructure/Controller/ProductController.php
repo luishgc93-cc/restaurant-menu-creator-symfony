@@ -46,6 +46,7 @@ final class ProductController extends AbstractController
     {
 
         $datos = $this->productOrchestrator->newProduct($request, true);
+        $productsRelated = $this->productOrchestrator->showProductsCreated($request);
 
         $title = 'Añade un Producto a tu Local sin incluirlo en ningún Menú';
 
@@ -53,7 +54,8 @@ final class ProductController extends AbstractController
             '/Panel/Sections/newProductAlone.html.twig',[
             'id' => $request->attributes->get('id'), 
             'datos'=> $datos, 
-            'title'=>$title
+            'title'=>$title,
+            'productsRelated' => $productsRelated
             ]
         );
     }
@@ -74,6 +76,24 @@ final class ProductController extends AbstractController
             ]
         );
     }
+    public function editProductAloneAction(Request $request): Response
+    {
+
+        $productToEdit = $this->productOrchestrator->editProduct($request);
+        $productsRelated = $this->productOrchestrator->showProductsCreated($request);
+
+        $title = 'Edita el Producto seleccionado o escoge otro para editar';
+
+        return $this->render(
+            '/Panel/Sections/editProduct.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'title'=>$title,
+            'productToEdit'=>$productToEdit,
+            'productsRelated' => $productsRelated
+            ]
+        );
+    } 
+
     public function deleteProductOfLocalAction(Request $request): Response
     {
         $this->productOrchestrator->deleteProduct($request);

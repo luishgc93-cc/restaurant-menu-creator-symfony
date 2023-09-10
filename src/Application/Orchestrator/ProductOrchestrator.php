@@ -231,6 +231,11 @@ final class ProductOrchestrator extends AbstractController
     public function showProductsCreated(Request $request)
     {
         $idMenu = (int)$request->attributes->get('menuId');
-        return $this->productRepository->findBy(array('menus' => $idMenu));
+        $productos = $this->productRepository->findBy(array('menus' => $idMenu));
+        if(!$productos){
+            $idLocal = (int)$request->attributes->get('id');
+            $idInformacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
+            return $this->productRepository->findBy(array('informacion' => $idInformacion->getId()));
+        }
     }
 }

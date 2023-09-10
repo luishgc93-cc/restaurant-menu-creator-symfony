@@ -33,12 +33,16 @@
 
     <div class="border-t border-gray-200 bg-white">
       <ul class="space-y-1 border-t border-gray-200 p-4">
-      {% if not editProducts|default %}
+      {% if not editProducts|default and not productAlone|default %}
         <li>{{ producto.Informacionproducto }}</li>
       {% endif %}
 
-      {% if editProducts|default %}
+      {% if editProducts|default and not productAlone|default  %}
         <li><a href="{{ path('panel-edit-product',{'id': app.request.attributes.get('id')|default(0) , 'menuId': app.request.attributes.get('menuId')|default(0), 'productoId' : menuId}) }}">Editar Producto</li></a>
+      {% endif %}
+
+      {% if editProducts|default and productAlone|default  %}
+        <li><a href="{{ path('panel-edit-product-alone',{'id': app.request.attributes.get('id')|default(0) , 'productoId' : menuId}) }}">Editar Producto</li></a>
       {% endif %}
        </ul>
     </div>

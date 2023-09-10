@@ -3,6 +3,11 @@ panel-edit-product:
   path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}/editar-producto/{productoId}
   controller: App\Infrastructure\Controller\ProductController::editProductOfMenuAction
   methods: [GET, POST]    
+#editar Producto solitario
+panel-edit-product-alone:
+  path: /panel/editar-informacion-local/{id}/editar-producto/{productoId}
+  controller: App\Infrastructure\Controller\ProductController::editProductAloneAction
+  methods: [GET, POST]     
 #borrar Producto
 panel-delete-product:
   path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}/borrar-producto/{productoId}
