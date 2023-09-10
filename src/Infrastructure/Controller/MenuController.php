@@ -80,4 +80,17 @@ final class MenuController extends AbstractController
             ]
         );
     }
+
+    public function deleteMenuOfLocalAction(Request $request): Response
+    {
+
+        $menu = $this->menuOrchestrator->deleteMenu($request);
+
+        return $this->render(
+            '/Panel/Sections/editMenu.html.twig',
+            ['id' => $request->attributes->get('id'), 
+            'menu'=> $menu, 
+            ]
+        );
+    }
 }

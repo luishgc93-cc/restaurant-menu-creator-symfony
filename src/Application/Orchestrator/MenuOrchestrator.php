@@ -131,4 +131,28 @@ final class MenuOrchestrator extends AbstractController
 
         return $menu;
     }
+    public function deleteMenu(Request $request)
+    {
+        $userId = $this->getUser()->getId();
+        $menuId = intval($request->attributes->get('menuId'));
+        $menu = $this->menuRepository->findOneBy(array('id' => $menuId));
+
+        foreach ($menu->getProductos() as $producto) {
+            $menu->removeProducto($producto);
+        }
+
+        // Eliminar las fotos asociadas
+        foreach ($menu->getPhotos() as $photo) {
+            $menu->removePhoto($photo);
+        }
+
+        $this->menuRepository->remove($menu, true);
+        
+        $this->addFlash(
+            'sucess',
+            'El menú ha sido borrado correctamente, los productos asociados han sido borrados igualmente.'
+        );
+
+        return true;
+    }
 }

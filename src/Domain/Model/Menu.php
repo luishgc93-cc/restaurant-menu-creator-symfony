@@ -50,7 +50,7 @@ class Menu
     private $estilo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Producto")
+     * @ORM\ManyToMany(targetEntity="Producto", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="menu_producto",
      *      joinColumns={@ORM\JoinColumn(name="menu_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="producto_id", referencedColumnName="id")}
@@ -144,6 +144,11 @@ class Menu
     public function agregarProducto(Producto $producto)
     {
         $this->productos[] = $producto;
+    }
+    public function removeProducto(Producto $producto)
+    {
+        $this->productos->removeElement($producto);
+        $producto->setMenus(null);
     }
 
   public function getEstilo()
