@@ -136,14 +136,13 @@ final class MenuOrchestrator extends AbstractController
         $userId = $this->getUser()->getId();
         $menuId = intval($request->attributes->get('menuId'));
         $menu = $this->menuRepository->findOneBy(array('id' => $menuId));
-
-        foreach ($menu->getProductos() as $producto) {
-            $menu->removeProducto($producto);
-        }
-
-        // Eliminar las fotos asociadas
-        foreach ($menu->getPhotos() as $photo) {
-            $menu->removePhoto($photo);
+        
+        if(!$menu){
+            $this->addFlash(
+                'error',
+                'El menú no ha podido ser borrado, no se ha encontrado...'
+            );
+            return;
         }
 
         $this->menuRepository->remove($menu, true);
