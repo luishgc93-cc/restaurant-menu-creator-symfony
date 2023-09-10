@@ -235,7 +235,8 @@ final class ProductOrchestrator extends AbstractController
         if(!$productos){
             $idLocal = (int)$request->attributes->get('id');
             $idInformacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
-            return $this->productRepository->findBy(array('informacion' => $idInformacion->getId()));
+            $productos = $this->productRepository->findBy(array('informacion' => $idInformacion->getId()));
         }
+        return $productos;
     }
 }
