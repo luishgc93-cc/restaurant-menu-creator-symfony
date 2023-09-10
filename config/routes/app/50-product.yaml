@@ -1,0 +1,20 @@
+#editar Producto
+panel-edit-product:
+  path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}/editar-producto/{productoId}
+  controller: App\Infrastructure\Controller\ProductController::editProductOfMenuAction
+  methods: [GET, POST]    
+#borrar Producto
+panel-delete-product:
+  path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}/borrar-producto/{productoId}
+  controller: App\Infrastructure\Controller\ProductController::deleteProductOfLocalAction
+  methods: [GET, POST]     
+#Nuevo producto asociado a un menu
+panel-new-product:
+  path: /panel/editar-informacion-local-{local}/menu-{id}/nuevo-producto
+  controller: App\Infrastructure\Controller\ProductController::newProductAction
+  methods: [GET, POST]
+#Nuevo producto solo
+panel-new-product-alone:
+  path: /panel/editar-informacion-local/{id}/nuevo-producto
+  controller: App\Infrastructure\Controller\ProductController::newProductAloneAction
+  methods: [GET, POST]

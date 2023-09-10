@@ -1,0 +1,20 @@
+#Nuevo Menu Carta
+panel-new-menu:
+  path: /panel/editar-informacion-local/{id}/nuevo-menu
+  controller: App\Infrastructure\Controller\MenuController::newMenuOfLocalAction
+  methods: [GET, POST]
+#ver Menus
+panel-show-menu:
+  path: /panel/editar-informacion-local/{id}/ver-menus
+  controller: App\Infrastructure\Controller\MenuController::showMenuOfLocalAction
+  methods: [GET, POST]  
+#editar Menus
+panel-edit-menu-and-show-products:
+  path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}
+  controller: App\Infrastructure\Controller\MenuController::editMenuOfLocalAction
+  methods: [GET, POST]
+#borrar Menus
+panel-delete-menu:
+  path: /panel/editar-informacion-local/{id}/borrar-menu/{menuId}
+  controller: App\Infrastructure\Controller\MenuController::deleteMenuOfLocalAction
+  methods: [GET, POST]        

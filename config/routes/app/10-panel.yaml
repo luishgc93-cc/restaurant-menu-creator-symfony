@@ -28,57 +28,16 @@ panel-new-local:
   path: /panel/nuevo-local
   controller: App\Infrastructure\Controller\PanelController::createLocalAction
   methods: [GET, POST]
-#Ver local
-panel-show-local:
-  path: /panel/ver-local
-  controller: App\Infrastructure\Controller\PanelController::showLocalAction
-  methods: [GET, POST]
 #Editar informacion local
 panel-edit-information:
   path: /panel/editar-informacion-local/{id}
   controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
-  methods: [GET, POST]
-#Nuevo Menu Carta
-panel-new-menu:
-  path: /panel/editar-informacion-local/{id}/nuevo-menu
-  controller: App\Infrastructure\Controller\MenuController::newMenuOfLocalAction
-  methods: [GET, POST]
-#ver Menus
-panel-show-menu:
-  path: /panel/editar-informacion-local/{id}/ver-menus
-  controller: App\Infrastructure\Controller\MenuController::showMenuOfLocalAction
   methods: [GET, POST]  
-#editar Menus
-panel-edit-menu-and-show-products:
-  path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}
-  controller: App\Infrastructure\Controller\MenuController::editMenuOfLocalAction
+#Ver local en panel
+panel-show-local:
+  path: /panel/ver-local
+  controller: App\Infrastructure\Controller\PanelController::showLocalAction
   methods: [GET, POST]
-#borrar Menus
-panel-delete-menu:
-  path: /panel/editar-informacion-local/{id}/borrar-menu/{menuId}
-  controller: App\Infrastructure\Controller\MenuController::deleteMenuOfLocalAction
-  methods: [GET, POST]        
-#editar Producto
-panel-edit-product:
-  path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}/editar-producto/{productoId}
-  controller: App\Infrastructure\Controller\ProductController::editProductOfMenuAction
-  methods: [GET, POST]    
-#borrar Producto
-panel-delete-product:
-  path: /panel/editar-informacion-local/{id}/editar-menu/{menuId}/borrar-producto/{productoId}
-  controller: App\Infrastructure\Controller\ProductController::deleteProductOfLocalAction
-  methods: [GET, POST]     
-#Nuevo producto asociado a un menu
-panel-new-product:
-  path: /panel/editar-informacion-local-{local}/menu-{id}/nuevo-producto
-  controller: App\Infrastructure\Controller\ProductController::newProductAction
-  methods: [GET, POST]
-#Nuevo producto solo
-panel-new-product-alone:
-  path: /panel/editar-informacion-local/{id}/nuevo-producto
-  controller: App\Infrastructure\Controller\ProductController::newProductAloneAction
-  methods: [GET, POST]
-
 #Escoger diseño del local
 panel-select-theme:
   path: /panel/editar-informacion-local/{id}/seleccionar-plantilla/
