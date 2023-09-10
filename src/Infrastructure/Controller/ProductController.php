@@ -74,4 +74,9 @@ final class ProductController extends AbstractController
             ]
         );
     }
+    public function deleteProductOfLocalAction(Request $request): Response
+    {
+        $this->productOrchestrator->deleteProduct($request);
+        return $this->redirectToRoute('panel-edit-menu-and-show-products', ['id' => $request->attributes->get('id'),'menuId' => $request->attributes->get('menuId')]);
+    }
 }

@@ -204,6 +204,30 @@ final class ProductOrchestrator extends AbstractController
         }
         return $producto;
     }
+
+    public function deleteProduct(Request $request)
+    {
+        $userId = $this->getUser()->getId();
+        $productId = intval($request->attributes->get('productoId'));
+        $product = $this->productRepository->findOneBy(array('id' => $productId));
+
+        if(!$product){
+            $this->addFlash(
+                'error',
+                'El Producto no ha podido ser borrado, no se ha encontrado...'
+            );
+            return;
+        }
+
+        $this->productRepository->remove($product, true);
+        
+        $this->addFlash(
+            'sucess',
+            'El Producto ha sido borrado correctamente.'
+        );
+
+        return true;
+    }
     public function showProductsCreated(Request $request)
     {
         $idMenu = (int)$request->attributes->get('menuId');
