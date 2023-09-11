@@ -60,7 +60,7 @@ final class PanelController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/localOptions.html.twig',
-            ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
+            ['local' => $request->attributes->get('local'), 'datos'=> $datos, 'title'=>$title]
         );
     }
 
@@ -86,7 +86,7 @@ final class PanelController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/newInformation.html.twig',
-            ['id' => $request->attributes->get('id'), 'datos'=> $datos, 'title'=>$title]
+            ['local' => $request->attributes->get('local'), 'datos'=> $datos, 'title'=>$title]
         );
     }
 

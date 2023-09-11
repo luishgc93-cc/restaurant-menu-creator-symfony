@@ -38,11 +38,11 @@
       {% endif %}
 
       {% if editProducts|default and not productAlone|default  %}
-        <li><a href="{{ path('panel-edit-product',{'id': app.request.attributes.get('id')|default(0) , 'menuId': app.request.attributes.get('menuId')|default(0), 'productoId' : menuId}) }}">Editar Producto</li></a>
+        <li><a href="{{ path('panel-edit-product',{'local': app.request.attributes.get('local')|default(0) , 'menuId': app.request.attributes.get('menuId')|default(0), 'productoId' : menuId}) }}">Editar Producto</li></a>
       {% endif %}
 
       {% if editProducts|default and productAlone|default  %}
-        <li><a href="{{ path('panel-edit-product-alone',{'id': app.request.attributes.get('id')|default(0) , 'productoId' : menuId}) }}">Editar Producto</li></a>
+        <li><a href="{{ path('panel-edit-product-alone',{'local': app.request.attributes.get('local')|default(0) , 'productoId' : menuId}) }}">Editar Producto</li></a>
       {% endif %}
        </ul>
     </div>

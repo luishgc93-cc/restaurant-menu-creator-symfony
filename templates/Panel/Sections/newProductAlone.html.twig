@@ -13,7 +13,7 @@
 
 {% include '/Panel/Sections/Components/flashAlert.html.twig' %}
 
-{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'id': app.request.attributes.get('id') } only %}
+{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'local': app.request.attributes.get('local') } only %}
 
 <div class="bg-white">
   <div>
@@ -24,7 +24,7 @@
             {% include '/Panel/Sections/Components/tabsProducts.html.twig' with {'productos': datos, 'type': 'productAlone', 'editProducts' : true} only %}
           {% endif %}
           <div class="lg:col-span-3">
-            <form  action="{{ path('panel-new-product-alone',{'id': id }) }}" method="post" enctype="multipart/form-data">
+            <form  action="{{ path('panel-new-product-alone',{'local': local }) }}" method="post" enctype="multipart/form-data">
               <div class="space-y-22">
                   <div class="border-b border-gray-900/10">
                     <h2 class="text-base font-semibold leading-7 text-gray-900">Añade Productos sin asociarlos a un Menú.</h2>
@@ -81,7 +81,7 @@
 
               <div class="mt-6 flex items-center justify-end gap-x-6">
                 {% if productoId|default %}
-                <a href="{{ path('panel-edit-product-alone',{'id': app.request.attributes.get('id')|default(0) , 'productoId' : productoId|default(0)}) }}" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Editar Producto suelto</a>
+                <a href="{{ path('panel-edit-product-alone',{'local': app.request.attributes.get('local')|default(0) , 'productoId' : productoId|default(0)}) }}" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Editar Producto suelto</a>
                 {% endif %}
                 <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Añadir Productos sueltos, sin Menú</button>
               </div>

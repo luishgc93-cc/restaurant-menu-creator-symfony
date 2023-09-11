@@ -30,7 +30,7 @@ panel-new-local:
   methods: [GET, POST]
 #Editar informacion local
 panel-edit-information:
-  path: /panel/editar-informacion-local/{id}
+  path: /panel/editar-informacion-local/{local}
   controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
   methods: [GET, POST]  
 #Ver local en panel
@@ -40,11 +40,11 @@ panel-show-local:
   methods: [GET, POST]
 #Escoger diseño del local
 panel-select-theme:
-  path: /panel/editar-informacion-local/{id}/seleccionar-plantilla/
+  path: /panel/editar-informacion-local/{local}/seleccionar-plantilla/
   controller: App\Infrastructure\Controller\PanelController::selectThemeOfLocalAction
   methods: [GET, POST]
 #Escoger diseño del local
 panel-modify-config-local:
-  path: /panel/editar-local/{id}/
+  path: /panel/editar-local/{local}/
   controller: App\Infrastructure\Controller\PanelController::configLocalAction
   methods: [GET, POST]

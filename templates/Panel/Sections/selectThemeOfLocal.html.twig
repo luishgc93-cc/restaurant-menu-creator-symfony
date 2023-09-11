@@ -11,7 +11,7 @@
 
 {% include '/Panel/Sections/Components/flashAlert.html.twig' %}
 
-{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'id': app.request.attributes.get('id') } only %}
+{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'local': app.request.attributes.get('local') } only %}
 
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 mt-12">
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-{% set href = "/panel/editar-informacion-local/" ~ app.request.attributes.get('id') ~ "/seleccionar-plantilla/" %}
+{% set href = "/panel/editar-informacion-local/" ~ app.request.attributes.get('local') ~ "/seleccionar-plantilla/" %}
 
 <section class="text-gray-600 body-font">
   <div class="container px-5 py-24 mx-auto">

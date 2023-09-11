@@ -36,7 +36,8 @@ final class ProductController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/newProduct.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            ['local' => $request->attributes->get('local'), 
+            'menuId' => $request->attributes->get('menuId'), 
             'datos'=> $datos, 
             'title'=>$title]
         );
@@ -52,7 +53,7 @@ final class ProductController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/newProductAlone.html.twig',[
-            'id' => $request->attributes->get('id'), 
+            'local' => $request->attributes->get('local'), 
             'datos'=> $datos, 
             'title'=>$title,
             'productsRelated' => $productsRelated
@@ -69,7 +70,7 @@ final class ProductController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/editProduct.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            ['local' => $request->attributes->get('local'), 
             'title'=>$title,
             'productToEdit'=>$productToEdit,
             'productsRelated' => $productsRelated

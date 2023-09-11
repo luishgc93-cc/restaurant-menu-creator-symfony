@@ -79,7 +79,7 @@ final class PanelOrchestrator extends AbstractController
     public function editConfigLocal(Request $request)
     {
         $userId = $this->getUser()->getId();
-        $idLocal = intval($request->attributes->get('id'));
+        $idLocal = intval($request->attributes->get('local'));
 
         $local = $this->localRepository->findOneBy(array('id' => $idLocal));
 
@@ -134,7 +134,7 @@ final class PanelOrchestrator extends AbstractController
     public function editInformationLocal(Request $request): ?Informacion
     {
         $userId = $this->getUser()?->getId();
-        $idLocal = intval($request->attributes->get('id'));
+        $idLocal = intval($request->attributes->get('local'));
 
         $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $local = $this->entityManager->getRepository(Local::class)->find($idLocal);
@@ -173,7 +173,7 @@ final class PanelOrchestrator extends AbstractController
     }
     public function selectThemeOfLocal(Request $request)
     {
-        $idLocal = (int)$request->attributes->get('id');
+        $idLocal = (int)$request->attributes->get('local');
         $local = $this->localRepository->findOneBy(array('id' => $idLocal));
         $localThemeSaveOnDb = $local->getEstilo();
 

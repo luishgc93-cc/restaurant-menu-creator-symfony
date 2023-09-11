@@ -32,7 +32,7 @@
 
     <div class="border-t border-gray-200 bg-white">
       <header class="flex items-center justify-between p-4">
-        <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-edit-menu-and-show-products',{'id':app.request.attributes.get('id') ,'menuId': menu.id }) }}">
+        <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-edit-menu-and-show-products',{'local':app.request.attributes.get('local') ,'menuId': menu.id }) }}">
           Editar Menu y Productos
         </a>
       </header>

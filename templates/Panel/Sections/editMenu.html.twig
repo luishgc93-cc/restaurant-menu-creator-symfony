@@ -12,7 +12,7 @@
   <div class="mx-auto max-w-2xl lg:max-w-4xl">
   {% include '/Panel/Sections/Components/flashAlert.html.twig' %}
 
-{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'id': app.request.attributes.get('id') } only %}
+{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'local': app.request.attributes.get('local') } only %}
 
 <div class="bg-white">
   <div>
@@ -29,7 +29,7 @@
 
           {% if menu|default %}
           <div class="lg:col-span-3">
-            <form  action="{{ path('panel-edit-menu-and-show-products',{'id': id , 'menuId': app.request.attributes.get('menuId')|default(0)}) }}" method="post" enctype="multipart/form-data">
+            <form  action="{{ path('panel-edit-menu-and-show-products',{'local': local , 'menuId': app.request.attributes.get('menuId')|default(0)}) }}" method="post" enctype="multipart/form-data">
               <div class="space-y-22">
                 <div class="border-b border-gray-900/10 pb-12">
                   <div class="border-b border-gray-900/10">
@@ -86,7 +86,7 @@
               </div>
 
               <div class="mt-6 flex items-center justify-end gap-x-6">
-                <a href="{{ path('panel-delete-menu',{'id': id , 'menuId': app.request.attributes.get('menuId')|default(0)}) }}" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Borrar Menú </a>
+                <a href="{{ path('panel-delete-menu',{'local': local , 'menuId': app.request.attributes.get('menuId')|default(0)}) }}" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Borrar Menú </a>
                 <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Editar Menu</button>
               </div>
             </form>

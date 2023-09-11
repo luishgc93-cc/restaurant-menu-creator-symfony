@@ -40,7 +40,7 @@ final class MenuController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/newMenu.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            ['local' => $request->attributes->get('local'), 
             'datos'=> $datos, 
             'title'=>$title,
             'menus'=>$menus,
@@ -56,7 +56,7 @@ final class MenuController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/editMenu.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            ['local' => $request->attributes->get('local'), 
             'title'=>$title,
             'menus'=>$menus,
             ]
@@ -73,7 +73,7 @@ final class MenuController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/editMenu.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            ['local' => $request->attributes->get('local'), 
             'menu'=> $menu, 
             'title'=>$title,
             'productos'=>$products,

@@ -12,7 +12,7 @@
   <div class="mx-auto max-w-2xl lg:max-w-4xl">
 {% include '/Panel/Sections/Components/flashAlert.html.twig' %}
 
-{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'id': app.request.attributes.get('id') } only %}
+{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'local': app.request.attributes.get('local') } only %}
 
 <div class="bg-white">
   <div>
@@ -23,7 +23,7 @@
           {% include '/Panel/Sections/Components/tabsMenusWithProducts.html.twig' with {'menus': menus} only %}
         {% endif %}
           <div class="lg:col-span-3">
-            <form  action="{{ path('panel-new-menu',{'id': id }) }}" method="post" enctype="multipart/form-data">
+            <form  action="{{ path('panel-new-menu',{'local': local }) }}" method="post" enctype="multipart/form-data">
               <div class="space-y-22">
                 <div class="border-b border-gray-900/10 pb-12">
                   <div class="border-b border-gray-900/10">

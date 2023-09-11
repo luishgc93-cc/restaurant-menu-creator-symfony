@@ -17,7 +17,7 @@
   {% include '/Panel/Sections/Components/navigationCreator.html.twig' %}
 {% endif %}
 
-<form  action="{{ path('panel-edit-information',{'id': id }) }}" method="post">
+<form  action="{{ path('panel-edit-information',{'local': local }) }}" method="post">
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 mt-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Rellena la información de tu Local</h2>

@@ -47,7 +47,7 @@ final class MenuOrchestrator extends AbstractController
 
     public function showMenusCreated(Request $request): ?array
     {
-        $idLocal = intval($request->attributes->get('id'));
+        $idLocal = intval($request->attributes->get('local'));
         $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
 
@@ -61,7 +61,7 @@ final class MenuOrchestrator extends AbstractController
     public function newMenu(Request $request)
     {
         $userId = $this->getUser()->getId();
-        $idLocal = intval($request->attributes->get('id'));
+        $idLocal = intval($request->attributes->get('local'));
 
         $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menu = $this->entityManager->getRepository(Menu::class)->find($idLocal);
