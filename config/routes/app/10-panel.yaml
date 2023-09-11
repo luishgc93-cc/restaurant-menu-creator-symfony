@@ -21,11 +21,15 @@ app_verify_email:
   controller: App\Infrastructure\Controller\UserController::verifyUserEmailAction
 #Panel de control de usuarios
 panel:
-  path: /panel
+  path: /panel/
   controller: App\Infrastructure\Controller\PanelController::panelControllerAction
+#Cuenta
+cuenta-usuario:
+  path: /cuenta/
+  controller: App\Infrastructure\Controller\UserController::cuentaUsuarioControllerAction  
 #Panel nuevo local
 panel-new-local:
-  path: /panel/nuevo-local
+  path: /panel/nuevo-local/
   controller: App\Infrastructure\Controller\PanelController::createLocalAction
   methods: [GET, POST]
 #Editar informacion local
@@ -35,7 +39,7 @@ panel-edit-information:
   methods: [GET, POST]  
 #Ver local en panel
 panel-show-local:
-  path: /panel/ver-local
+  path: /panel/ver-local/
   controller: App\Infrastructure\Controller\PanelController::showLocalAction
   methods: [GET, POST]
 #Escoger diseño del local

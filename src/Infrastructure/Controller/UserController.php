@@ -118,6 +118,34 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
+    public function cuentaUsuarioControllerAction(Request $request,  UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $title = 'Edita tu Cuenta de Usuario';
+        $userEmail = $this->getUser()->getEmail();
+
+        if ($request->isMethod('POST')) {
+            $datosForm = $request->request->all();
+            $user = $this->userRepository->findOneBy(array('id' => $this->getUser()->getId()));
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $datosForm['plainPassword']
+                )
+            );
+            $this->userRepository->save($user, true);
+
+            $this->addFlash(
+                'sucess',
+                'Contraseña cambiada correctamente.'
+            );
+        }
+
+        return $this->render('/Panel/Sections/panelUsuario.html.twig', [
+            'title'=>$title,
+            'email'=> $userEmail, 
+        ]);
+    }
+
     public function logoutAction(): void
     {
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
