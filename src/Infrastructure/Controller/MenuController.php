@@ -67,7 +67,7 @@ final class MenuController extends AbstractController
     {
 
         $menu = $this->menuOrchestrator->editMenu($request);
-        $products = $this->productOrchestrator->showProductsCreated($request);
+        $products = $this->productOrchestrator->showProductsCreated($request, true);
 
         $title = 'Edita el Menú seleccionado o el Producto asociado';
 

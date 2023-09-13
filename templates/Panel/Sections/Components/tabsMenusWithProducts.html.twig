@@ -32,11 +32,16 @@
 
     <div class="border-t border-gray-200 bg-white">
       <header class="flex items-center justify-between p-4">
-        <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-new-product',{'local':app.request.attributes.get('local') ,'menuId': menu.id }) }}">
-          Añadir Producto
+        <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-edit-menu-and-show-products',{'local':app.request.attributes.get('local') ,'menuId': menu.id }) }}">
+          Editar Menú
         </a>
       </header>
       <ul class="space-y-1 border-t border-gray-200 p-4">
+        <li> 
+          <a class="text-sm text-gray-900 underline underline-offset-4" href="{{ path('panel-new-product',{'local':app.request.attributes.get('local') ,'menuId': menu.id }) }}">
+            Añadir Producto
+          </a>
+        </li>
       {% for product in menu.productos %}
         <li>{{ product.nombreProducto }}</li>
       {% endfor %}

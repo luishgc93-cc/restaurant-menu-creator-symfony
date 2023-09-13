@@ -119,7 +119,7 @@ final class ProductOrchestrator extends AbstractController
     public function newProduct(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto
     {
         $userId = $this->getUser()->getId();
-        $idMenu = intval($request->attributes->get('local'));
+        $idMenu = intval($request->attributes->get('menuId'));
         $menu = $this->menuRepository->findOneBy(array('id' => $idMenu));
         $informacion = $this->informationRepository->findOneBy(array('local' => $idMenu));
 
@@ -228,11 +228,11 @@ final class ProductOrchestrator extends AbstractController
 
         return true;
     }
-    public function showProductsCreated(Request $request)
+    public function showProductsCreated(Request $request, bool $getProductsFromMenu = false)
     {
         $idMenu = (int)$request->attributes->get('menuId');
         $productos = $this->productRepository->findBy(array('menus' => $idMenu));
-        if(!$productos){
+        if(!$productos && !$getProductsFromMenu){
             $idLocal = (int)$request->attributes->get('local');
             $idInformacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
             $productos = $this->productRepository->findBy(array('informacion' => $idInformacion->getId()));
