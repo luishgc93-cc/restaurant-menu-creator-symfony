@@ -21,7 +21,7 @@
       <section aria-labelledby="products-heading" class="pb-24 pt-6">
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
           {% if datos|default %}
-            {% include '/Panel/Sections/Components/tabsProducts.html.twig' with {'productos': datos, 'type': 'productAlone', 'editProducts' : true} only %}
+            {% include '/Panel/Sections/Components/tabsProducts.html.twig' with {'productos': datos, 'productAlone' : true, 'editProducts' : true} only %}
           {% endif %}
           <div class="lg:col-span-3">
             <form  action="{{ path('panel-new-product-alone',{'local': local }) }}" method="post" enctype="multipart/form-data">

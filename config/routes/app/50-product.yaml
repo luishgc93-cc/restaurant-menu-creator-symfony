@@ -23,3 +23,8 @@ panel-new-product-alone:
   path: /panel/editar-informacion-local/{local}/nuevo-producto
   controller: App\Infrastructure\Controller\ProductController::newProductAloneAction
   methods: [GET, POST]
+#borrar Producto sin menu
+panel-delete-product-alone:
+  path: /panel/editar-informacion-local/{local}/borrar-producto/{productoId}
+  controller: App\Infrastructure\Controller\ProductController::deleteProductAloneOfLocalAction
+  methods: [GET, POST]   

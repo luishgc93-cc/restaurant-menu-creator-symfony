@@ -109,7 +109,10 @@ final class ProductOrchestrator extends AbstractController
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
-
+            $this->addFlash(
+                'sucess',
+                'Menu creado correctamente.'
+            );
             $this->menuRepository->save($menu, true);
         }
 
@@ -156,7 +159,10 @@ final class ProductOrchestrator extends AbstractController
                     $producto->addPhoto($productoPhoto);
                 }
             }
-
+            $this->addFlash(
+                'sucess',
+                'Producto añadido correctamente.'
+            );
             $this->productRepository->save($producto, true);
 
             return $producto;
@@ -197,7 +203,10 @@ final class ProductOrchestrator extends AbstractController
                     $producto->addPhoto($productoPhoto);
                 }
             }
-
+            $this->addFlash(
+                'sucess',
+                'Producto Editado correctamente.'
+            );
             $this->productRepository->save($producto, true);
 
             return $producto;

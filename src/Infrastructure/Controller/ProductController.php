@@ -86,7 +86,7 @@ final class ProductController extends AbstractController
 
         return $this->render(
             '/Panel/Sections/editProduct.html.twig',
-            ['id' => $request->attributes->get('id'), 
+            ['local' => $request->attributes->get('local'), 
             'title'=>$title,
             'productToEdit'=>$productToEdit,
             'productsRelated' => $productsRelated
@@ -97,6 +97,11 @@ final class ProductController extends AbstractController
     public function deleteProductOfLocalAction(Request $request): Response
     {
         $this->productOrchestrator->deleteProduct($request);
-        return $this->redirectToRoute('panel-edit-menu-and-show-products', ['id' => $request->attributes->get('id'),'menuId' => $request->attributes->get('menuId')]);
+        return $this->redirectToRoute('panel-edit-menu-and-show-products', ['local' => $request->attributes->get('local'),'menuId' => $request->attributes->get('menuId')]);
+    }
+    public function deleteProductAloneOfLocalAction(Request $request): Response
+    {
+        $this->productOrchestrator->deleteProduct($request);
+        return $this->redirectToRoute('panel-new-product-alone', ['local' => $request->attributes->get('local')]);
     }
 }
