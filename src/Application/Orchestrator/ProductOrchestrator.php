@@ -120,8 +120,9 @@ final class ProductOrchestrator extends AbstractController
     {
         $userId = $this->getUser()->getId();
         $idMenu = intval($request->attributes->get('menuId'));
+        $local = intval($request->attributes->get('local'));
         $menu = $this->menuRepository->findOneBy(array('id' => $idMenu));
-        $informacion = $this->informationRepository->findOneBy(array('local' => $idMenu));
+        $informacion = $this->informationRepository->findOneBy(array('local' => $local));
 
         if ($saveProductWithIdInformation && $request->isMethod('GET')) {
             return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
