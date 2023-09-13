@@ -46,7 +46,7 @@ final class ProductController extends AbstractController
     public function newProductAloneAction(Request $request)
     {
 
-        $datos = $this->productOrchestrator->newProduct($request, true);
+        $this->productOrchestrator->newProduct($request, true);
         $productsRelated = $this->productOrchestrator->showProductsCreated($request);
 
         $title = 'Añade un Producto a tu Local sin incluirlo en ningún Menú';
@@ -54,9 +54,8 @@ final class ProductController extends AbstractController
         return $this->render(
             '/Panel/Sections/newProductAlone.html.twig',[
             'local' => $request->attributes->get('local'), 
-            'datos'=> $datos, 
+            'datos'=> $productsRelated, 
             'title'=>$title,
-            'productsRelated' => $productsRelated
             ]
         );
     }
