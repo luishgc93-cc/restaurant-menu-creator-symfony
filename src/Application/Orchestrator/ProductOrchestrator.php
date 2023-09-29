@@ -77,48 +77,6 @@ final class ProductOrchestrator extends AbstractController
         return null;
     }
 
-    public function newMenu(Request $request)
-    {
-        $userId = $this->getUser()->getId();
-        $idLocal = intval($request->attributes->get('id'));
-
-        $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $menu = $this->entityManager->getRepository(Menu::class)->find($idLocal);
-
-        if ($request->isMethod('POST') && $this->getUser()) {
-            $datosForm = $request->request->all();
-
-            if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
-                throw new HttpException(Response::HTTP_BAD_REQUEST, 'No puedes dejar campos vacios');
-            }
-
-            if (!$menu) {
-                $menu = new Menu();
-                $menu->setInformacion($idLocal);
-            }
-
-            $photoRequests = $request->files->get('file-upload');
-            if($photoRequests){
-                foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhoto->upload($photoRequest);
-                    $menuPhoto = new MenuPhoto();
-                    $menuPhoto->setPhotoPath($photo);
-                    $menu->addPhoto($menuPhoto);
-                }
-            }
-            $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
-            $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
-            $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
-            $this->addFlash(
-                'sucess',
-                'Menu creado correctamente.'
-            );
-            $this->menuRepository->save($menu, true);
-        }
-
-        return $menu;
-    }
-
     public function newProduct(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto
     {
         $userId = $this->getUser()->getId();
@@ -150,14 +108,12 @@ final class ProductOrchestrator extends AbstractController
                 $menu->agregarProducto($producto);
             }
 
-            $photoRequests = $request->files->get('file-upload');
-            if($photoRequests){
-                foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhoto->upload($photoRequest);
-                    $productoPhoto = new ProductoPhoto();
-                    $productoPhoto->setPhotoPath($photo);
-                    $producto->addPhoto($productoPhoto);
-                }
+            $photoRequest = $request->files->get('file-upload');
+            if($photoRequest){
+                $productoPhoto = new ProductoPhoto();
+                $photo = $this->uploadPhoto->upload($photoRequest);
+                $productoPhoto->setPhotoPath($photo);
+                $producto->addPhoto($productoPhoto);
             }
             $this->addFlash(
                 'sucess',
@@ -194,14 +150,12 @@ final class ProductOrchestrator extends AbstractController
             $producto->setInformacionProducto($datosForm['informacion_producto'] ?? '');
             $producto->setPrecioProducto($datosForm['precio_producto'] ?? '');
 
-            $photoRequests = $request->files->get('file-upload');
-            if($photoRequests){
-                foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhoto->upload($photoRequest);
-                    $productoPhoto = new ProductoPhoto();
-                    $productoPhoto->setPhotoPath($photo);
-                    $producto->addPhoto($productoPhoto);
-                }
+            $photoRequest = $request->files->get('file-upload');
+            if($photoRequest){
+                $photo = $this->uploadPhoto->upload($photoRequest);
+                $productoPhoto = new ProductoPhoto();
+                $productoPhoto->setPhotoPath($photo);
+                $producto->addPhoto($productoPhoto);
             }
             $this->addFlash(
                 'sucess',

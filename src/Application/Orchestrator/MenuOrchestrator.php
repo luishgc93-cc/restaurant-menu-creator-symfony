@@ -78,15 +78,14 @@ final class MenuOrchestrator extends AbstractController
                 $menu->setInformacion($idLocal);
             }
 
-            $photoRequests = $request->files->get('file-upload');
-            if($photoRequests){
-                foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhoto->upload($photoRequest);
-                    $menuPhoto = new MenuPhoto();
-                    $menuPhoto->setPhotoPath($photo);
-                    $menu->addPhoto($menuPhoto);
-                }
+            $photoRequest = $request->files->get('file-upload')[0];
+            if($photoRequest){
+                $menuPhoto = new MenuPhoto();
+                $photo = $this->uploadPhoto->upload($photoRequest);
+                $menuPhoto->setPhotoPath($photo);
+                $menu->addPhoto($menuPhoto);
             }
+
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
@@ -118,14 +117,12 @@ final class MenuOrchestrator extends AbstractController
                 $menu = new Menu();
             }
 
-            $photoRequests = $request->files->get('file-upload');
-            if($photoRequests){
-                foreach ($photoRequests as $photoRequest) {
-                    $photo = $this->uploadPhoto->upload($photoRequest);
-                    $menuPhoto = new MenuPhoto();
-                    $menuPhoto->setPhotoPath($photo);
-                    $menu->addPhoto($menuPhoto);
-                }
+            $photoRequest = $request->files->get('file-upload');
+            if($photoRequest){
+                $photo = $this->uploadPhoto->upload($photoRequest);
+                $menuPhoto = new MenuPhoto();
+                $menuPhoto->setPhotoPath($photo);
+                $menu->addPhoto($menuPhoto);
             }
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
