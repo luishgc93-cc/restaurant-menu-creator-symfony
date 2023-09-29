@@ -153,7 +153,12 @@ final class ProductOrchestrator extends AbstractController
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
                 $photo = $this->uploadPhoto->upload($photoRequest);
-                $productoPhoto = new ProductoPhoto();
+                $productoPhoto = $producto->getPhotos()->first();
+                
+                if(!$productoPhoto){
+                    $productoPhoto = new ProductoPhoto();
+                }
+
                 $productoPhoto->setPhotoPath($photo);
                 $producto->addPhoto($productoPhoto);
             }

@@ -119,8 +119,13 @@ final class MenuOrchestrator extends AbstractController
 
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
-                $photo = $this->uploadPhoto->upload($photoRequest);
+                $photo = $this->uploadPhoto->upload($photoRequest);            
+                $menuPhoto = $menu->getPhotos()->first();
+                
+                if(!$menuPhoto){
                 $menuPhoto = new MenuPhoto();
+                }
+
                 $menuPhoto->setPhotoPath($photo);
                 $menu->addPhoto($menuPhoto);
             }
