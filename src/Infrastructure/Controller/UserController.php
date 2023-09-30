@@ -65,6 +65,15 @@ final class UserController extends AbstractController
         if ($request->isMethod('POST')) {
 
             $datosForm = $request->request->all();
+            $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['email']));
+            
+            if($userEmailCheck){
+                $this->addFlash(
+                    'error',
+                    'Este email ya está registrado'
+                );
+                return $this->render('/Registration/register.html.twig');
+            }
 
             if(null == $datosForm['email'] && null == $datosForm['plainPassword'] ){
                 $this->addFlash(
