@@ -64,19 +64,6 @@ final class ProductOrchestrator extends AbstractController
 
     }
 
-    public function showMenusCreated(Request $request): ?array
-    {
-        $idLocal = intval($request->attributes->get('id'));
-        $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
-
-        if ($menuData) {
-            return $menuData;
-        }
-
-        return null;
-    }
-
     public function newProduct(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto
     {
         $userId = $this->getUser()->getId();
