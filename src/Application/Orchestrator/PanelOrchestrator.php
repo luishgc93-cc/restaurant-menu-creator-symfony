@@ -196,10 +196,17 @@ final class PanelOrchestrator extends AbstractController
     }
     public function panelChangePhotoThemeFromLocal(Request $request) : int
     {
-
         $photoRequests = $request->files->get('file-upload');
         if($photoRequests){
         $local = $this->localRepository->findOneBy(array('url' => $request->attributes->get('local')));
+        
+        $userId = $this->getUser()?->getId();
+        $userOwnerOfLocal = $local->getUsuario()->getId();
+
+        if ($userId !== $userOwnerOfLocal) {
+            throw new HttpException(404, 'Página no encontrada');
+        }
+
         $orden = $request->attributes->get('orden');
         $informacion = $this->informationRepository->findOneBy(array('local' => $local->getId()));
         $informacionPhoto = $this->entityManager->getRepository(InformacionPhoto::class)->findOneBy(array('informacion' => $informacion->getId(), 'orden'=> $orden));

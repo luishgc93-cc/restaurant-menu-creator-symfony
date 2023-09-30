@@ -4,8 +4,8 @@
  * Este archivo pertenece a la aplicación XYZ.
  * Todos los derechos reservados.
  *
- * @category Controlador
- * @package  App\Application\Orchestrator\PanelOrchestrator
+ * @category Utils
+ * @package  App\Application\Utils\UploadPhoto
  * @license  Todos los derechos reservados
  */
 
@@ -15,7 +15,6 @@ namespace App\Application\Utils;
 
 
 use Cloudinary\Api\ApiResponse;
-use Cloudinary\Cloudinary;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Configuration\Configuration;
