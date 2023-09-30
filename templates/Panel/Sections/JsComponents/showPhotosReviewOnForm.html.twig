@@ -11,8 +11,15 @@ const imagesContainer = document.querySelector('.imagesToUpload');
 const fileInput = document.getElementById('file-upload');
 
 fileInput.addEventListener('change', function(event) {
+    clearImagesContainer();
     readURL(this);
 });
+
+function clearImagesContainer() {
+    while (imagesContainer.firstChild) {
+        imagesContainer.removeChild(imagesContainer.firstChild);
+    }
+}
 
 function readURL(input) {
     if (input.files && input.files[0]) {
