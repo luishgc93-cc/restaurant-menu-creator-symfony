@@ -39,7 +39,6 @@ final class MenuController extends AbstractController
 
     public function newMenuOfLocalAction(Request $request): Response
     {
-
         $datos = $this->menuOrchestrator->newMenu($request);
         $menus = $this->menuOrchestrator->showMenusCreated($request);
 
@@ -60,7 +59,6 @@ final class MenuController extends AbstractController
 
     public function showMenuOfLocalAction(Request $request): Response
     {
-
         $menus = $this->menuOrchestrator->showMenusCreated($request);
 
         $title = 'Edita un Menú o los Productos asociados';
@@ -100,13 +98,14 @@ final class MenuController extends AbstractController
 
     public function deleteMenuOfLocalAction(Request $request): Response
     {
-
         $menu = $this->menuOrchestrator->deleteMenu($request);
+        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
 
         return $this->render(
             '/Panel/Sections/editMenu.html.twig',
             ['local' => $request->attributes->get('local'), 
             'menu'=> $menu, 
+            'urlLocal' => $urlLocal
             ]
         );
     }
