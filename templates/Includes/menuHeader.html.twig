@@ -10,7 +10,7 @@
             <div class="ml-10 flex items-baseline space-x-4">
               {% if app.user  %}
               <a href="/panel" class="{{ app.request.attributes.get("_route") == 'panel' ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Panel</a>
-              <a href="/panel/ver-local" class="{{ app.request.attributes.get("_route") == 'panel-show-local' ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Ver Locales</a>
+              <a href="/panel/ver-local" class="{{ app.request.attributes.get("_route") in ['panel-select-theme','panel-edit-information','panel-modify-config-local','panel-show-local', 'panel-select-theme', 'panel-new-menu', 'panel-edit-menu-and-show-products', 'panel-edit-product', 'panel-new-product', 'panel-new-product-alone', 'panel-edit-product-alone'] ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Ver Locales</a>
               <a href="/cuenta" class="{{ app.request.attributes.get("_route") == 'cuenta-usuario' ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Cuenta</a>
               <a href="{{ path('app_logout') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Cerrar sesión</a>
               {% else %}
