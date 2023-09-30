@@ -12,7 +12,7 @@
   <div class="mx-auto max-w-2xl lg:max-w-4xl">
 {% include '/Panel/Sections/Components/flashAlert.html.twig' %}
 
-{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'local': app.request.attributes.get('local') } only %}
+{% include '/Panel/Sections/Components/navigationCreator.html.twig' with {'local': app.request.attributes.get('local')  , 'urlLocal' : urlLocal } only %}
 
 <div class="bg-white">
   <div>

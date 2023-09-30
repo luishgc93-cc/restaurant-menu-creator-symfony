@@ -17,17 +17,13 @@ use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\ProductRepository;
-use App\Domain\Model\Local;
-use App\Domain\Model\Informacion;
-use App\Domain\Model\Menu;
 use App\Domain\Model\Producto;
-use App\Domain\Model\MenuPhoto;
 use App\Domain\Model\ProductoPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use App\Application\Utils\UploadPhoto;
+use App\Application\Utils\MultipleUtils;
 
 final class ProductOrchestrator extends AbstractController
 {
@@ -37,6 +33,7 @@ final class ProductOrchestrator extends AbstractController
     private MenuRepository $menuRepository;
     private EntityManagerInterface $entityManager;
     private UploadPhoto $uploadPhoto;
+    private MultipleUtils $multipleUtils;
 
     public function __construct(
         LocalRepository        $localRepository,
@@ -44,7 +41,8 @@ final class ProductOrchestrator extends AbstractController
         MenuRepository         $menuRepository,
         ProductRepository      $productRepository,
         EntityManagerInterface $entityManager,
-        UploadPhoto $uploadPhoto
+        UploadPhoto $uploadPhoto,
+        MultipleUtils $multipleUtils
     )
 
     {
@@ -54,14 +52,13 @@ final class ProductOrchestrator extends AbstractController
         $this->productRepository = $productRepository;
         $this->entityManager = $entityManager;
         $this->uploadPhoto = $uploadPhoto;
+        $this->multipleUtils = $multipleUtils;
     }
 
     public function showLocal(): array
     {
         $userId = $this->getUser()->getId();
-
         return $this->localRepository->findBy(array('usuario' => $userId));
-
     }
 
     public function newProduct(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto

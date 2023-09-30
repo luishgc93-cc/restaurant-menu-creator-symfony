@@ -13,20 +13,26 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Application\Orchestrator\PanelOrchestrator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Application\Utils\MultipleUtils;
 
 final class PanelController extends AbstractController
 {
     private PanelOrchestrator $panelOrchestrator;
+    private MultipleUtils $multipleUtils;
 
-    public function __construct(panelOrchestrator $panelOrchestrator)
+    public function __construct(
+        panelOrchestrator $panelOrchestrator, 
+        MultipleUtils $multipleUtils
+    )
+
     {
         $this->panelOrchestrator = $panelOrchestrator;
+        $this->multipleUtils = $multipleUtils;
     }
 
     public function panelControllerAction()
@@ -53,14 +59,18 @@ final class PanelController extends AbstractController
 
     public function configLocalAction(Request $request): Response
     {
-
         $datos = $this->panelOrchestrator->editConfigLocal($request);
 
         $title = 'Edita la Configuración de tu Local';
 
+        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+
         return $this->render(
             '/Panel/Sections/localOptions.html.twig',
-            ['local' => $request->attributes->get('local'), 'datos'=> $datos, 'title'=>$title]
+            ['local' => $request->attributes->get('local'), 
+            'datos'=> $datos, 
+            'title'=>$title,
+            'urlLocal' => $urlLocal]
         );
     }
 
@@ -79,14 +89,18 @@ final class PanelController extends AbstractController
 
     public function editInformationLocalAction(Request $request): Response
     {
-
         $datos = $this->panelOrchestrator->editInformationLocal($request);
 
         $title = 'Información de tu Local';
 
+        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+
         return $this->render(
             '/Panel/Sections/newInformation.html.twig',
-            ['local' => $request->attributes->get('local'), 'datos'=> $datos, 'title'=>$title]
+            ['local' => $request->attributes->get('local'), 
+            'datos'=> $datos, 
+            'title'=>$title,
+            'urlLocal' => $urlLocal]
         );
     }
 
@@ -94,10 +108,12 @@ final class PanelController extends AbstractController
     {
         $content = $this->panelOrchestrator->selectThemeOfLocal($request);
         $title = 'Escoge la plantilla web para tu Local';
+        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
 
         return $this->render('/Panel/Sections/selectThemeOfLocal.html.twig',[
             'title'=>$title,
-            'content' => $content
+            'content' => $content,
+            'urlLocal' => $urlLocal
         ]);
 
         throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
