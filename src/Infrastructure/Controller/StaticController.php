@@ -35,7 +35,7 @@ final class StaticController extends AbstractController
     public function terminosYCondicionesAction(): Response
     {
         $title = 'Terminos & Condiciones de Uso';
-        return $this->render('/Static/terminosYCondicionesDeUso.html.html.twig',['title'=>$title]);
+        return $this->render('/Static/terminosYCondicionesDeUso.html.twig',['title'=>$title]);
     }
 
     public function faqAction(): Response
