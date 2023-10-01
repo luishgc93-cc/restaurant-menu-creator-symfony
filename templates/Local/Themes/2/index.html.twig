@@ -44,6 +44,8 @@
 {% set photo2 = 'themes/1/images/bg_4.jpg' %}
 {% set photo3 = 'themes/1/images/breakfast-1.jpg' %}
 {% set photo4 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo5 = 'themes/2/images/reservations.jpg' %}
+{% set photo6 = 'themes/2/images/reservations.jpg' %}
 
 {% for photo in photosTheme %}
 	{% if photo.orden == 1 %}
@@ -54,6 +56,10 @@
 		{% set photo3 = photo.photoPath %}
 	{% elseif photo.orden == 4 %}
 		{% set photo4 = photo.photoPath %}		
+	{% elseif photo.orden == 5 %}
+		{% set photo5 = photo.photoPath %}	
+	{% elseif photo.orden == 6 %}
+		{% set photo6 = photo.photoPath %}			
 	{% endif %}
 {% endfor %}
 
@@ -177,10 +183,9 @@
 	<!-- Video -->
 
 	<div class="video_section">
-		<div class="background_image" style="background-image:url(themes/2/images/video.jpg)"></div>
+		<div class="background_image" style="background-image:url({{ photo4|default('themes/2/images/video.jpg') }})"></div>
 		<div class="video_section_content d-flex flex-column align-items-center justify-content-center text-center">
 			<div class="video_section_title">Food for the soul</div>
-			<div class="video_section_icon"><a class="vimeo video_button" href="https://player.vimeo.com/video/99340873?autoplay=1&loop=1&title=0&autopause=0"><i class="fa fa-play" aria-hidden="true"></i></a></div>
 		</div>
 	</div>
 	{% if content.userIsAdmin|default(false) %}
@@ -219,8 +224,7 @@
 				<div class="row">
 					<div class="col-lg-7 offset-lg-5">
 						<div class="sig_image">
-							<div class="background_image" style="background-image:url(themes/2/images/sig.jpg)"></div>
-							<img src="themes/2/images/sig.jpg" alt="">
+							<div class="background_image" style="background-image:url({{ photo5|default('themes/2/images/sig.jpg') }})"></div>
 						</div>
 							{% if content.userIsAdmin|default(false) %}
 								{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 5', 'idPhoto': 5  } %}
@@ -280,38 +284,6 @@
 		</div>		
 	</div>
 
-	<!-- Reservations -->
-	{% if content.userIsAdmin|default(false) %}
-		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 5', 'idPhoto': 6  } %}
-	{% endif %}
-	<div class="reservations text-center">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="themes/2/images/reservations.jpg" data-speed="0.8">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="reservations_content d-flex flex-column align-items-center justify-content-center">
-						<div class="res_title">Contactar</div>
-						<div class="res_form_container">
-							<form action="#" id="res_form" class="res_form">
-								<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start">
-									<label class="res_title" style="font-size: 30px">Nombre: </label>
-									<input type="text" class="res_input" required="required" style="font-size: 30px">
-									<label class="res_title" style="font-size: 30px">Email: </label>
-									<input type="text" class="res_input" required="required" style="font-size: 30px">
-								</div>
-								<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start">
-									<label class="res_title" style="font-size: 30px">Mensaje: </label>
-									<textarea type="text" cols="30" rows="5"  class="res_input" required="required" style="font-size: 30px"> </textarea>
-								</div>
-								<button class="res_button">Enviar</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>		
-		</div>
-	</div>
 	<!-- Footer -->
 
 	<footer class="footer">
