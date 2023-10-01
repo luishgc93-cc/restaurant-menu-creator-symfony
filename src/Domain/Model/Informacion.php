@@ -59,6 +59,27 @@ class Informacion
      */
     private $local;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $instagram;
+
+        /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $twiter;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $youtube;
+
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -146,6 +167,43 @@ class Informacion
         $this->email = $email;
     }
 
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+    }
+    public function getInstagram()
+    {
+        return $this->instagram;
+    }
+
+    public function setInstagram($instagram)
+    {
+        $this->instagram = $instagram;
+    }
+    public function getYoutube()
+    {
+        return $this->youtube;
+    }
+
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+    }
+    public function getTwiter()
+    {
+        return $this->twiter;
+    }
+
+    public function setTwiter($twiter)
+    {
+        $this->twiter = $twiter;
+    }
+    
     public function getFotosInformativas()
     {
         return $this->fotosInformativas;
