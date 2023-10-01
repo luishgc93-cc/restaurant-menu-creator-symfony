@@ -28,6 +28,28 @@
 
 </head>
 
+{% set photosTheme = content.informationForLocal.photos %}
+
+{% set photo1 = 'themes/1/images/bg_6.jpg' %}
+{% set photo2 = 'themes/1/images/bg_4.jpg' %}
+{% set photo3 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo4 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo5 = 'themes/2/images/reservations.jpg' %}
+
+{% for photo in photosTheme %}
+	{% if photo.orden == 1 %}
+		{% set photo1 = photo.photoPath %}
+	{% elseif photo.orden == 2 %}
+		{% set photo2 = photo.photoPath %}
+	{% elseif photo.orden == 3 %}
+		{% set photo3 = photo.photoPath %}
+	{% elseif photo.orden == 4 %}
+		{% set photo4 = photo.photoPath %}		
+	{% elseif photo.orden == 5 %}
+		{% set photo5 = photo.photoPath %}		
+	{% endif %}
+{% endfor %}
+
 <body>
 	<!-- Start header -->
 	<header class="top-navbar">
@@ -79,12 +101,15 @@
 			<div class="row">
 				<div class="col-lg-6 col-md-6 col-sm-12 text-center">
 					<div class="inner-column">
-						<h4>Little Story</h4>
+						<h4>Sobre Nosotros</h4>
 						<p>{{ content.informationForLocal.descripcion }}</p>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12">
-					<img src="themes/3/images/about-img.jpg" alt="" class="img-fluid">
+					<img id="image-2" src="{{ photo2|default('themes/3/images/about-img.jpg') }}" alt="" class="img-fluid">
+				{% if content.userIsAdmin|default(false) %}
+					{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2  } %}
+				{% endif %}
 				</div>
 			</div>
 		</div>
@@ -92,18 +117,20 @@
 	<!-- End About -->
 	
 	<!-- Start QT -->
-	<div class="qt-box qt-background">
+	<div id="image-3" class="qt-box qt-background" style="background: url('themes/3/images/qt-bg.jpg')">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 ml-auto mr-auto text-center">
 					<p class="lead ">
-						" If you're not the one cooking, stay out of the way and compliment the chef. "
+						{{ content.local.descripcionLocal }}
 					</p>
-					<span class="lead">Michael Strahan</span>
 				</div>
 			</div>
 		</div>
 	</div>
+{% if content.userIsAdmin|default(false) %}
+	{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 3', 'idPhoto': 3  } %}
+{% endif %}
 	<!-- End QT -->
 	
 	<!-- Start Menu -->
@@ -375,7 +402,7 @@
 	<!-- End Gallery -->
 
 	<!-- Start Footer -->
-	<footer class="footer-area bg-f">
+	<footer class="footer-area bg-f" style="background-color:#010101 ">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-6">
@@ -426,5 +453,7 @@
 	<script src="themes/3/js/form-validator.min.js"></script>
     <script src="themes/3/js/contact-form-script.js"></script>
     <script src="themes/3/js/custom.js"></script>
+	{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
+
 </body>
 </html>
