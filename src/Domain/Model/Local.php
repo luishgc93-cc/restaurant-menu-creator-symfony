@@ -82,6 +82,12 @@ class Local
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colorWeb;
+
     public function getId()
     {
         return $this->id;
@@ -194,5 +200,15 @@ class Local
     public function setLogo($logo)
     {
         $this->logo = $logo;
+    }
+    
+    public function getColorWeb()
+    {
+        return $this->colorWeb;
+    }
+
+    public function setColorWeb($colorWeb)
+    {
+        $this->colorWeb = $colorWeb;
     }
 }

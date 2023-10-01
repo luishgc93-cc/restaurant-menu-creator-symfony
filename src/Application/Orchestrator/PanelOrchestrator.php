@@ -116,6 +116,7 @@ final class PanelOrchestrator extends AbstractController
                 $photo = $this->uploadPhoto->upload($photoRequest);
                 $local->setLogo($photo);
             }
+            $local->setColorWeb($datosForm['colorWeb'] ?? '');
 
             $this->localRepository->save($local, true);
 
