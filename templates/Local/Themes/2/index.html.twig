@@ -338,7 +338,8 @@
 <script src="themes/2/plugins/jquery-datepicker/jquery-ui.js"></script>
 <script src="themes/2/plugins/jquery-timepicker/jquery.timepicker.js"></script>
 <script src="themes/2/js/custom.js"></script>
-{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
-
+{% if app.request.query.get('edit-photos')%}
+	{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
+{% endif %}
 </body>
 </html>

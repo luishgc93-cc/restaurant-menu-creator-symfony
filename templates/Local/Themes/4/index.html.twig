@@ -54,9 +54,33 @@
     <!-- /.navbar-collapse --> 
   </div>
 </nav>
+
+{% set photosTheme = content.informationForLocal.photos %}
+
+{% set photo1 = 'themes/1/images/bg_6.jpg' %}
+{% set photo2 = 'themes/1/images/bg_4.jpg' %}
+{% set photo3 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo4 = 'themes/1/images/breakfast-1.jpg' %}
+{% set photo5 = 'themes/2/images/reservations.jpg' %}
+
+{% for photo in photosTheme %}
+	{% if photo.orden == 1 %}
+		{% set photo1 = photo.photoPath %}
+	{% elseif photo.orden == 2 %}
+		{% set photo2 = photo.photoPath %}
+	{% elseif photo.orden == 3 %}
+		{% set photo3 = photo.photoPath %}
+	{% elseif photo.orden == 4 %}
+		{% set photo4 = photo.photoPath %}		
+	{% elseif photo.orden == 5 %}
+		{% set photo5 = photo.photoPath %}		
+	{% endif %}
+{% endfor %}
+
+
 <!-- Header -->
 <header id="header">
-  <div class="intro">
+  <div id="image-1" class="intro" style="background:url({{ photo1|default('themes/4/img/intro-bg.jpg') }}); background-size: cover;">
     <div class="overlay">
       <div class="container">
         <div class="row">
@@ -68,13 +92,19 @@
       </div>
     </div>
   </div>
+  {% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 1 }%}
+	{% endif %}
 </header>
 <!-- About Section -->
 <div id="about">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-6 ">
-        <div class="about-img"><img src="themes/4/img/about.jpg" class="img-responsive" alt=""></div>
+        <div id="image-2" class="about-img"><img src="{{ photo2|default('themes/4/img/about.jpg') }}" class="img-responsive" alt=""></div>
+  {% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 2 }%}
+	{% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
@@ -88,12 +118,15 @@
 </div>
 <!-- Restaurant Menu Section -->
 <div id="restaurant-menu">
-  <div class="section-title text-center center">
+  <div id="image-3" style="background:url({{ photo3|default('themes/4/menu-bg.jpg') }} )"class="section-title text-center center">
     <div class="overlay">
       <h2>Menu</h2>
       <hr>
     </div>
   </div>
+  {% if content.userIsAdmin|default(false) %}
+		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 3 }%}
+	{% endif %}
   <div class="container">
 
     <div class="row">
@@ -200,11 +233,12 @@
 </div>
 <script type="text/javascript" src="themes/4/js/jquery.1.11.1.js"></script> 
 <script type="text/javascript" src="themes/4/js/bootstrap.js"></script> 
-<script type="text/javascript" src="themes/4/js/SmoothScroll.js"></script> 
 <script type="text/javascript" src="themes/4/js/nivo-lightbox.js"></script> 
 <script type="text/javascript" src="themes/4/js/jquery.isotope.js"></script> 
 <script type="text/javascript" src="themes/4/js/jqBootstrapValidation.js"></script> 
-<script type="text/javascript" src="themes/4/js/contact_me.js"></script> 
 <script type="text/javascript" src="themes/4/js/main.js"></script>
+{% if app.request.query.get('edit-photos')%}
+  {% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
+{% endif %}
 </body>
 </html>

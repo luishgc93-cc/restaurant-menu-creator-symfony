@@ -242,7 +242,7 @@ header .intro-text {
 	padding: 0 0 60px 0;
 }
 #restaurant-menu .section-title {
-	background: #444 url(../img/menu-bg.jpg) center center no-repeat fixed;
+	background:center center no-repeat fixed;
 	background-size: cover;
 }
 #restaurant-menu .section-title h2 {

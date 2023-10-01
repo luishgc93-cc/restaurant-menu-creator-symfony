@@ -453,7 +453,8 @@
 	<script src="themes/3/js/form-validator.min.js"></script>
     <script src="themes/3/js/contact-form-script.js"></script>
     <script src="themes/3/js/custom.js"></script>
-	{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
-
+	{% if app.request.query.get('edit-photos')%}
+		{% include '/Local/Themes/Components/buttonChangePhotoOfJs.html.twig' %}
+	{% endif %}
 </body>
 </html>
