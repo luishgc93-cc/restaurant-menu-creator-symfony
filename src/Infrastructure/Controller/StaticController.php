@@ -29,13 +29,13 @@ final class StaticController extends AbstractController
     public function privacidadAction(): Response
     {
         $title = 'Política de Privacidad';
-        return $this->render('/Static/aviso-legal.html.twig',['title'=>$title]);
+        return $this->render('/Static/politica-de-privacidad.html.twig',['title'=>$title]);
     }
 
     public function terminosYCondicionesAction(): Response
     {
         $title = 'Terminos & Condiciones de Uso';
-        return $this->render('/Static/aviso-legal.html.twig',['title'=>$title]);
+        return $this->render('/Static/terminosYCondicionesDeUso.html.html.twig',['title'=>$title]);
     }
 
     public function faqAction(): Response
