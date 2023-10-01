@@ -174,7 +174,7 @@
 						</div>
 						{% for producto in menu.productos %}
 						<div class="menus d-flex ftco-animate">
-							<div class="menu-img img" style="background-image: url(themes/1/images/breakfast-1.jpg);"></div>
+							<div class="menu-img img" {% if producto.photos.0.photoPath|default(null)  %}style="background-image: url({{ producto.photos.0.photoPath|default(null) }});" {% endif %}></div>
 							<div class="text">
 								<div class="d-flex">
 									<div class="one-half">
