@@ -77,7 +77,11 @@ class Local
      * @ORM\Column(type="integer")
      */
     private $ocultarFormularioContacto;
-
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logo;
     public function getId()
     {
         return $this->id;
@@ -180,5 +184,15 @@ class Local
     public function setOcultarFormularioContacto($ocultarFormularioContacto)
     {
         $this->ocultarFormularioContacto = $ocultarFormularioContacto;
+    }
+
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
     }
 }

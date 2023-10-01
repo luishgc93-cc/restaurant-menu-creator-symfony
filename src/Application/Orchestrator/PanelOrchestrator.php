@@ -35,7 +35,6 @@ final class PanelOrchestrator extends AbstractController
     public function __construct(
         LocalRepository        $localRepository,
         InformationRepository  $informationRepository,
-
         EntityManagerInterface $entityManager,
         UploadPhoto $uploadPhoto
     )
@@ -111,6 +110,12 @@ final class PanelOrchestrator extends AbstractController
             $local->setUrl($datosForm['url'] ?? '');
             $local->setBloquearWeb('on' === $bloquearWeb ? 1 : 0);
             $local->setOcultarFormularioContacto('on' === $ocultarFormulario? 1 : 0);
+
+            $photoRequest = $request->files->get('file-upload');
+            if($photoRequest){
+                $photo = $this->uploadPhoto->upload($photoRequest);
+                $local->setLogo($photo);
+            }
 
             $this->localRepository->save($local, true);
 
