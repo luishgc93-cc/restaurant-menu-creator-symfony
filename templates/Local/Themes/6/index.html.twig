@@ -163,7 +163,7 @@
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="{{  producto.photos.0.photoPath|default('themes/6/images/res_img_5.jpg')  }}" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											{% if producto.photos.0.photoPath|default(null) %}<img src="{{  producto.photos.0.photoPath|default('themes/6/images/res_img_5.jpg')  }}" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co"> {% endif %}
 										</figure>
 										<div>
 											<h3>{{ producto.nombreProducto }}</h3>
