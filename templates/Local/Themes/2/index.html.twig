@@ -172,17 +172,6 @@
 		</div>
 	</div>
 
-	<!-- Video -->
-
-	<div class="video_section">
-		<div id="image-4" class="background_image" style="background-image:url({{ photo4|default('themes/2/images/video.jpg') }})"></div>
-		<div class="video_section_content d-flex flex-column align-items-center justify-content-center text-center">
-			<div class="video_section_title">Food for the soul</div>
-		</div>
-	</div>
-	{% if content.userIsAdmin|default(false) %}
-		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 4', 'idPhoto': 4  } %}
-	{% endif %}
 	<!-- Signature Dish -->
 
 	<div class="sig">
@@ -191,20 +180,8 @@
 				<div class="row">
 					<div class="col-lg-7">
 						<div class="sig_content">
-							<div class="sig_subtitle page_subtitle">Something new</div>
-							<div class="sig_title"><h1>Our Signature Dish</h1></div>
-							<div class="rating_r sig_rating rating_r_5"><i></i><i></i><i></i><i></i><i></i></div>
 							<div class="sig_name_container d-flex flex-row align-items-start justify-content-start">
-								<div class="sig_name">Pork Tenderloin marinated in Green Pepper</div>
-								<div class="sig_price ml-auto">$20</div>
-							</div>
-							<div class="sig_content_list">
-								<ul class="d-flex flex-row align-items-center justify-content-start">
-									<li>Pork</li>
-									<li>Tenderloin</li>
-									<li>Green Pepper</li>
-									<li>Veggies</li>
-								</ul>
+								<div class="sig_name">{{ content.local.descripcionLocal }}</div>
 							</div>
 						</div>
 					</div>
@@ -216,10 +193,10 @@
 				<div class="row">
 					<div class="col-lg-7 offset-lg-5">
 						<div class="sig_image">
-							<div id="image-5" class="background_image" style="background-image:url({{ photo5|default('themes/2/images/sig.jpg') }})"></div>
+							<div id="image-4" class="background_image" style="background-image:url({{ photo4|default('themes/2/images/sig.jpg') }})"></div>
 						</div>
 							{% if content.userIsAdmin|default(false) %}
-								{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 5', 'idPhoto': 5  } %}
+								{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 4', 'idPhoto': 4  } %}
 							{% endif %}
 					</div>
 				</div>
@@ -237,7 +214,7 @@
 						<div class="themenu_rating text-center">
 						</div>
 						<div class="themenu_title_bar d-flex flex-column align-items-center justify-content-center">
-							<div class="themenu_title">The Menu</div>
+							<div class="themenu_title">Nuestro menu</div>
 						</div>
 					</div>
 				</div>
