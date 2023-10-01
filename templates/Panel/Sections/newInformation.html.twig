@@ -25,11 +25,20 @@
   </div>
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-3">
           <label for="telefono" class="block text-sm font-medium leading-6 text-gray-900">Teléfono</label>
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <input type="number" value="{{ datos.telefono ?? '' }}" name="telefono" id="telefono" autocomplete="telefono" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+          <div class="mt-2">
+            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <input type="email" value="{{ datos.email ?? '' }}" name="email" id="email" autocomplete="email" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -41,7 +50,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-2">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Calle</label>
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -50,7 +59,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-2">
           <label for="localidad" class="block text-sm font-medium leading-6 text-gray-900">Localidad</label>
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -59,7 +68,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-2">
           <label for="ciudad" class="block text-sm font-medium leading-6 text-gray-900">Ciudad</label>
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -68,14 +77,42 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4">
-          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+        <div class="sm:col-span-3">
+          <label for="facebook" class="block text-sm font-medium leading-6 text-gray-900">Facebook</label>
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <input type="email" value="{{ datos.email ?? '' }}" name="email" id="email" autocomplete="email" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="facebook" value="{{ datos.facebook ?? '' }}" name="facebook" id="facebook" autocomplete="facebook" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
+
+        <div class="sm:col-span-3">
+          <label for="instagram" class="block text-sm font-medium leading-6 text-gray-900">Instagram</label>
+          <div class="mt-2">
+            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <input type="instagram" value="{{ datos.instagram ?? '' }}" name="instagram" id="instagram" autocomplete="instagram" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="twiter" class="block text-sm font-medium leading-6 text-gray-900">Twiter</label>
+          <div class="mt-2">
+            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <input type="email" value="{{ datos.twiter ?? '' }}" name="twiter" id="twiter" autocomplete="twiter" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+            </div>
+          </div>
+        </div>
+        
+        <div class="sm:col-span-3">
+          <label for="youtube" class="block text-sm font-medium leading-6 text-gray-900">Youtube</label>
+          <div class="mt-2">
+            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <input type="youtube" value="{{ datos.youtube ?? '' }}" name="youtube" id="youtube" autocomplete="youtube" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+            </div>
+          </div>
+        </div>
+
     </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
