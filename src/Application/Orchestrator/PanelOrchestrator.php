@@ -159,6 +159,10 @@ final class PanelOrchestrator extends AbstractController
             $informacion->setLocalidad($datosForm['localidad'] ?? '');
             $informacion->setCiudad($datosForm['ciudad'] ?? '');
             $informacion->setEmail($datosForm['email'] ?? '');
+            $informacion->setTwiter($datosForm['twiter'] ?? '');
+            $informacion->setFacebook($datosForm['facebook'] ?? '');
+            $informacion->setInstagram($datosForm['instagram'] ?? '');
+            $informacion->setYoutube($datosForm['youtube'] ?? '');
 
             $this->informationRepository->save($informacion, true);
 
