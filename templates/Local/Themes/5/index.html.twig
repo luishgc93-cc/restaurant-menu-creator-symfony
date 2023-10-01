@@ -82,7 +82,7 @@
 	<div id="slides" class="cover-slides">
 		<ul class="slides-container" id="inicio">
 			<li class="text-center">
-				<img src="themes/5/images/slider-01.jpg" alt="">
+				<img id="image-1" src="{{ photo1|default('themes/5/images/slider-01.jpg') }}" alt="">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
@@ -95,6 +95,9 @@
 			</li>
 		</ul>
 	</div>
+{% if content.userIsAdmin|default(false) %}
+	{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 1 }%}
+{% endif %}
 	<!-- End slides -->
 	
 	<!-- Start About -->
