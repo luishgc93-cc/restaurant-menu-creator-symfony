@@ -101,11 +101,15 @@ final class MenuOrchestrator extends AbstractController
     }
     public function editMenu(Request $request)
     {
-        $userId = $this->getUser()->getId();
         $menuId = intval($request->attributes->get('menuId'));
         $menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
+        $userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
+        
+        if (!$userGrantedForEdit) {
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        if ($request->isMethod('POST') && $userGrantedForEdit) {
             $datosForm = $request->request->all();
 
             if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
@@ -144,10 +148,15 @@ final class MenuOrchestrator extends AbstractController
     }
     public function deleteMenu(Request $request)
     {
-        $userId = $this->getUser()->getId();
         $menuId = intval($request->attributes->get('menuId'));
         $menu = $this->menuRepository->findOneBy(array('id' => $menuId));
+
+        $userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
         
+        if (!$userGrantedForEdit) {
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
+
         if(!$menu){
             $this->addFlash(
                 'error',

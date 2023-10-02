@@ -116,6 +116,12 @@ final class ProductOrchestrator extends AbstractController
         $idProducto = intval($request->attributes->get('productoId'));
         $producto = $this->productRepository->findOneBy(array('id' => $idProducto));
 
+        $userGrantedForEdit = $producto->getUserId() === $this->getUser()->getId();
+        
+        if (!$userGrantedForEdit) {
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
+
         $informacion = $this->informationRepository->findOneBy(array('local' => $idProducto));
 
         if ($saveProductWithIdInformation && $request->isMethod('GET')) {
@@ -163,7 +169,13 @@ final class ProductOrchestrator extends AbstractController
     {
         $userId = $this->getUser()->getId();
         $productId = intval($request->attributes->get('productoId'));
+
         $product = $this->productRepository->findOneBy(array('id' => $productId));
+        $userGrantedForEdit = $product->getUserId() === $this->getUser()->getId();
+        
+        if (!$userGrantedForEdit) {
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
 
         if(!$product){
             $this->addFlash(
