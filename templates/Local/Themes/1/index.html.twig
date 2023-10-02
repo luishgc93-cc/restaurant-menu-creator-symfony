@@ -44,6 +44,12 @@
 .button5 {background-color: #555555;} /* Black */
 </style>
 {% endif %}
+<style>
+.staff:after, .staff:before{
+background: {{ content.local.colorWeb }}
+}
+
+</style>
 </head>
 <body>
 
@@ -182,7 +188,7 @@
 										<h3>{{ producto.nombreProducto }}</h3>
 									</div>
 									<div class="one-forth">
-										<span class="price">{{ producto.precioProducto }}€</span>
+										<span class="price" style="color: {{ content.local.colorWeb }}">{{ producto.precioProducto }}€</span>
 									</div>
 								</div>
 								<p>{{ producto.informacionProducto }}</p>
@@ -247,7 +253,7 @@
 		</div>
 	</section>
 
-	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-intro bg-primary">
+	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-intro bg-primary" style="background-color:  {{ content.local.colorWeb }} !important">
 		<div class="container py-5">
 			<div class="row py-2">
 				<div class="col-md-12 text-center">
