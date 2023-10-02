@@ -60,7 +60,6 @@ final class MenuOrchestrator extends AbstractController
 
     public function newMenu(Request $request)
     {
-        $userId = $this->getUser()->getId();
         $idLocal = intval($request->attributes->get('local'));
 
         $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
@@ -85,7 +84,7 @@ final class MenuOrchestrator extends AbstractController
                 $menuPhoto->setPhotoPath($photo);
                 $menu->addPhoto($menuPhoto);
             }
-
+            $menu->setUserId($this->getUser()->getId());
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');

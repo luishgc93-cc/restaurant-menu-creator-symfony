@@ -58,6 +58,11 @@ class Menu
      */
     private $productos;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+     private $userId;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -151,13 +156,23 @@ class Menu
         $producto->setMenus(null);
     }
 
-  public function getEstilo()
-  {
-      return $this->estilo;
-  }
+    public function getEstilo()
+    {
+        return $this->estilo;
+    }
 
     public function setEstilo($estilo)
     {
         $this->estilo = $estilo;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
     }
 }

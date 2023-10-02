@@ -84,6 +84,7 @@ final class ProductOrchestrator extends AbstractController
             if ($saveProductWithIdInformation) {
                 $producto->setInformacion($informacion);
             }
+            $producto->setUserId($this->getUser()->getId());
             $producto->setNombreProducto($datosForm['producto'] ?? '');
             $producto->setInformacionProducto($datosForm['informacion'] ?? '');
             $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');

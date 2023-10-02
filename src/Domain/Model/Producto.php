@@ -54,6 +54,11 @@ class Producto
      * @ORM\JoinColumn(nullable=false)
      */
     private $informacion;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $userId;
 
     public function __construct()
     {
@@ -150,5 +155,15 @@ class Producto
     public function setInformacion($informacion)
     {
         $this->informacion = $informacion;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
     }
 }
