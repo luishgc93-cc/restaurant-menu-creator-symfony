@@ -53,6 +53,30 @@
 		{% set photo5 = photo.photoPath %}		
 	{% endif %}
 {% endfor %}
+{% if content.local.colorWeb|default %}
+{% set color =  content.local.colorWeb %}
+<style>
+.footer-area h3 {
+border-bottom: 1px dashed {{ color }};
+}
+
+.copyright {
+border-top: 1px dashed {{ color }};
+}
+
+.top-navbar .navbar-light .navbar-nav .nav-item.active .nav-link {
+    background: {{ color }};
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+.top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover{
+    background: {{ color }};
+	color: #ffffff;
+}
+</style>
+
+{% endif %}
 <body>
 	{% include '/Local/Themes/Components/flashAlertThemes.html.twig' %}
 
@@ -61,7 +85,11 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
 				<a class="navbar-brand" href="index.html">
-					<img src="themes/5/images/logo.png" alt="" />
+				{% if content.local.logo|default %}
+					<img src="{{ content.local.logo }}" alt="{{ content.local.nombreLocal }}" with="50px" height="50px"/>
+				{% else %}
+          			{{ content.local.nombreLocal }}
+				{% endif %}
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
 				  <span class="navbar-toggler-icon"></span>
@@ -88,7 +116,6 @@
 						<div class="col-md-12">
 							<h1 class="m-b-20">{{ content.local.nombreLocal }}</h1>
 							<p class="m-b-40">{{ content.local.descripcionLocal }}</p>
-							<p><a class="btn btn-lg btn-circle btn-outline-new-white" href="#contactar">Contactar</a></p>
 						</div>
 					</div>
 				</div>
@@ -105,7 +132,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-6 col-sm-12">
-					<img id="image-2" src={{ photo2|default('themes/5/images/about-img.jpg') }}  alt="" class="img-fluid">
+					<img id="image-2" src={{ photo2|default('themes/5/images/about-img.jpg') }}  alt="" class="img-fluid"  style="box-shadow: -10px -10px 0px {{ content.local.colorWeb|default('#d65106') }}">
 					  {% if content.userIsAdmin|default(false) %}
 						{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 2 }%}
 					{% endif %}
