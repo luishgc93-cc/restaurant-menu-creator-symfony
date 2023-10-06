@@ -42,7 +42,12 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand page-scroll" href="#page-top">Touché</a> </div>
+        {% if content.local.logo|default %}
+					<img src="{{ content.local.logo }}" alt="{{ content.local.nombreLocal }}" with="50px" height="50px"/>
+				{% else %}
+          <a class="navbar-brand page-scroll" href="#page-top" style="color: {{ content.local.colorWeb }}">{{ content.local.nombreLocal }}</a> 
+				{% endif %}
+      </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -78,6 +83,24 @@
 	{% endif %}
 {% endfor %}
 
+{% if content.local.colorWeb|default %}
+<style>
+
+#footer h3 {
+    color: {{ content.local.colorWeb }};
+    font-weight: 400;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, a:hover {
+    color: {{ content.local.colorWeb }} !important;
+    background-color: transparent;
+}
+</style>
+{% endif %}
+
 
 <!-- Header -->
 <header id="header">
@@ -90,7 +113,7 @@
           <div class="intro-text">
             <h1>{{ content.local.nombreLocal }}</h1>
             <p>{{ content.local.descripcionLocal }}</p>
-            <a href="#contact" class="btn btn-custom btn-lg page-scroll">Contactar</a> </div>
+            <a href="#contact" class="btn btn-custom btn-lg page-scroll" style="background-color : {{ content.local.colorWeb }}">Contactar</a> </div>
         </div>
       </div>
     </div>
@@ -112,7 +135,7 @@
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
           <h2>Sobre nosotros</h2>
-          <hr>
+          <hr style="background-color : {{ content.local.colorWeb }}">
           <p>{{ content.informationForLocal.descripcion }}</p>
         </div>
       </div>
@@ -124,7 +147,7 @@
   <div id="image-3" style="background:url({{ photo3|default('themes/4/menu-bg.jpg') }} ) center center no-repeat fixed ; background-size : cover"class="section-title text-center center">
     <div class="overlay">
       <h2>Menu</h2>
-      <hr>
+        <hr style="background-color : {{ content.local.colorWeb }}">
     </div>
   </div>
   {% if content.userIsAdmin|default(false) %}
@@ -138,7 +161,7 @@
         <div class="col-xs-12 col-sm-6">
             <div class="menu-section">
               <h2 class="menu-section-title">{{  menu.nombreMenu }}</h2>
-              <hr>
+              <hr style="background-color : {{ content.local.colorWeb }}">
 
             {% for producto in  menu.productos %}
 
@@ -159,18 +182,12 @@
   </div>
 </div>
 
-<!-- Call Reservation Section -->
-<div id="call-reservation" class="text-center">
-  <div class="container">
-    <h2>Puedes reservar llamando a: <strong>1-887-654-3210</strong></h2>
-  </div>
-</div>
 <!-- Contact Section -->
 <div id="contact" class="text-center">
   <div class="container">
     <div class="section-title text-center">
       <h2>Contactar</h2>
-      <hr>
+      <hr style="background-color : {{ content.local.colorWeb }}">
     </div>
     <div class="col-md-10 col-md-offset-1">
       <form name="sentMessage" id="contactForm" novalidate>
@@ -193,7 +210,7 @@
           <p class="help-block text-danger"></p>
         </div>
         <div id="success"></div>
-        <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
+        <button type="submit" class="btn btn-custom btn-lg" style="background-color : {{ content.local.colorWeb }}">Send Message</button>
       </form>
     </div>
   </div>
