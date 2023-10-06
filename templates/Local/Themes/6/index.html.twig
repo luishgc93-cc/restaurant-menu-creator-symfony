@@ -89,6 +89,60 @@
 	{% endif %}
 {% endfor %}
 
+{% if content.local.colorWeb|default %}
+
+<style>
+
+.fh5co-main-nav .fh5co-menu-1 a.active, .fh5co-main-nav .fh5co-menu-2 a.active, .fh5co-main-nav .fh5co-logo a.active{
+	color: {{ content.local.colorWeb|default }};
+}
+#fh5co-about .fh5co-text .heading:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    left: 50%;
+    background: {{ content.local.colorWeb|default }};
+    margin-left: -20px;
+}
+
+.fh5co-heading .heading:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    left: 50%;
+    background: {{ content.local.colorWeb|default }};
+    margin-left: -20px;
+}
+
+#fh5co-menus .fh5co-food-menu ul li .fh5co-food-pricing {
+    float: right;
+    width: 20%;
+    text-align: right;
+    font-size: 20px;
+    color: {{ content.local.colorWeb|default }};
+}
+a {
+    color:{{ content.local.colorWeb|default }};
+}
+
+.btn-primary {
+    background: {{ content.local.colorWeb|default }};
+    color: #fff;
+    border:{{ content.local.colorWeb|default }};
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: {{ content.local.colorWeb|default }} !important;
+  border-color: {{ content.local.colorWeb|default }} !important;
+}
+</style>
+
+{% endif %}
+
 	<body>
 	{% include '/Local/Themes/Components/flashAlertThemes.html.twig' %}
 
