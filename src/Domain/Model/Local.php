@@ -26,12 +26,7 @@ class Local
      * @ORM\Column(type="string", length=255)
      */
     private $descripcionLocal;
-
-    /**
-     * @ORM\Column(type="string", length=1000)
-     */
-    private $fotoLocal;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Model\Usuario")
      * @ORM\JoinColumn(nullable=false)
@@ -111,16 +106,6 @@ class Local
     public function setDescripcionLocal($descripcionLocal)
     {
         $this->descripcionLocal = $descripcionLocal;
-    }
-
-    public function getFotoLocal()
-    {
-        return $this->fotoLocal;
-    }
-
-    public function setFotoLocal($fotoLocal)
-    {
-        $this->fotoLocal = $fotoLocal;
     }
 
     public function getUsuario()
