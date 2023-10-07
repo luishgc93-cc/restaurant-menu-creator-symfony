@@ -78,11 +78,17 @@ class Informacion
      * @ORM\Column(type="string", length=255)
      */
     private $youtube;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\HorarioLocal", mappedBy="local", cascade={"persist", "remove"})
+     */
+    private $horariosLocal;
 
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->horariosLocal = new ArrayCollection();
+
     }
 
     public function getPhotos()
@@ -222,6 +228,17 @@ class Informacion
     public function setLocal($local)
     {
         $this->local = $local;
+    }
+    public function addHorarioLocal(HorarioLocal $horario)
+    {
+        $this->horariosLocal[] = $horario;
+        $horario->setInformacion($this);
+    }
+
+    public function removeHorarioLocal(HorarioLocal $horario)
+    {
+        $this->horariosLocal->removeElement($horario);
+        $horario->setInformacion(null);
     }
 
 }

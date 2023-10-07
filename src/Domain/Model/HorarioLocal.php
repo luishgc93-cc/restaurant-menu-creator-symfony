@@ -32,10 +32,10 @@ class HorarioLocal
     private $horaCierre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Local", inversedBy="horariosLocal")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Informacion", inversedBy="horariosLocal")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $local;
+    private $informacion;
 
     public function getId()
     {
@@ -72,13 +72,13 @@ class HorarioLocal
         $this->horaCierre = $horaCierre;
     }
 
-    public function getLocal()
+    public function getInformacion()
     {
-        return $this->local;
+        return $this->informacion;
     }
 
-    public function setLocal($local)
+    public function setInformacion($informacion)
     {
-        $this->local = $local;
+        $this->informacion = $informacion;
     }
 }

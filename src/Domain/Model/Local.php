@@ -82,16 +82,6 @@ class Local
      */
     private $colorWeb;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Model\HorarioLocal", mappedBy="local", cascade={"persist", "remove"})
-     */
-    private $horariosLocal;
-
-    public function __construct()
-    {
-        $this->horariosLocal = new ArrayCollection();
-    }
-
     public function getId()
     {
         return $this->id;
@@ -209,18 +199,6 @@ class Local
     public function getHorariosLocal()
     {
         return $this->horariosLocal;
-    }
-
-    public function addHorarioLocal(HorarioLocal $horario)
-    {
-        $this->horariosLocal[] = $horario;
-        $horario->setLocal($this);
-    }
-
-    public function removeHorarioLocal(HorarioLocal $horario)
-    {
-        $this->horariosLocal->removeElement($horario);
-        $horario->setLocal(null);
     }
 
 }

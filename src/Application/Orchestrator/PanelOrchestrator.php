@@ -172,18 +172,70 @@ final class PanelOrchestrator extends AbstractController
             $informacion->setInstagram($datosForm['instagram'] ?? '');
             $informacion->setYoutube($datosForm['youtube'] ?? '');
             
-            /*
-            $horarioLocal = new HorarioLocal();
-            $date = new \DateTime('@'.strtotime('now'));
-
-            $horarioLocal->setDiaSemana('2');
-            $horarioLocal->setHoraApertura($date);
-            $horarioLocal->setHoraCierre($date);
-            $horarioLocal->setLocal($local);
-    
-            $this->entityManager->persist($horarioLocal);
-            */
-
+ 
+            if($datosForm['horarioLunesApertura'] && $datosForm['horarioLunesCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Lunes');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioLunesApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioLunesCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
+            if($datosForm['horarioMartesApertura'] && $datosForm['horarioMartesCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Martes');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioMartesApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioMartesCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
+            if($datosForm['horarioMiercolesApertura'] && $datosForm['horarioMiercolesCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Miercoles');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioMiercolesApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioMiercolesCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
+            if($datosForm['horarioJuevesApertura'] && $datosForm['horarioJuevesCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Jueves');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioJuevesApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioJuevesCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
+            if($datosForm['horarioViernesApertura'] && $datosForm['horarioViernesCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Viernes');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioViernesApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioViernesCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
+            if($datosForm['horarioSabadoApertura'] && $datosForm['horarioSabadoCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Sabado');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioSabadoApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioSabadoCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
+            if($datosForm['horarioDomingoApertura'] && $datosForm['horarioDomingoCierre']){
+                $horarioLocal = new HorarioLocal();
+                $horarioLocal->setDiaSemana('Domingo');
+                $horarioLocal->setHoraApertura( new \DateTime('@'.strtotime($datosForm['horarioDomingoApertura'])) );
+                $horarioLocal->setHoraCierre( new \DateTime('@'.strtotime($datosForm['horarioDomingoCierre'])) );
+                $horarioLocal->setInformacion($informacion);
+                $informacion->addHorarioLocal($horarioLocal);
+            }
+            
             $this->informationRepository->save($informacion, true);
 
             $this->addFlash(
