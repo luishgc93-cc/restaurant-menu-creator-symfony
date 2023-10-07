@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\Orchestrator;
 
+use App\Domain\Model\HorarioLocal;
 use App\Domain\Model\InformacionPhoto;
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
@@ -24,6 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use App\Application\Utils\UploadPhoto;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 final class PanelOrchestrator extends AbstractController
 {
@@ -169,6 +171,18 @@ final class PanelOrchestrator extends AbstractController
             $informacion->setFacebook($datosForm['facebook'] ?? '');
             $informacion->setInstagram($datosForm['instagram'] ?? '');
             $informacion->setYoutube($datosForm['youtube'] ?? '');
+            
+            /*
+            $horarioLocal = new HorarioLocal();
+            $date = new \DateTime('@'.strtotime('now'));
+
+            $horarioLocal->setDiaSemana('2');
+            $horarioLocal->setHoraApertura($date);
+            $horarioLocal->setHoraCierre($date);
+            $horarioLocal->setLocal($local);
+    
+            $this->entityManager->persist($horarioLocal);
+            */
 
             $this->informationRepository->save($informacion, true);
 
