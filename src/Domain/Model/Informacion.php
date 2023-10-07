@@ -84,6 +84,11 @@ class Informacion
      */
     private $horariosLocal;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $maps;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -245,4 +250,13 @@ class Informacion
         $horario->setInformacion(null);
     }
 
+    public function getMaps()
+    {
+        return $this->maps;
+    }
+
+    public function setMaps($maps)
+    {
+        return $this->maps = $maps;
+    }
 }

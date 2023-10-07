@@ -171,7 +171,8 @@ final class PanelOrchestrator extends AbstractController
             $informacion->setFacebook($datosForm['facebook'] ?? '');
             $informacion->setInstagram($datosForm['instagram'] ?? '');
             $informacion->setYoutube($datosForm['youtube'] ?? '');
-            
+            $informacion->setMaps($datosForm['maps'] ?? '');
+
              $daysOfWeek = [
                 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'
             ];
