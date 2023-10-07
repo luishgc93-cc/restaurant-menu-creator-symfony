@@ -88,7 +88,6 @@ class Informacion
     {
         $this->photos = new ArrayCollection();
         $this->horariosLocal = new ArrayCollection();
-
     }
 
     public function getPhotos()
@@ -240,5 +239,8 @@ class Informacion
         $this->horariosLocal->removeElement($horario);
         $horario->setInformacion(null);
     }
-
+    public function getHorariosLocal()
+    {
+        return $this->horariosLocal;
+    }
 }

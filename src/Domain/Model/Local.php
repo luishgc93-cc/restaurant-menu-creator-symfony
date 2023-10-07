@@ -195,10 +195,4 @@ class Local
     {
         $this->colorWeb = $colorWeb;
     }
-
-    public function getHorariosLocal()
-    {
-        return $this->horariosLocal;
-    }
-
 }
