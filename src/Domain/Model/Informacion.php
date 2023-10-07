@@ -80,7 +80,7 @@ class Informacion
     private $youtube;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Model\HorarioLocal", mappedBy="local", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\HorarioLocal", mappedBy="informacion", cascade={"persist", "remove"})
      */
     private $horariosLocal;
 

@@ -17,6 +17,57 @@
   {% include '/Panel/Sections/Components/navigationCreator.html.twig' %}
 {% endif %}
 
+{% set horarioData = datos.horariosLocal|default(null) %}
+{% if horarioData %}
+
+  {% set horarioLunesApertura = null %}
+  {% set horarioLunesCierre = null %}
+
+  {% set horarioMartesApertura = null %}
+  {% set horarioMartesCierre = null %}
+
+  {% set horarioMiercolesApertura = null %}
+  {% set horarioMiercolesCierre = null %}
+
+  {% set horarioJuevesApertura = null %}
+  {% set horarioJuevesCierre = null %}
+
+  {% set horarioViernesApertura = null %}
+  {% set horarioViernesCierre = null %}
+
+  {% set horarioSabadoApertura = null %}
+  {% set horarioSabadoCierre = null %}
+
+  {% set horarioDomingoApertura = null %}
+  {% set horarioDomingoCierre = null %}
+
+  {% for dia in horarioData %}
+    {% if dia.diaSemana == 'Lunes' %}
+      {% set horarioLunesApertura = dia.horaApertura %}
+      {% set horarioLunesCierre = dia.horaCierre %}
+    {% elseif dia.diaSemana == 'Martes' %}
+      {% set horarioMartesApertura = dia.horaApertura %}
+      {% set horarioMartesCierre = dia.horaCierre %}
+    {% elseif dia.diaSemana == 'Miercoles' %}
+      {% set horarioMiercolesApertura = dia.horaApertura %}
+      {% set horarioMiercolesCierre = dia.horaCierre %}
+    {% elseif dia.diaSemana == 'Jueves' %}
+      {% set horarioJuevesApertura = dia.horaApertura %}
+      {% set horarioJuevesCierre = dia.horaCierre %}    
+    {% elseif dia.diaSemana == 'Viernes' %}
+      {% set horarioViernesApertura = dia.horaApertura %}
+      {% set horarioViernesCierre = dia.horaApertura %}
+    {% elseif dia.diaSemana == 'Sabado' %}
+      {% set horarioSabadoApertura = dia.horaApertura %}
+      {% set horarioSabadoCierre = dia.horaApertura %}
+    {% elseif dia.diaSemana == 'Domingo' %}
+      {% set horarioDomingoApertura = dia.horaApertura %}
+      {% set horarioDomingoCierre = dia.horaApertura %}          
+    {% endif %}
+  {% endfor %}
+
+{% endif %}
+
 <form  action="{{ path('panel-edit-information',{'local': local }) }}" method="post">
   <div class="space-y-22">
     <div class="border-b border-gray-900/10 mt-12">
@@ -133,7 +184,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Lunes apertura: </span>
-              <input type="time" value="" name="horarioLunesApertura" id="horarioLunesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioLunesApertura|default ? horarioLunesApertura|date('H:i') : '' }}" name="horarioLunesApertura" id="horarioLunesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -142,7 +193,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Lunes cierre: </span>
-              <input type="time" value="" name="horarioLunesCierre" id="horarioLunesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioLunesCierre|default ? horarioLunesCierre|date('H:i') : '' }}" name="horarioLunesCierre" id="horarioLunesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -151,7 +202,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Martes apertura: </span>
-              <input type="time" value="" name="horarioMartesApertura" id="horarioMartesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioMartesApertura|default ? horarioMartesApertura|date('H:i') : '' }}" name="horarioMartesApertura" id="horarioMartesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -160,7 +211,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Martes cierre: </span>
-              <input type="time" value="" name="horarioMartesCierre" id="horarioMartesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioMartesCierre|default ? horarioMartesCierre|date('H:i') : '' }}" name="horarioMartesCierre" id="horarioMartesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -168,8 +219,8 @@
         <div class="sm:col-span-3">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Miércoles: </span>
-              <input type="time" value="" name="horarioMiercolesApertura" id="horarioMiercolesApertura"  class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Miércoles apertura: </span>
+              <input type="time" value="{{ horarioMiercolesApertura|default ? horarioMiercolesApertura|date('H:i') : '' }}" name="horarioMiercolesApertura" id="horarioMiercolesApertura"  class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -178,7 +229,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Miércoles cierre: </span>
-              <input type="time" value="" name="horarioMiercolesCierre" id="horarioMiercolessCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioMiercolesCierre|default ? horarioMiercolesCierre|date('H:i') : '' }}" name="horarioMiercolesCierre" id="horarioMiercolesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -186,8 +237,8 @@
         <div class="sm:col-span-3">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Jueves: </span>
-              <input type="time" value="" name="horarioJuevesApertura" id="horarioJuevesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Jueves apertura: </span>
+              <input type="time" value="{{ horarioJuevesApertura|default ? horarioJuevesApertura|date('H:i') : '' }}" name="horarioJuevesApertura" id="horarioJuevesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -196,7 +247,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Jueves cierre: </span>
-              <input type="time" value="" name="horarioJuevesCierre" id="horarioJuevesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioJuevesCierre|default ? horarioJuevesCierre|date('H:i') : '' }}" name="horarioJuevesCierre" id="horarioJuevesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -204,8 +255,8 @@
         <div class="sm:col-span-3">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Viernes: </span>
-              <input type="time" value="" name="horarioViernesApertura" id="horarioViernesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Viernes apertura: </span>
+              <input type="time" value="{{ horarioViernesApertura|default ? horarioViernesApertura|date('H:i') : '' }}" name="horarioViernesApertura" id="horarioViernesApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -214,7 +265,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Viernes cierre: </span>
-              <input type="time" value="" name="horarioViernesCierre" id="horarioViernesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioViernesCierre|default ? horarioViernesCierre|date('H:i') : '' }}" name="horarioViernesCierre" id="horarioViernesCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -222,8 +273,8 @@
         <div class="sm:col-span-3">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Sábado: </span>
-              <input type="time" value="" name="horarioSabadoApertura" id="horarioSabadoApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Sábado apertura: </span>
+              <input type="time" value="{{ horarioSabadoApertura|default ? horarioSabadoApertura|date('H:i') : '' }}" name="horarioSabadoApertura" id="horarioSabadoApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -232,7 +283,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Sábado cierre: </span>
-              <input type="time" value="" name="horarioSabadoCierre" id="horarioSabadoCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioSabadoCierre|default ? horarioSabadoCierre|date('H:i') : '' }}" name="horarioSabadoCierre" id="horarioSabadoCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -240,8 +291,8 @@
         <div class="sm:col-span-3">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Domingo: </span>
-              <input type="time" value="" name="horarioDomingoApertura" id="horarioDomingoApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Domingo apertura: </span>
+              <input type="time" value="{{ horarioDomingoApertura|default ? horarioDomingoApertura|date('H:i') : '' }}" name="horarioDomingoApertura" id="horarioDomingoApertura" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
@@ -250,7 +301,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Domingo cierre: </span>
-              <input type="time" value="" name="horarioDomingoCierre" id="horarioDomingoCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
+              <input type="time" value="{{ horarioDomingoCierre|default ? horarioDomingoCierre|date('H:i') : '' }}" name="horarioDomingoCierre" id="horarioDomingoCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
           </div>
         </div>
