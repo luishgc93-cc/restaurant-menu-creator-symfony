@@ -228,6 +228,11 @@ class Informacion
     {
         $this->local = $local;
     }
+    public function getHorariosLocal()
+    {
+        return $this->horariosLocal;
+    }
+
     public function addHorarioLocal(HorarioLocal $horario)
     {
         $this->horariosLocal[] = $horario;
@@ -239,8 +244,5 @@ class Informacion
         $this->horariosLocal->removeElement($horario);
         $horario->setInformacion(null);
     }
-    public function getHorariosLocal()
-    {
-        return $this->horariosLocal;
-    }
+
 }
