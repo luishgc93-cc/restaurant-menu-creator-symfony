@@ -190,7 +190,6 @@ final class PanelOrchestrator extends AbstractController
                 }
             }
             
-            
             $this->informationRepository->save($informacion, true);
 
             $this->addFlash(
