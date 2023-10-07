@@ -2,6 +2,7 @@
 
 namespace App\Domain\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,20 +27,18 @@ class Local
      * @ORM\Column(type="string", length=255)
      */
     private $descripcionLocal;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Model\Usuario")
      * @ORM\JoinColumn(nullable=false)
      */
     private $usuario;
 
-    // Relación con la entidad "informacion"
     /**
      * @ORM\OneToOne(targetEntity="App\Domain\Model\Informacion", mappedBy="local", cascade={"persist", "remove"})
      */
     private $informacion;
 
-    // Relación con la entidad "usuario"
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Model\Usuario", inversedBy="locales")
      * @ORM\JoinTable(name="usuario_local",
@@ -82,6 +81,16 @@ class Local
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $colorWeb;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\HorarioLocal", mappedBy="local", cascade={"persist", "remove"})
+     */
+    private $horariosLocal;
+
+    public function __construct()
+    {
+        $this->horariosLocal = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -196,4 +205,22 @@ class Local
     {
         $this->colorWeb = $colorWeb;
     }
+
+    public function getHorariosLocal()
+    {
+        return $this->horariosLocal;
+    }
+
+    public function addHorarioLocal(HorarioLocal $horario)
+    {
+        $this->horariosLocal[] = $horario;
+        $horario->setLocal($this);
+    }
+
+    public function removeHorarioLocal(HorarioLocal $horario)
+    {
+        $this->horariosLocal->removeElement($horario);
+        $horario->setLocal(null);
+    }
+
 }
