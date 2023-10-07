@@ -264,6 +264,10 @@ background: {{ content.local.colorWeb }}
 		</div>
 	</section>
 
+	{% if content.informationForLocal.maps|default(null) %}
+		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
+	{% endif %}
+
 		<script src="themes/1/js/jquery.min.js"></script>
 		<script src="themes/1/js/jquery-migrate-3.0.1.min.js"></script>
 		<script src="themes/1/js/popper.min.js"></script>
