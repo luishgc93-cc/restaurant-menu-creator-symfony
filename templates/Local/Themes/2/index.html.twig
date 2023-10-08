@@ -132,7 +132,6 @@
 						<div class="home_content text-center">
 							<div class="home_title"><h1>{{ content.local.nombreLocal }}</h1></div>
 							<div class="home_text ml-auto mr-auto">
-								<p>{{ content.local.descripcionLocal }}</p>
 							</div>
 						</div>
 					</div>
@@ -214,7 +213,7 @@
 						<div class="themenu_rating text-center">
 						</div>
 						<div class="themenu_title_bar d-flex flex-column align-items-center justify-content-center">
-							<div class="themenu_title">Nuestro menu</div>
+							<h2 class="themenu_title">Nuestro menu</h2>
 						</div>
 					</div>
 				</div>
@@ -222,30 +221,22 @@
 			<div class="row themenu_row">
 
 				{% for menu in content.menus %}
-
 				<div class="col-lg-4 themenu_column">
-
 					<div class="themenu_col">
-
-						<div class="themenu_col_title">{{ menu.nombreMenu }}</div>
-
+						<h3 class="themenu_col_title">{{ menu.nombreMenu }}</h3>
 						<div class="dish_list">
 						{% for producto in menu.productos %}
 							<div class="dish">
 								<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
-									<div class="dish_title">{{ producto.nombreProducto }}</div>
+									<h4 class="dish_title">{{ producto.nombreProducto }}</h4>
 									<div class="dish_price">{{ producto.precioProducto }}€</div>
 								</div>
 							</div>
 						{% endfor %}
-
 						</div>
 					</div>
-
 				</div>
 				{% endfor %}
-
-
 
 			</div>
 		</div>		
