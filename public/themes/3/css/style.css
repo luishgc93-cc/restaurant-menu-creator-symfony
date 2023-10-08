@@ -182,10 +182,7 @@ button:focus{
 	text-transform: uppercase;
 }
 
-.top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover{
-	background: #d65106;
-	color: #ffffff;
-}
+
 .top-navbar .navbar-light .navbar-nav .nav-item.active .nav-link{
 	background: #d65106;
 	color: #ffffff;
@@ -203,13 +200,6 @@ button:focus{
 	text-transform: uppercase;
 }
 
-.navbar-expand-lg .navbar-nav .dropdown-menu a.dropdown-item:hover{
-	background: #d65106;
-	color: #ffffff;
-}
-.navbar-light .navbar-toggler:hover{
-	background: #d65106;
-}
 
 /*------------------------------------------------------------------
     Slider
@@ -235,9 +225,7 @@ button:focus{
 .slides-navigation a i{
 	font-size: 40px;
 }
-.slides-navigation a:hover {
-	background: #010101;
-}
+
 .cover-slides .container{
 	height: 100%;
 	position: relative;
@@ -407,10 +395,7 @@ button:focus{
 .inner-menu-box .nav-pills .nav-link{
 	font-size: 18px;
 }
-.inner-menu-box .nav-pills .nav-link:hover{
-	background: #d65106;
-	color: #ffffff;
-}
+
 
 .gallery-single{
 	margin-bottom: 30px;
@@ -480,7 +465,7 @@ button:focus{
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 .tz-gallery .lightbox{
-	border: 3px solid #d65106;
+	border: 3px solid white;
 	display: inline-block;
 	margin-bottom: 30px;
 }
@@ -687,9 +672,6 @@ button:focus{
 .footer-area p a{
 	font-size: 18px;
 	color: #ffffff;
-}
-.footer-area p a:hover{
-	color: #d65106;
 }
 
 .subscribe_form {
@@ -1338,26 +1320,6 @@ blockquote {
     border-radius: 0px;
     margin: 0px auto;
 }
-
-#back-to-top {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    z-index: 9999;
-    width: 52px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    background: #d65106;
-    color: #ffffff;
-    cursor: pointer;
-    border: 0;
-    border-radius: 2px;
-    text-decoration: none;
-    transition: opacity 0.2s ease-out;
-	font-size: 30px;
-}
-
 
 
 
