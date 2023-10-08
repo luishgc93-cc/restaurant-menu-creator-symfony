@@ -37,6 +37,10 @@ final class UploadPhoto extends AbstractController
         $uploadApi = new UploadApi();
         /** @var ApiResponse $response */
         $response = $uploadApi->upload($filePath);
+        
+        if ($response['url'] ?? '') {
+            unlink($filePath);
+        }
         return $response['url'];
     }
 }
