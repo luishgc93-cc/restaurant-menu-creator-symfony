@@ -116,7 +116,17 @@ final class PanelOrchestrator extends AbstractController
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
                 $photo = $this->uploadPhoto->upload($photoRequest);
-                $local->setLogo($photo);
+                
+                if('' !== $photo){
+                    $local->setLogo($photo);
+                } 
+
+                if('' === $photo){
+                    $this->addFlash(
+                        'error',
+                        'La foto pesa más de mega y medio, bajala de peso.'
+                    );
+                } 
             }
             $local->setColorWeb($datosForm['colorWeb'] ?? '');
 

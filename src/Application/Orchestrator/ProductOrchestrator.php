@@ -97,8 +97,17 @@ final class ProductOrchestrator extends AbstractController
             if($photoRequest){
                 $productoPhoto = new ProductoPhoto();
                 $photo = $this->uploadPhoto->upload($photoRequest);
-                $productoPhoto->setPhotoPath($photo);
-                $producto->addPhoto($productoPhoto);
+                
+                if('' !== $photo){
+                    $productoPhoto->setPhotoPath($photo);
+                    $producto->addPhoto($productoPhoto);
+                } 
+                if('' === $photo){
+                    $this->addFlash(
+                        'error',
+                        'La foto pesa más de mega y medio, bajala de peso.'
+                    );
+                } 
             }
             $this->addFlash(
                 'sucess',
@@ -107,7 +116,6 @@ final class ProductOrchestrator extends AbstractController
             $this->productRepository->save($producto, true);
 
             return $producto;
-
         }
         return false;
     }
@@ -149,9 +157,18 @@ final class ProductOrchestrator extends AbstractController
                 if(!$productoPhoto){
                     $productoPhoto = new ProductoPhoto();
                 }
+                
+                if('' !== $photo){
+                    $productoPhoto->setPhotoPath($photo);
+                    $producto->addPhoto($productoPhoto);
+                } 
 
-                $productoPhoto->setPhotoPath($photo);
-                $producto->addPhoto($productoPhoto);
+                if('' === $photo){
+                    $this->addFlash(
+                        'error',
+                        'La foto pesa más de mega y medio, bajala de peso.'
+                    );
+                } 
             }
             $this->addFlash(
                 'sucess',

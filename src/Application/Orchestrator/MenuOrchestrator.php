@@ -81,8 +81,16 @@ final class MenuOrchestrator extends AbstractController
             if($photoRequest){
                 $menuPhoto = new MenuPhoto();
                 $photo = $this->uploadPhoto->upload($photoRequest);
-                $menuPhoto->setPhotoPath($photo);
-                $menu->addPhoto($menuPhoto);
+                if('' !== $photo){
+                    $menuPhoto->setPhotoPath($photo);
+                    $menu->addPhoto($menuPhoto);
+                }
+                if('' === $photo){
+                    $this->addFlash(
+                        'error',
+                        'La foto pesa más de mega y medio, bajala de peso.'
+                    );
+                }    
             }
             $menu->setUserId($this->getUser()->getId());
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
@@ -122,16 +130,27 @@ final class MenuOrchestrator extends AbstractController
 
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
-                $photo = $this->uploadPhoto->upload($photoRequest);            
-                $menuPhoto = $menu->getPhotos()->first();
+                $photo = $this->uploadPhoto->upload($photoRequest);
                 
-                if(!$menuPhoto){
-                $menuPhoto = new MenuPhoto();
-                }
+                if('' !== $photo){
+                    $menuPhoto = $menu->getPhotos()->first();
+                
+                    if(!$menuPhoto){
+                    $menuPhoto = new MenuPhoto();
+                    }
+    
+                    $menuPhoto->setPhotoPath($photo);
+                    $menu->addPhoto($menuPhoto);
+                }   
 
-                $menuPhoto->setPhotoPath($photo);
-                $menu->addPhoto($menuPhoto);
+                if('' === $photo){
+                    $this->addFlash(
+                        'error',
+                        'La foto pesa más de mega y medio, bajala de peso.'
+                    );
+                }               
             }
+
             $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
             $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
             $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
