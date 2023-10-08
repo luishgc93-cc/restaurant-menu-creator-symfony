@@ -139,8 +139,8 @@ background: {{ content.local.colorWeb }}
 					<div id="image-2" class="img img-2 w-100 mr-md-2" style="background-image: url({{ photo2 }});"></div>
 					<div id="image-3" class="img img-2 w-100 ml-md-2" style="background-image: url({{ photo3 }});"></div>
 				</div>
-				<div class="col-md-6 ftco-animate makereservation p-4 p-md-5">
-					<div class="heading-section ftco-animate mb-5">
+				<div class="col-md-6 ftco-animate fadeInUp ftco-animated makereservation p-4 p-md-5">
+					<div class="heading-section ftco-animate fadeInUp ftco-animated mb-5">
 						<h2 class="mb-4">Sobre Nosotros</h2>
 						<p>{{ content.informationForLocal.descripcion }}</p>
 					</div>
@@ -165,7 +165,7 @@ background: {{ content.local.colorWeb }}
 	<section class="ftco-section" id="menu">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
-				<div class="col-md-7 text-center heading-section ftco-animate">
+				<div class="col-md-7 text-center heading-section ftco-animate fadeInUp ftco-animated">
 					<h2 class="mb-4">Nuestro Menú</h2>
 				</div>
 			</div>
@@ -174,11 +174,11 @@ background: {{ content.local.colorWeb }}
 
 					<div class="col-md-6 col-lg-4">
 					<div class="menu-wrap">
-						<div class="heading-menu text-center ftco-animate">
+						<div class="heading-menu text-center ftco-animate fadeInUp ftco-animated">
 							<h3>{{ menu.nombreMenu }}</h3>
 						</div>
 						{% for producto in menu.productos %}
-						<div class="menus d-flex ftco-animate">
+						<div class="menus d-flex ftco-animate fadeInUp ftco-animated">
 							<div class="menu-img img" {% if producto.photos.0.photoPath|default(null)  %}style="background-image: url({{ producto.photos.0.photoPath|default(null) }});" {% endif %}></div>
 							<div class="text">
 								<div class="d-flex">
@@ -222,13 +222,13 @@ background: {{ content.local.colorWeb }}
 	<section class="ftco-section bg-light" id="productos">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
-				<div class="col-md-7 text-center heading-section ftco-animate">
+				<div class="col-md-7 text-center heading-section ftco-animate fadeInUp ftco-animated">
 					<h2 class="mb-4">Nuestros Productos</h2>
 				</div>
 			</div>	
 			<div class="row">
 				{% for producto in content.productsAlone|slice(0, 5) %}
-				<div class="col-md-6 col-lg-3 ftco-animate">
+				<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
 					<div class="staff">
 						<div class="img" style="background-image: url({{ producto.photos.0.photoPath|default }});"></div>
 						<div class="text px-4 pt-2">
@@ -237,10 +237,10 @@ background: {{ content.local.colorWeb }}
 							<div class="faded">
 								<p>{{ producto.informacionProducto }}</p>
 								<ul class="ftco-social d-flex">
-									<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-									<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-									<li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
-									<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-twitter"></span></a></li>
+									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-facebook"></span></a></li>
+									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-google-plus"></span></a></li>
+									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-instagram"></span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -273,9 +273,6 @@ background: {{ content.local.colorWeb }}
 		<script src="themes/1/js/jquery.easing.1.3.js"></script>
 		<script src="themes/1/js/jquery.waypoints.min.js"></script>
 		<script src="themes/1/js/jquery.stellar.min.js"></script>
-		<script src="themes/1/js/jquery.magnific-popup.min.js"></script>
-		<script src="themes/1/js/jquery.animateNumber.min.js"></script>
-		<script src="themes/1/js/bootstrap-datepicker.js"></script>
 		<script src="themes/1/js/jquery.timepicker.min.js"></script>
 		<script src="themes/1/js/scrollax.min.js"></script>
 		<script src="themes/1/js/main.js"></script>
