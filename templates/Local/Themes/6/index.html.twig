@@ -282,6 +282,10 @@ a {
 		
 	</div>
 
+	{% if content.informationForLocal.maps|default(null) %}
+		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
+	{% endif %}
+	
 	<div id="fh5co-footer">
 		<div class="container">
 			<div class="row row-padded">

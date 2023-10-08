@@ -422,7 +422,9 @@ background: {{ content.local.colorWeb }} !important
 		</div>
 	</div>
 	<!-- End Gallery -->
-
+	{% if content.informationForLocal.maps|default(null) %}
+		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
+	{% endif %}
 	<!-- Start Footer -->
 	<footer class="footer-area bg-f" style="background-color:#010101 ">
 		<div class="container">

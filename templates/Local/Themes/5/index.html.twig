@@ -256,7 +256,9 @@ border-top: 1px dashed {{ color }};
 		</div>
 	</div>
 	<!-- End Gallery -->
-	
+	{% if content.informationForLocal.maps|default(null) %}
+		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
+	{% endif %}
 	<!-- Start Footer -->
 	<footer class="footer-area bg-f" id="contactar">
 		<div class="container">

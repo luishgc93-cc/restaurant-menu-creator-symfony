@@ -215,6 +215,10 @@
     </div>
   </div>
 </div>
+	{% if content.informationForLocal.maps|default(null) %}
+		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
+	{% endif %}
+  
 <div id="footer">
   <div class="container text-center">
     <div class="col-md-4">
