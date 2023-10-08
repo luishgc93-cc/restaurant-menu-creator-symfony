@@ -134,9 +134,7 @@ final class PanelOrchestrator extends AbstractController
     public function showLocal(): array
     {
         $userId = $this->getUser()->getId();
-
         return $this->localRepository->findBy(array('usuario' => $userId));
-
     }
 
     public function editInformationLocal(Request $request): ?Informacion

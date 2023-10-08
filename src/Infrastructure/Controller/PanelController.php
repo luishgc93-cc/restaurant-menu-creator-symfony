@@ -38,10 +38,9 @@ final class PanelController extends AbstractController
     public function panelControllerAction()
     {
         $title = 'Panel de Control';
-
         return $this->render('/Panel/panel.html.twig', ['title' => $title]);
-
     }
+    
     public function createLocalAction(Request $request): Response
     {
 
@@ -77,6 +76,10 @@ final class PanelController extends AbstractController
     public function showLocalAction(): Response
     {
         $local = $this->panelOrchestrator->showLocal();
+
+        if(!$local){
+            return $this->redirect($this->generateUrl('panel-new-local'));
+        }
 
         $title = 'Ver Locales Creados';
 
