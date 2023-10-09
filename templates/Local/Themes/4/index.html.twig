@@ -228,10 +228,82 @@
       </div>
     </div>
     <div class="col-md-4">
+    					{% set lunesHorarioApertura = '' %}
+					{% set lunesHorarioCierre = '' %}
+					{% set lunesNoMostrarHorario = '' %}
+
+					{% set martesHorarioApertura = '' %}
+					{% set martesHorarioCierre ='' %}
+					{% set martesNoMostrarHorario = '' %}
+
+					{% set miercolesHorarioApertura = '' %}
+					{% set miercolesHorarioCierre = '' %}
+					{% set miercolesNoMostrarHorario = '' %}
+
+					{% set juevesHorarioApertura = '' %}
+					{% set juevesHorarioCierre ='' %}
+					{% set juevesNoMostrarHorario = '' %}
+
+					{% set viernesHorarioApertura = '' %}
+					{% set viernesHorarioCierre ='' %}
+					{% set viernesNoMostrarHorario = '' %}
+
+					{% set sabadoHorarioApertura = '' %}
+					{% set sabadoHorarioCierre = '' %}
+					{% set sabadoNoMostrarHorario = '' %}
+
+					{% set domingoHorarioApertura ='' %}
+					{% set domingoHorarioCierre = '' %}
+					{% set domingoNoMostrarHorario = '' %}
+
+				{% for horario in content.informationForLocal.horariosLocal|default %}
+				    {% if horario.diaSemana == 'Lunes' %}
+						{% set lunesHorarioApertura = horario.horaApertura|default %}
+						{% set lunesHorarioCierre = horario.horaCierre|default %}
+						{% set lunesNoMostrarHorario = horario.noMostrarHora|default %}
+
+					{% elseif horario.diaSemana == 'Martes' %}
+						{% set martesHorarioApertura = horario.horaApertura|default %}
+						{% set martesHorarioCierre = horario.horaCierre|default %}
+						{% set martesNoMostrarHorario = horario.noMostrarHora|default %}
+
+					{% elseif horario.diaSemana == 'Miercoles' %}
+
+						{% set miercolesHorarioApertura = horario.horaApertura|default %}
+						{% set miercolesHorarioCierre = horario.horaCierre|default %}
+						{% set miercolesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Jueves' %}
+
+						{% set juevesHorarioApertura = horario.horaApertura|default %}
+						{% set juevesHorarioCierre = horario.horaCierre|default %}
+						{% set juevesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Viernes' %}
+
+						{% set viernesHorarioApertura = horario.horaApertura|default %}
+						{% set viernesHorarioCierre = horario.horaCierre|default %}
+						{% set viernesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Sabado' %}
+
+						{% set sabadoHorarioApertura = horario.horaApertura|default %}
+						{% set sabadoHorarioCierre = horario.horaCierre|default %}	
+						{% set sabadoNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Domingo' %}
+
+						{% set domingoHorarioApertura = horario.horaApertura|default %}
+						{% set domingoHorarioCierre = horario.horaCierre|default %}		
+						{% set domingoNoMostrarHorario = horario.noMostrarHora|default %}
+					{% endif %}
+				{% endfor %}
+
       <h3>Horario</h3>
       <div class="contact-item">
-        <p>Mon-Thurs: 10:00 AM - 11:00 PM</p>
-        <p>Fri-Sun: 11:00 AM - 02:00 AM</p>
+        <p>Lunes: {% if lunesNoMostrarHorario|default %} Cerrado {% endif %} {% if not lunesNoMostrarHorario|default %}</span>{{ lunesHorarioApertura|date('H:i') }} - {{ lunesHorarioCierre|date('H:i') }} {% endif %}</p>
+        <p>Martes: {% if martesNoMostrarHorario|default %} Cerrado {% endif %} {% if not martesNoMostrarHorario|default %}</span>{{ martesHorarioApertura|date('H:i') }} - {{ martesHorarioCierre|date('H:i') }} {% endif %}</p>
+        <p>Miércoles: {% if miercolesNoMostrarHorario|default %} Cerrado {% endif %} {% if not miercolesNoMostrarHorario|default %}</span>{{ miercolesHorarioApertura|date('H:i') }} - {{ miercolesHorarioCierre|date('H:i') }} {% endif %}</p>
+        <p>Jueves: {% if juevesNoMostrarHorario|default %} Cerrado {% endif %} {% if not juevesNoMostrarHorario|default %}</span>{{ juevesHorarioApertura|date('H:i') }} - {{ juevesHorarioCierre|date('H:i') }} {% endif %}</p>
+        <p>Viernes: {% if viernesNoMostrarHorario|default %} Cerrado {% endif %} {% if not viernesNoMostrarHorario|default %}</span>{{ viernesHorarioApertura|date('H:i') }} - {{ viernesHorarioCierre|date('H:i') }} {% endif %}</p>
+        <p>Sábado: {% if sabadoNoMostrarHorario|default %} Cerrado {% endif %} {% if not sabadoNoMostrarHorario|default %}</span>{{ sabadoHorarioApertura|date('H:i') }} - {{ sabadoHorarioCierre|date('H:i') }} {% endif %}</p>
+        <p>Domingo: {% if domingoNoMostrarHorario|default %} Cerrado {% endif %} {% if not domingoNoMostrarHorario|default %}</span>{{ domingoHorarioApertura|date('H:i') }} - {{ domingoNoMostrarHorario|date('H:i') }} {% endif %}</p>
       </div>
     </div>
     <div class="col-md-4">
