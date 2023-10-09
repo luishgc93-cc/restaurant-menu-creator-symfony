@@ -40,19 +40,6 @@ class Local
     private $informacion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Model\Usuario", inversedBy="locales")
-     * @ORM\JoinTable(name="usuario_local",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="local_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $usuarios;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $estilo;
@@ -125,16 +112,6 @@ class Local
     public function setInformacion($informacion)
     {
         $this->informacion = $informacion;
-    }
-
-    public function getUsuarios()
-    {
-        return $this->usuarios;
-    }
-
-    public function setUsuarios($usuarios)
-    {
-        $this->usuarios = $usuarios;
     }
 
     public function getEstilo()
