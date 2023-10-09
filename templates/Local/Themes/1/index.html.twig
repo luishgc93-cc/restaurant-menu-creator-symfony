@@ -76,19 +76,20 @@ background: {{ content.local.colorWeb }}
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-12 col-md d-flex align-items-center">
-					<p class="mb-0 phone"><span class="mailus">Teléfono:</span> {{ content.informationForLocal.telefono }}</p>
+					{% if content.informationForLocal.telefono|default %}<p class="mb-0 phone"><span class="mailus">Teléfono:</span> {{ content.informationForLocal.telefono }}</p>{% endif %}
 				</div>
+				{% if content.informationForLocal.facebook|default or content.informationForLocal.facebook|default or content.informationForLocal.instagram|default or content.informationForLocal.youtube|default %}
 				<div class="col-12 col-md d-flex justify-content-md-end">
-					<p class="mb-0">Mon - Fri / 9:00-21:00, Sat - Sun / 10:00-20:00</p>
 					<div class="social-media">
 						<p class="mb-0 d-flex">
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+							{% if content.informationForLocal.facebook|default %}<a href="https://www.facebook.com/{{ content.informationForLocal.facebook }}" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>{% endif %}
+							{% if content.informationForLocal.twiter|default %}<a href="https://twitter.com/{{ content.informationForLocal.twiter }}" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>{% endif %}
+							{% if content.informationForLocal.instagram|default %}<a href="https://www.instagram.com/{{ content.informationForLocal.instagram }}" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>{% endif %}
+							{% if content.informationForLocal.youtube|default %}<a href="https://www.youtube.com/@{{ content.informationForLocal.youtube }}" class="d-flex align-items-center justify-content-center"><span class="fa fa-youtube"><i class="sr-only">Dribbble</i></span></a>{% endif %}
 						</p>
 					</div>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

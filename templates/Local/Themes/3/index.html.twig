@@ -457,11 +457,57 @@ color: #ffffff;
 					<p><a href="#"> {{ content.informationForLocal.email }}</a></p>
 				</div>
 				<div class="col-lg-3 col-md-6">
+					{% set lunesHorarioApertura = '' %}
+					{% set lunesHorarioCierre = '' %}
+
+					{% set martesHorarioApertura = '' %}
+					{% set martesHorarioCierre ='' %}
+
+					{% set miercolesHorarioApertura = '' %}
+					{% set miercolesHorarioCierre = '' %}
+
+					{% set juevesHorarioApertura = '' %}
+					{% set juevesHorarioCierre ='' %}
+
+					{% set viernesHorarioApertura = '' %}
+					{% set viernesHorarioCierre ='' %}
+
+					{% set sabadoHorarioApertura = '' %}
+					{% set sabadoHorarioCierre = '' %}
+
+					{% set domingoHorarioApertura ='' %}
+					{% set domingoHorarioCierre = '' %}
+
+				{% for horario in content.informationForLocal.horariosLocal|default %}
+					{% set lunesHorarioApertura = horario.horaApertura|default %}
+					{% set lunesHorarioCierre = horario.horaCierre|default %}
+
+					{% set martesHorarioApertura = horario.horaApertura|default %}
+					{% set martesHorarioCierre = horario.horaCierre|default %}
+
+					{% set miercolesHorarioApertura = horario.horaApertura|default %}
+					{% set miercolesHorarioCierre = horario.horaCierre|default %}
+
+					{% set juevesHorarioApertura = horario.horaApertura|default %}
+					{% set juevesHorarioCierre = horario.horaCierre|default %}
+
+					{% set viernesHorarioApertura = horario.horaApertura|default %}
+					{% set viernesHorarioCierre = horario.horaCierre|default %}
+
+					{% set sabadoHorarioApertura = horario.horaApertura|default %}
+					{% set sabadoHorarioCierre = horario.horaCierre|default %}	
+
+					{% set domingoHorarioApertura = horario.horaApertura|default %}
+					{% set domingoHorarioCierre = horario.horaCierre|default %}										
+				{% endfor %}
 					<h3>Opening hours</h3>
-					<p><span class="text-color">Monday: </span>Closed</p>
-					<p><span class="text-color">Tue-Wed :</span> 9:Am - 10PM</p>
-					<p><span class="text-color">Thu-Fri :</span> 9:Am - 10PM</p>
-					<p><span class="text-color">Sat-Sun :</span> 5:PM - 10PM</p>
+					<p><span class="text-color">Lunes: </span>{{ lunesHorarioApertura|date('H:i') }} - {{ lunesHorarioCierre|date('H:i') }}</p>
+					<p><span class="text-color">Martes: </span>{{ martesHorarioApertura|date('H:i') }} - {{ martesHorarioCierre|date('H:i') }}</p>
+					<p><span class="text-color">Miércoles: </span>{{ miercolesHorarioApertura|date('H:i') }} - {{ miercolesHorarioCierre|date('H:i') }}</p>
+					<p><span class="text-color">Jueves: </span>{{ juevesHorarioApertura|date('H:i') }} - {{ juevesHorarioCierre|date('H:i') }}</p>
+					<p><span class="text-color">Viernes: </span>{{ viernesHorarioApertura|date('H:i') }} - {{ viernesHorarioCierre|date('H:i') }}</p>
+					<p><span class="text-color">Sábado: </span>{{ sabadoHorarioApertura|date('H:i') }} - {{ sabadoHorarioCierre|date('H:i') }}</p>
+					<p><span class="text-color">Domingo: </span>{{ domingoHorarioApertura|date('H:i') }} - {{ domingoHorarioCierre|date('H:i') }}</p>
 				</div>
 			</div>
 		</div>
