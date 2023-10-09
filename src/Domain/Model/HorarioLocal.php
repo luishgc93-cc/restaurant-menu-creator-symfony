@@ -37,6 +37,11 @@ class HorarioLocal
      */
     private $informacion;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $noMostrarHora;
+
     public function getId()
     {
         return $this->id;
@@ -80,5 +85,15 @@ class HorarioLocal
     public function setInformacion($informacion)
     {
         $this->informacion = $informacion;
+    }
+
+    public function getNoMostrarHora()
+    {
+        return $this->noMostrarHora;
+    }
+
+    public function setNoMostrarHora($noMostrarHora)
+    {
+        return $this->noMostrarHora = $noMostrarHora;
     }
 }

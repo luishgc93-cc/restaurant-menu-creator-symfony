@@ -192,7 +192,8 @@ final class PanelOrchestrator extends AbstractController
             foreach ($daysOfWeek as $day) {
                 $aperturaKey = 'horario' . $day . 'Apertura';
                 $cierreKey = 'horario' . $day . 'Cierre';
-            
+                $mostrarHora = $datosForm['no-mostrar-hora-' . $day] ?? false;
+
                 if ($datosForm[$aperturaKey] && $datosForm[$cierreKey]) {
 
                     $horarioExistente = null;                    
@@ -211,6 +212,8 @@ final class PanelOrchestrator extends AbstractController
                     $horarioLocal->setHoraApertura(new \DateTime('@' . strtotime($datosForm[$aperturaKey])));
                     $horarioLocal->setHoraCierre(new \DateTime('@' . strtotime($datosForm[$cierreKey])));
                     $horarioLocal->setInformacion($informacion);
+                    $horarioLocal->setNoMostrarHora($mostrarHora ? true : false);
+                    
                     $informacion->addHorarioLocal($horarioLocal);
                 }
             }

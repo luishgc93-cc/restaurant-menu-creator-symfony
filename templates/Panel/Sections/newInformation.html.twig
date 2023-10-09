@@ -22,47 +22,67 @@
 
   {% set horarioLunesApertura = null %}
   {% set horarioLunesCierre = null %}
+  {% set horarioLunesMostrar = null %}
 
   {% set horarioMartesApertura = null %}
   {% set horarioMartesCierre = null %}
+  {% set horarioMartesMostrar = null %}
 
   {% set horarioMiercolesApertura = null %}
   {% set horarioMiercolesCierre = null %}
+  {% set horarioMiercolesMostrar = null %}
 
   {% set horarioJuevesApertura = null %}
   {% set horarioJuevesCierre = null %}
+  {% set horarioJuevesMostrar = null %}
 
   {% set horarioViernesApertura = null %}
   {% set horarioViernesCierre = null %}
+  {% set horarioViernesMostrar = null %}
 
   {% set horarioSabadoApertura = null %}
   {% set horarioSabadoCierre = null %}
+  {% set horarioSabadoMostrar = null %}
 
   {% set horarioDomingoApertura = null %}
   {% set horarioDomingoCierre = null %}
+  {% set horarioDomingoMostrar = null %}
 
   {% for dia in horarioData %}
     {% if dia.diaSemana == 'Lunes' %}
       {% set horarioLunesApertura = dia.horaApertura %}
       {% set horarioLunesCierre = dia.horaCierre %}
+      {% set horarioLunesMostrar = dia.noMostrarHora %}
     {% elseif dia.diaSemana == 'Martes' %}
       {% set horarioMartesApertura = dia.horaApertura %}
       {% set horarioMartesCierre = dia.horaCierre %}
+      {% set horarioMartesMostrar = dia.noMostrarHora %}
+
     {% elseif dia.diaSemana == 'Miercoles' %}
       {% set horarioMiercolesApertura = dia.horaApertura %}
       {% set horarioMiercolesCierre = dia.horaCierre %}
+      {% set horarioMiercolesMostrar = dia.noMostrarHora %}
+
     {% elseif dia.diaSemana == 'Jueves' %}
       {% set horarioJuevesApertura = dia.horaApertura %}
-      {% set horarioJuevesCierre = dia.horaCierre %}    
+      {% set horarioJuevesCierre = dia.horaCierre %}   
+      {% set horarioJuevesMostrar = dia.noMostrarHora %}
+
     {% elseif dia.diaSemana == 'Viernes' %}
       {% set horarioViernesApertura = dia.horaApertura %}
       {% set horarioViernesCierre = dia.horaApertura %}
+      {% set horarioViernesMostrar = dia.noMostrarHora %}
+
     {% elseif dia.diaSemana == 'Sabado' %}
       {% set horarioSabadoApertura = dia.horaApertura %}
       {% set horarioSabadoCierre = dia.horaApertura %}
+      {% set horarioSabadoMostrar = dia.noMostrarHora %}
+
     {% elseif dia.diaSemana == 'Domingo' %}
       {% set horarioDomingoApertura = dia.horaApertura %}
-      {% set horarioDomingoCierre = dia.horaApertura %}          
+      {% set horarioDomingoCierre = dia.horaApertura %}  
+      {% set horarioDomingoMostrar = dia.noMostrarHora %}
+
     {% endif %}
   {% endfor %}
 
@@ -195,7 +215,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Lunes apertura: </span>
@@ -204,7 +224,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Lunes cierre: </span>
@@ -213,7 +233,14 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioLunesMostrar ? 'checked' : '' }}   name="no-mostrar-hora-Lunes" id="no-mostrar-hora-Lunes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Martes apertura: </span>
@@ -222,7 +249,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Martes cierre: </span>
@@ -231,7 +258,14 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioMartesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Martes" id="no-mostrar-hora-Martes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Miércoles apertura: </span>
@@ -240,7 +274,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Miércoles cierre: </span>
@@ -249,7 +283,14 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioMiercolesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Miercoles" id="no-mostrar-hora-Miercoles"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Jueves apertura: </span>
@@ -258,7 +299,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Jueves cierre: </span>
@@ -267,7 +308,14 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioJuevesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Jueves" id="no-mostrar-hora-Jueves"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Viernes apertura: </span>
@@ -276,7 +324,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Viernes cierre: </span>
@@ -285,7 +333,14 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioViernesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Viernes" id="no-mostrar-hora-Viernes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Sábado apertura: </span>
@@ -294,7 +349,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Sábado cierre: </span>
@@ -303,7 +358,14 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioSabadoMostrar ? 'checked' : '' }}  name="no-mostrar-hora-Sabado" id="no-mostrar-hora-Sabado"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Domingo apertura: </span>
@@ -312,12 +374,19 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">Domingo cierre: </span>
               <input type="time" value="{{ horarioDomingoCierre|default ? horarioDomingoCierre|date('H:i') : '' }}" name="horarioDomingoCierre" id="horarioDomingoCierre" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" >
             </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
+          <div class="mt-2">
+              <input type="checkbox" {{ horarioDomingoMostrar ? 'checked' : '' }} name="no-mostrar-hora-Domingo" id="no-mostrar-hora-Domingo"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
