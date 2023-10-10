@@ -9,8 +9,7 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               {% if app.user  %}
-              <a href="/panel" class="{{ app.request.attributes.get("_route") == 'panel' ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Panel</a>
-              <a href="/panel/ver-local" class="{{ app.request.attributes.get("_route") in ['panel-select-theme','panel-edit-information','panel-modify-config-local','panel-show-local', 'panel-select-theme', 'panel-new-menu', 'panel-edit-menu-and-show-products', 'panel-edit-product', 'panel-new-product', 'panel-new-product-alone', 'panel-edit-product-alone'] ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Ver Locales</a>
+              <a href="/panel" class="{{ app.request.attributes.get("_route") in ['panel-new-local','panel-select-theme','panel-edit-information','panel-modify-config-local','panel-show-local', 'panel-select-theme', 'panel-new-menu', 'panel-edit-menu-and-show-products', 'panel-edit-product', 'panel-new-product', 'panel-new-product-alone', 'panel-edit-product-alone'] ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Panel</a>
               <a href="/cuenta" class="{{ app.request.attributes.get("_route") == 'cuenta-usuario' ? 'bg-gray-700': ''}} text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Cuenta</a>
               <a href="{{ path('app_logout') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Cerrar sesión</a>
               {% else %}
@@ -37,7 +36,6 @@
         <div class="mt-3 space-y-1 px-2">
           {% if app.user  %}
             <a href="/panel" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" aria-current="page">Panel</a>
-            <a href="/panel/ver-local" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Ver Locales</a>
             <a href="/cuenta" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Cuenta</a>
             <a href="{{ path('app_logout') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Cerrar sesión</a>
           {% else %}

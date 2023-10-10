@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panel de control, edita, crea, modifica tus locales{% endblock %}
+{% block title %}Panel de control, edita, crea, modifica tu Local{% endblock %}
 {% block head %}
     {{ parent() }}
 {% endblock %}
@@ -8,37 +8,24 @@
 <div class="bg-white mb-16">
   <div class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 sm:px-6 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
     <div>
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Tu panel de control para gestionar tu cuenta y locales</h2>
-      <p class="mt-4 text-gray-500">The walnut wood card tray is precision milled to perfectly fit a stack of Focus cards. The powder coated steel divider separates active cards from new ones, or can be used to archive important task lists.</p>
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Edita toda la Información de tu Local</h2>
 
       <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
 
-      <a href="{{ path('panel-new-local') }}">
+      <a href="{{ path('panel-edit-information', {'local': local.id }) }}">
         <div class="border-t border-gray-200 pt-4">
-          <dt class="font-medium text-gray-900">Crear Locales</dt>
-          <dd class="mt-2 text-sm text-gray-500">Crea un nuevo local, añade toda la información que necesitan saber tus clientes.</dd>
+          <dt class="font-medium text-gray-900">Editar Información del Local</dt>
+          <dd class="mt-2 text-sm text-gray-500">En el panel de control puedes modificar la configuración de tu Local, la información, añadir, editar y borrar menus.</dd>
         </div>
       </a>
 
-      <a href="{{ path('panel-show-local') }}">
-        <div class="border-t border-gray-200 pt-4">
-          <dt class="font-medium text-gray-900">Ver Locales</dt>
-          <dd class="mt-2 text-sm text-gray-500">Puedes ver todos tus locales creados.</dd>
-        </div>
-      </a>
-      
       <a href="{{ path('cuenta-usuario') }}">
         <div class="border-t border-gray-200 pt-4">
-          <dt class="font-medium text-gray-900">Cuenta</dt>
+          <dt class="font-medium text-gray-900">Cuenta de usuario</dt>
           <dd class="mt-2 text-sm text-gray-500">Gestiona la contraseña de tu cuenta.</dd>
         </div>
       </a>
 
-      <a href="{{ path('app_logout') }}">
-        <div class="border-t border-gray-200 pt-4">
-          <dt class="font-medium text-gray-900">Cerrar sesión</dt>
-        </div>
-      </a>
       </dl>
     </div>
     <div class="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">

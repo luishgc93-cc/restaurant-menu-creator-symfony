@@ -65,16 +65,14 @@ final class PanelOrchestrator extends AbstractController
 
             $local = new Local();
             $local->setUsuario($this->getUser());
-            $local->setNombreLocal($datosForm['local'] ?? '');
+            $local->setNombreLocal($datosForm['nombreLocal'] ?? '');
             $local->setDescripcionLocal($datosForm['descripcion'] ?? '');
             $local->setUrl($datosForm['url'] ?? '');
             $this->localRepository->save($local, true);
 
             return true;
         }
-
         return false;
-
     }
 
     public function editConfigLocal(Request $request)
@@ -141,10 +139,10 @@ final class PanelOrchestrator extends AbstractController
         return $local;
     }
 
-    public function showLocal(): array
+    public function showLocal(): ?Local
     {
         $userId = $this->getUser()->getId();
-        return $this->localRepository->findBy(array('usuario' => $userId));
+        return $this->localRepository->findOneBy(array('usuario' => $userId));
     }
 
     public function editInformationLocal(Request $request): ?Informacion

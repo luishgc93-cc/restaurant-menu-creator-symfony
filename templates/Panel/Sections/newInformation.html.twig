@@ -236,7 +236,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioLunesMostrar ? 'checked' : '' }}   name="no-mostrar-hora-Lunes" id="no-mostrar-hora-Lunes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioLunesMostrar|default ? 'checked' : '' }}   name="no-mostrar-hora-Lunes" id="no-mostrar-hora-Lunes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -261,7 +261,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioMartesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Martes" id="no-mostrar-hora-Martes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioMartesMostrar|default ? 'checked' : '' }} name="no-mostrar-hora-Martes" id="no-mostrar-hora-Martes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -286,7 +286,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioMiercolesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Miercoles" id="no-mostrar-hora-Miercoles"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioMiercolesMostrar|default ? 'checked' : '' }} name="no-mostrar-hora-Miercoles" id="no-mostrar-hora-Miercoles"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -311,7 +311,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioJuevesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Jueves" id="no-mostrar-hora-Jueves"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioJuevesMostrar|default ? 'checked' : '' }} name="no-mostrar-hora-Jueves" id="no-mostrar-hora-Jueves"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -336,7 +336,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioViernesMostrar ? 'checked' : '' }} name="no-mostrar-hora-Viernes" id="no-mostrar-hora-Viernes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioViernesMostrar|default ? 'checked' : '' }} name="no-mostrar-hora-Viernes" id="no-mostrar-hora-Viernes"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -361,7 +361,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioSabadoMostrar ? 'checked' : '' }}  name="no-mostrar-hora-Sabado" id="no-mostrar-hora-Sabado"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioSabadoMostrar|default ? 'checked' : '' }}  name="no-mostrar-hora-Sabado" id="no-mostrar-hora-Sabado"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -386,7 +386,7 @@
         <div class="sm:col-span-1">
           <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Dia cerrado</label>
           <div class="mt-2">
-              <input type="checkbox" {{ horarioDomingoMostrar ? 'checked' : '' }} name="no-mostrar-hora-Domingo" id="no-mostrar-hora-Domingo"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+              <input type="checkbox" {{ horarioDomingoMostrar|default ? 'checked' : '' }} name="no-mostrar-hora-Domingo" id="no-mostrar-hora-Domingo"class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
           </div>
         </div>
 

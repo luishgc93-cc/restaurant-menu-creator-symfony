@@ -35,19 +35,26 @@ final class PanelController extends AbstractController
         $this->multipleUtils = $multipleUtils;
     }
 
-    public function panelControllerAction()
+    public function panelControllerAction() : Response
     {
         $title = 'Panel de Control';
-        return $this->render('/Panel/panel.html.twig', ['title' => $title]);
+        
+        $local = $this->panelOrchestrator->showLocal();
+
+        if(!$local){
+            return $this->redirect($this->generateUrl('panel-new-local'));
+        }
+
+        return $this->render('/Panel/panel.html.twig', ['title' => $title, 'local' => $local]);
     }
-    
+
     public function createLocalAction(Request $request): Response
     {
 
         $requestUserSendForm = $this->panelOrchestrator->createLocal($request);
 
         if ($requestUserSendForm) {
-            return $this->redirect($this->generateUrl('panel-show-local'));
+            return $this->redirect($this->generateUrl('panel'));
         }
 
         $title = 'Crear un Local';
@@ -71,23 +78,6 @@ final class PanelController extends AbstractController
             'title'=>$title,
             'urlLocal' => $urlLocal]
         );
-    }
-
-    public function showLocalAction(): Response
-    {
-        $local = $this->panelOrchestrator->showLocal();
-
-        if(!$local){
-            return $this->redirect($this->generateUrl('panel-new-local'));
-        }
-
-        $title = 'Ver Locales Creados';
-
-        return $this->render(
-            '/Panel/Sections/showLocal.html.twig',
-            ['local' => $local,'title' => $title ]
-        );
-
     }
 
     public function editInformationLocalAction(Request $request): Response

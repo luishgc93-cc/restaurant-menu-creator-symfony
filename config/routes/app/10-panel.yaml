@@ -2,7 +2,6 @@
 homeController:
   path: /
   controller: App\Infrastructure\Controller\HomeController::homeAction
-
 #Login de usuarios
 app_login:
   path: /login
@@ -37,11 +36,6 @@ panel-edit-information:
   path: /panel/editar-informacion-local/{local}
   controller: App\Infrastructure\Controller\PanelController::editInformationLocalAction
   methods: [GET, POST]  
-#Ver local en panel
-panel-show-local:
-  path: /panel/ver-local/
-  controller: App\Infrastructure\Controller\PanelController::showLocalAction
-  methods: [GET, POST]
 #Escoger diseño del local
 panel-select-theme:
   path: /panel/editar-informacion-local/{local}/seleccionar-plantilla/
