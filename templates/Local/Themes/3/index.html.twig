@@ -111,13 +111,24 @@ color: #ffffff;
 		</nav>
 	</header>
 	<!-- End header -->
-	
+	{% set deviceMobile = false %}
+
+	 {% if 'iPhone' in app.request.headers.get('User-Agent') 
+        or 'iPod' in app.request.headers.get('User-Agent') 
+        or 'iPad' in app.request.headers.get('User-Agent') 
+        or 'Android' in app.request.headers.get('User-Agent') 
+        or 'BlackBerry' in app.request.headers.get('User-Agent') %}
+		
+		{% set deviceMobile = true %}
+
+    {% endif %}
+
 	<!-- Start slides -->
 	<div id="slides" class="cover-slides" style="position: relative; overflow: hidden; width: 100%; height: 931px;">
 		<div class="slides-control" style="position: relative; height: 100%; width: 100%; left: -1393px;">
 			<ul class="slides-container" style="margin: 0px; padding: 0px; list-style: none; position: relative; height: 100%; display: block;">
 				<li class="text-left" style="display: block; left: 1393px; position: absolute; overflow: hidden; height: 100%; width:100%; top: 0px; z-index: 2; opacity: 1;">
-					<img id="image-1" src="{{ photo1|default('themes/3/images/slider-01.jpg') }} " alt="" style="backface-visibility: hidden; position: absolute; top: 0px; z-index: -1; max-width: none; height: 931px; width:100%;">
+					<img id="image-1" src="{{ photo1|default('themes/3/images/slider-01.jpg') }} " alt="" style="backface-visibility: hidden; position: absolute; top: 0px; z-index: -1; max-width: none; height: 931px; {{ deviceMobile|default ? '' : 'width: 100%' }};">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
