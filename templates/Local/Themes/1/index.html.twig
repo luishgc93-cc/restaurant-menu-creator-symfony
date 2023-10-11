@@ -258,6 +258,42 @@ background: {{ content.local.colorWeb }}
 		</div>
 	</section>
 
+	<section class="ftco-section bg-light" id="productos">
+		<div class="container">
+			<div class="row justify-content-center mb-5 pb-2">
+				<div class="col-md-7 text-center heading-section ftco-animate fadeInUp ftco-animated">
+					<h2 class="mb-4">Contactar</h2>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col-md-6 col-lg-12">
+					<form name="sentMessage" id="contactForm" novalidate>
+						<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+							<input type="text" id="name" class="form-control" placeholder="Name" required="required">
+							<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<input type="email" id="email" class="form-control" placeholder="Email" required="required">
+							<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						</div>
+						<div class="form-group">
+						<textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
+						<p class="help-block text-danger"></p>
+						</div>
+						<div id="success"></div>
+						<button type="submit" class="btn btn-custom btn-lg" style="background-color :black">Send Message</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	{% if content.informationForLocal.maps|default(null) %}
 		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
 	{% endif %}

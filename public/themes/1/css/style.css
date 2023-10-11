@@ -8901,8 +8901,8 @@ h1, h2, h3, h4, h5,
 
 .btn-custom {
   font-weight: 500;
-  color: #c51821;
-  border-bottom: 4px solid #e73d45; }
+  color: white;
+  border-bottom: 4px solid black; }
 
 .appointment-form {
   width: 100%; }
