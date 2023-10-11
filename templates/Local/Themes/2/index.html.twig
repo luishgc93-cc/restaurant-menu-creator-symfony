@@ -305,10 +305,90 @@
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 				</div>
 
-				<!-- Footer About -->
+				<!-- Footer -->
+					{% set lunesHorarioApertura = '' %}
+					{% set lunesHorarioCierre = '' %}
+					{% set lunesNoMostrarHorario = '' %}
+
+					{% set martesHorarioApertura = '' %}
+					{% set martesHorarioCierre ='' %}
+					{% set martesNoMostrarHorario = '' %}
+
+					{% set miercolesHorarioApertura = '' %}
+					{% set miercolesHorarioCierre = '' %}
+					{% set miercolesNoMostrarHorario = '' %}
+
+					{% set juevesHorarioApertura = '' %}
+					{% set juevesHorarioCierre ='' %}
+					{% set juevesNoMostrarHorario = '' %}
+
+					{% set viernesHorarioApertura = '' %}
+					{% set viernesHorarioCierre ='' %}
+					{% set viernesNoMostrarHorario = '' %}
+
+					{% set sabadoHorarioApertura = '' %}
+					{% set sabadoHorarioCierre = '' %}
+					{% set sabadoNoMostrarHorario = '' %}
+
+					{% set domingoHorarioApertura ='' %}
+					{% set domingoHorarioCierre = '' %}
+					{% set domingoNoMostrarHorario = '' %}
+
+					{% for horario in content.informationForLocal.horariosLocal|default %}
+				    {% if horario.diaSemana == 'Lunes' %}
+						{% set lunesHorarioApertura = horario.horaApertura|default %}
+						{% set lunesHorarioCierre = horario.horaCierre|default %}
+						{% set lunesNoMostrarHorario = horario.noMostrarHora|default %}
+
+					{% elseif horario.diaSemana == 'Martes' %}
+						{% set martesHorarioApertura = horario.horaApertura|default %}
+						{% set martesHorarioCierre = horario.horaCierre|default %}
+						{% set martesNoMostrarHorario = horario.noMostrarHora|default %}
+
+					{% elseif horario.diaSemana == 'Miercoles' %}
+
+						{% set miercolesHorarioApertura = horario.horaApertura|default %}
+						{% set miercolesHorarioCierre = horario.horaCierre|default %}
+						{% set miercolesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Jueves' %}
+
+						{% set juevesHorarioApertura = horario.horaApertura|default %}
+						{% set juevesHorarioCierre = horario.horaCierre|default %}
+						{% set juevesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Viernes' %}
+
+						{% set viernesHorarioApertura = horario.horaApertura|default %}
+						{% set viernesHorarioCierre = horario.horaCierre|default %}
+						{% set viernesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Sabado' %}
+
+						{% set sabadoHorarioApertura = horario.horaApertura|default %}
+						{% set sabadoHorarioCierre = horario.horaCierre|default %}	
+						{% set sabadoNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Domingo' %}
+
+						{% set domingoHorarioApertura = horario.horaApertura|default %}
+						{% set domingoHorarioCierre = horario.horaCierre|default %}		
+						{% set domingoNoMostrarHorario = horario.noMostrarHora|default %}
+					{% endif %}
+					{% endfor %}
+
 				<div class="col-lg-6 footer_col">
 					<div class="footer_about">
-						<p>{{ content.informationForLocal.descripcion }}</p>
+						<ul>
+							<li class="d-flex flex-row align-items-start justify-content-start">
+								<div><div class="footer_contact_title" style="width: 150px">Horarios de apertura:</div></div>
+							</li>
+							
+					<li class="d-flex flex-row align-items-start justify-content-start" style="color: white">Lunes: {% if lunesNoMostrarHorario|default %} Cerrado {% endif %} {% if not lunesNoMostrarHorario|default %} {{ lunesHorarioApertura|date('H:i') }} - {{ lunesHorarioCierre|date('H:i') }} {% endif %} </li> 
+					<li class="d-flex flex-row align-items-start justify-content-start"  style="color: white">Martes:{% if martesNoMostrarHorario|default %} Cerrado {% endif %}  {% if not martesNoMostrarHorario|default %} {{ martesHorarioApertura|date('H:i') }} - {{ martesHorarioCierre|date('H:i') }} {% endif %} </li>
+					<li class="d-flex flex-row align-items-start justify-content-start"  style="color: white">Miércoles: {% if miercolesNoMostrarHorario|default %} Cerrado {% endif %} {% if not miercolesNoMostrarHorario|default %} {{ miercolesHorarioApertura|date('H:i') }} - {{ miercolesHorarioCierre|date('H:i') }} {% endif %} </li>
+					<li class="d-flex flex-row align-items-start justify-content-start"  style="color: white">Jueves: {% if juevesNoMostrarHorario|default %} Cerrado {% endif %} {% if not juevesNoMostrarHorario|default %} {{ juevesHorarioApertura|date('H:i') }} - {{ juevesHorarioCierre|date('H:i') }} {% endif %} </li>
+					<li class="d-flex flex-row align-items-start justify-content-start"  style="color: white">Viernes: {% if viernesNoMostrarHorario|default %} Cerrado {% endif %} {% if not viernesNoMostrarHorario|default %} {{ viernesHorarioApertura|date('H:i') }} - {{ viernesHorarioCierre|date('H:i') }} {% endif %} </li>
+					<li class="d-flex flex-row align-items-start justify-content-start"  style="color: white">Sábado: {% if sabadoNoMostrarHorario|default %} Cerrado {% endif %} {% if not sabadoNoMostrarHorario|default %} {{ sabadoHorarioApertura|date('H:i') }} - {{ sabadoHorarioCierre|date('H:i') }} {% endif %} </li>
+					<li class="d-flex flex-row align-items-start justify-content-start"  style="color: white">Domingo: {% if domingoNoMostrarHorario|default %} Cerrado {% endif %} {% if not domingoNoMostrarHorario|default %} {{ domingoHorarioApertura|date('H:i') }} - {{ domingoHorarioCierre|date('H:i') }} {% endif %} </li>
+							
+						</ul>
 					</div>
 				</div>
 
