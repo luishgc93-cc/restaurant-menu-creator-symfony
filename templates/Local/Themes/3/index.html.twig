@@ -1,17 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"><!-- Basic -->
+<html lang="es"><!-- Basic -->
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
- 
-     <!-- Site Metas -->
-	<title>{{ content.local.descripcionLocal }} | {{ content.local.nombreLocal }}</title>  
-	<meta name="description" content="{{ content.informationForLocal.descripcion }}">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+
+{% include '/Local/Themes/Components/SEO/metas.html.twig' %}
 
     <!-- Site Icons -->
     <link rel="shortcut icon" href="themes/3/images/favicon.ico" type="image/x-icon">
