@@ -76,8 +76,9 @@ final class ProductOrchestrator extends AbstractController
         if (!$saveProductWithIdInformation && $request->isMethod('GET')) {
             return $this->productRepository->findBy(array('menus' => $menu->getId()));
         }
+        $submittedToken = $request->request->get('token');
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
             $datosForm = $request->request->all();
             $producto = new Producto();
             $producto->setMenus($menu);
@@ -136,7 +137,9 @@ final class ProductOrchestrator extends AbstractController
             return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
         }
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
 
             if(!$producto){

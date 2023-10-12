@@ -15,15 +15,12 @@ namespace App\Infrastructure\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Security\EmailVerifier;
-use App\Form\RegistrationFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Infrastructure\Persistence\Doctrine\Repository\UserRepository;
 use App\Domain\Model\Usuario;
@@ -39,7 +36,7 @@ final class UserController extends AbstractController
         $this->userRepository = $userRepository;
     }
 
-    public function loginAction(AuthenticationUtils $authenticationUtils, EmailVerifier $emailVerifier): Response
+    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils, EmailVerifier $emailVerifier): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('panel');
@@ -62,7 +59,9 @@ final class UserController extends AbstractController
 
         $user = new Usuario();
 
-        if ($request->isMethod('POST')) {
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
 
             $datosForm = $request->request->all();
             $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['email']));

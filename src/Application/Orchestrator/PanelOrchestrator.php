@@ -50,8 +50,9 @@ final class PanelOrchestrator extends AbstractController
 
     public function createLocal(Request $request): bool
     {
+        $submittedToken = $request->request->get('token');
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
             $datosForm = $request->request->all();
             $getUrlSaved = $this->localRepository->findOneBy(array('url' => $datosForm['url']));
 
@@ -88,7 +89,9 @@ final class PanelOrchestrator extends AbstractController
             throw new HttpException(404, 'Página no encontrada');
         }
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
 
             $datosForm = $request->request->all();
             $bloquearWeb = $datosForm['bloquearWeb'] ?? '';
@@ -159,7 +162,9 @@ final class PanelOrchestrator extends AbstractController
             throw new HttpException(404, 'Página no encontrada');
         }
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
 
             if (!$informacion) {

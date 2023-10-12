@@ -65,7 +65,9 @@ final class MenuOrchestrator extends AbstractController
         $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
         $menu = $this->entityManager->getRepository(Menu::class)->find($idLocal);
 
-        if ($request->isMethod('POST') && $this->getUser()) {
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
 
             if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
@@ -116,8 +118,9 @@ final class MenuOrchestrator extends AbstractController
         if (!$userGrantedForEdit) {
             throw new HttpException(404, 'Usuario no Autorizado');
         }
+        $submittedToken = $request->request->get('token');
 
-        if ($request->isMethod('POST') && $userGrantedForEdit) {
+        if ($request->isMethod('POST') && $userGrantedForEdit && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
 
             if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){

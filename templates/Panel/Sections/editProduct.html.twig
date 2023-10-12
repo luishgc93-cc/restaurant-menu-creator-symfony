@@ -89,6 +89,7 @@
               {% else %}
                 <a href="{{ path('panel-delete-product',{'local': local , 'menuId': app.request.attributes.get('menuId')|default(0), 'productoId': app.request.attributes.get('productoId')|default(0)}) }}" class="rounde-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Borrar Producto </a>
               {% endif %}
+                <input type="hidden" name="token" value="{{ csrf_token('validateTokenSym') }}" />
                 <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Editar Producto</button>
               </div>
             </form>
