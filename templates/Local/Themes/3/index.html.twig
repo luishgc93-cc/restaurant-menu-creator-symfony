@@ -131,6 +131,7 @@ color: #ffffff;
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active"><a class="nav-link" href="#slides" style="background:{{ content.local.colorWeb|default('#d65106') }}">Inicio</a></li>
 						<li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+						<li class="nav-item"><a class="nav-link" href="#contactar">Contactar</a></li>
 					</ul>
 				</div>
 			</div>
@@ -480,8 +481,9 @@ color: #ffffff;
 		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
 	{% endif %}
 
+	{% if '1' != content.local.ocultarFormularioContacto|default %}
 		<!-- Start Contact -->
-	<div class="contact-box">
+	<div class="contact-box" id="contactar">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -538,6 +540,7 @@ color: #ffffff;
 		</div>
 	</div>
 	<!-- End Contact -->
+	{% endif %}
 
 
 	<!-- Start Footer -->

@@ -264,6 +264,7 @@ a {
 			</div>
 		</div>
 
+		{% if '1' != content.local.ocultarFormularioContacto|default %}
 		<div id="fh5co-contact" data-section="reservation">
 			<div class="container">
 				<div class="row text-center fh5co-heading row-padded">
@@ -305,9 +306,9 @@ a {
 				</div>
 			</div>
 		</div>
+	</div>	
+	{% endif %}
 
-		
-	</div>
 
 	{% if content.informationForLocal.maps|default(null) %}
 		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}

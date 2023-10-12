@@ -54,7 +54,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#header" class="page-scroll">Inicio</a></li>
         <li><a href="#restaurant-menu" class="page-scroll">Menu</a></li>
-        <li><a href="#call-reservation" class="page-scroll">Contactar</a></li>
+        {% if '1' != content.local.ocultarFormularioContacto|default %}<li><a href="#contactar" class="page-scroll">Contactar</a></li>{% endif %}
       </ul>
     </div>
     <!-- /.navbar-collapse --> 
@@ -134,8 +134,9 @@
         <div class="row">
           <div class="intro-text">
             <h1>{{ content.local.nombreLocal }}</h1>
-            <p>{{ content.local.descripcionLocal }}</p>
-            <a href="#contact" class="btn btn-custom btn-lg page-scroll" style="background-color : {{ content.local.colorWeb }}">Contactar</a> </div>
+            {% if '1' != content.local.ocultarFormularioContacto|default %}
+            <a href="#contactar" class="btn btn-custom btn-lg page-scroll" style="background-color : {{ content.local.colorWeb }}">Contactar</a> </div>
+            {% endif %}
         </div>
       </div>
     </div>
@@ -204,8 +205,9 @@
   </div>
 </div>
 
+{% if '1' != content.local.ocultarFormularioContacto|default %}
 <!-- Contact Section -->
-<div id="contact" class="text-center">
+<div id="contactar" class="text-center" style="padding: 0 0 60px 0">
   <div class="container">
     <div class="section-title text-center">
       <h2>Contactar</h2>
@@ -237,6 +239,8 @@
     </div>
   </div>
 </div>
+{% endif %}
+
 	{% if content.informationForLocal.maps|default(null) %}
 		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
 	{% endif %}

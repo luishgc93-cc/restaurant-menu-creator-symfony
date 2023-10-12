@@ -83,6 +83,7 @@
 							<ul class="d-flex flex-row align-items-center justify-content-start">
 								<li><a href="#inicio">Inicio</a></li>
 								<li><a href="#menus">Menu</a></li>
+								{% if '1' != content.local.ocultarFormularioContacto|default %}<li><a href="#contactar">Contactar</a></li>{% endif %}
 							</ul>
 						</nav>
 						<div class="reservations_phone ml-auto">{{ content.informationForLocal.telefono }}</div>
@@ -245,9 +246,9 @@
 		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
 	{% endif %}
 
+	{% if '1' != content.local.ocultarFormularioContacto|default %}
 		<!-- Contact Form -->
-
-	<div class="themenu" id="menus">
+	<div class="themenu" id="contactar">
 		<div class="container">
 			<div class="row">
 				<div class="col">
@@ -288,6 +289,7 @@
 			</div>
 		</div>		
 	</div>
+	{% endif %}
 
 	<!-- Footer -->
 

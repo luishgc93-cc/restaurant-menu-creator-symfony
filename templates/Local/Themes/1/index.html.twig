@@ -112,6 +112,7 @@ background: {{ content.local.colorWeb }}
 					<li class="nav-item"><a href="#inicio" class="nav-link">Inicio</a></li>
 					<li class="nav-item"><a href="#menu" class="nav-link">Menu</a></li>
 					<li class="nav-item"><a href="#productos" class="nav-link">Productos</a></li>
+					{% if '1' != content.local.ocultarFormularioContacto|default %}<li class="nav-item"><a href="#contactar" class="nav-link">Contactar</a></li>{% endif %}
 				</ul>
 			</div>
 		</div>
@@ -258,7 +259,8 @@ background: {{ content.local.colorWeb }}
 		</div>
 	</section>
 
-	<section class="ftco-section bg-light" id="productos">
+{% if '1' != content.local.ocultarFormularioContacto|default %}
+	<section class="ftco-section bg-light" id="contactar">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
 				<div class="col-md-7 text-center heading-section ftco-animate fadeInUp ftco-animated">
@@ -267,7 +269,7 @@ background: {{ content.local.colorWeb }}
 			</div>	
 			<div class="row">
 				<div class="col-md-6 col-lg-12">
-					<form name="sentMessage" id="contactForm" novalidate>
+					<form name="sentMessage" id="contactForm">
 						<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -293,6 +295,7 @@ background: {{ content.local.colorWeb }}
 			</div>
 		</div>
 	</section>
+	{% endif %}
 
 	{% if content.informationForLocal.maps|default(null) %}
 		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
