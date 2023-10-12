@@ -317,7 +317,7 @@
 					{% endif %}
 				{% endfor %}
 
-      <h3>Horario</h3>
+      <h3>Horarios de apertura:</h3>
       <div class="contact-item">
         <p>Lunes: {% if lunesNoMostrarHorario|default %} Cerrado {% endif %} {% if not lunesNoMostrarHorario|default %}</span>{{ lunesHorarioApertura|date('H:i') }} - {{ lunesHorarioCierre|date('H:i') }} {% endif %}</p>
         <p>Martes: {% if martesNoMostrarHorario|default %} Cerrado {% endif %} {% if not martesNoMostrarHorario|default %}</span>{{ martesHorarioApertura|date('H:i') }} - {{ martesHorarioCierre|date('H:i') }} {% endif %}</p>
