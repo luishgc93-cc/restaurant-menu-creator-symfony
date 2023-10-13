@@ -12,6 +12,17 @@
   z-index: 9999;
 }
 
+.sucess {
+  padding: 20px;
+  background-color: rgb(34, 197, 94);
+  color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
 .closebtn {
   margin-left: 15px;
   color: white;
@@ -28,13 +39,12 @@
 }
 </style>
 {% endif %}
-{% for flash_message in app.session.flashbag.get('sucess') %}
 
-<div class="alert">
+{% for flash_message in app.session.flashbag.get('sucess') %}
+<div class="sucess">
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
      {{ flash_message }}
 </div>
-
 {% endfor %}
 
 {% for flash_message in app.session.flashbag.get('error') %}
@@ -43,5 +53,4 @@
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
      {{ flash_message }}
 </div>
-
 {% endfor %}

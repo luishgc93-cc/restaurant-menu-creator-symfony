@@ -259,21 +259,27 @@ final class PanelOrchestrator extends AbstractController
     {
         $photoRequests = $request->files->get('file-upload');
         if($photoRequests){
-        $local = $this->localRepository->findOneBy(array('url' => $request->attributes->get('local')));
-        
-        $userId = $this->getUser()?->getId();
-        $userOwnerOfLocal = $local->getUsuario()->getId();
+            $local = $this->localRepository->findOneBy(array('url' => $request->attributes->get('local')));
+            
+            $userId = $this->getUser()?->getId();
+            $userOwnerOfLocal = $local->getUsuario()->getId();
 
-        if ($userId !== $userOwnerOfLocal) {
-            throw new HttpException(404, 'Página no encontrada');
-        }
+            if ($userId !== $userOwnerOfLocal) {
+                throw new HttpException(404, 'Página no encontrada');
+            }
 
-        $orden = $request->attributes->get('orden');
-        $informacion = $this->informationRepository->findOneBy(array('local' => $local->getId()));
-        $informacionPhoto = $this->entityManager->getRepository(InformacionPhoto::class)->findOneBy(array('informacion' => $informacion->getId(), 'orden'=> $orden));
+            $orden = $request->attributes->get('orden');
+            $informacion = $this->informationRepository->findOneBy(array('local' => $local->getId()));
+            $informacionPhoto = $this->entityManager->getRepository(InformacionPhoto::class)->findOneBy(array('informacion' => $informacion->getId(), 'orden'=> $orden));
 
-        $photo = $this->uploadPhoto->upload($photoRequests);
-            if($photo && $orden){
+            $photo = $this->uploadPhoto->upload($photoRequests);
+            if('' === $photo){
+                $this->addFlash(
+                    'error',
+                    'La foto pesa más de mega y medio, bajala de peso.'
+                );
+            }  
+            if($photo && $orden && '' !== $photo){
                 if(!$informacionPhoto){
                     $informacionPhoto = new InformacionPhoto();
                 }
