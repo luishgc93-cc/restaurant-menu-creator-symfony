@@ -319,13 +319,14 @@
                 <strong>Phone:</strong>{{ content.informationForLocal.telefono }} <br>
                 <strong>Email:</strong> {{ content.informationForLocal.email }} <br>
               </p>
+            {% if content.informationForLocal.facebook|default or content.informationForLocal.facebook|default or content.informationForLocal.instagram|default or content.informationForLocal.youtube|default %}
               <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                {% if content.informationForLocal.twiter|default %}<a href="https://twitter.com/{{ content.informationForLocal.twiter }}" class="twitter"><i class="bx bxl-twitter"></i></a>{% endif %}
+                {% if content.informationForLocal.facebook|default %}<a href="https://www.facebook.com/{{ content.informationForLocal.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>{% endif %}
+                {% if content.informationForLocal.instagram|default %}<a href="https://www.instagram.com/{{ content.informationForLocal.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>{% endif %}
+                {% if content.informationForLocal.youtube|default %}<a href="https://www.youtube.com/@{{ content.informationForLocal.youtube }}" class="youtube-plus"><i class="bx bxl-youtube"></i></a>{% endif %}
               </div>
+            {% endif %}
             </div>
           </div>
 					{% set lunesHorarioApertura = '' %}
