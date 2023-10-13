@@ -11,7 +11,8 @@
 	<link rel="stylesheet" href="themes/1/css/animate.css">
 	<link rel="stylesheet" href="themes/1/css/flaticon.css">
 	<link rel="stylesheet" href="themes/1/css/style.css">
-	
+	{% include '/Local/Themes/Components/SEO/jsonLd.html.twig' %}
+
 {% if app.request.query.get('edit-photos')%}
 	<style>
 .button {

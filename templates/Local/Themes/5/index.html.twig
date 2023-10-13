@@ -18,6 +18,8 @@
 
   <!-- Template Main CSS File -->
   <link href="themes/5/assets/css/style.css" rel="stylesheet">
+  {% include '/Local/Themes/Components/SEO/jsonLd.html.twig' %}
+
 {% if app.request.query.get('edit-photos')%}
 	<style>
 .button {
