@@ -69,7 +69,6 @@ final class MenuOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
-
             if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
                 throw new HttpException(Response::HTTP_BAD_REQUEST, 'No puedes dejar campos vacios');
             }
@@ -109,7 +108,7 @@ final class MenuOrchestrator extends AbstractController
 
         return $menu;
     }
-    public function editMenu(Request $request)
+    public function editMenu(Request $request): ?Menu
     {
         $menuId = intval($request->attributes->get('menuId'));
         $menu = $this->entityManager->getRepository(Menu::class)->find($menuId);

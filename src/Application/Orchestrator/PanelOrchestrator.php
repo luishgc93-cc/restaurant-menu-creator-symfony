@@ -76,7 +76,7 @@ final class PanelOrchestrator extends AbstractController
         return false;
     }
 
-    public function editConfigLocal(Request $request)
+    public function editConfigLocal(Request $request) : ?Local
     {
         $userId = $this->getUser()->getId();
         $idLocal = intval($request->attributes->get('local'));
