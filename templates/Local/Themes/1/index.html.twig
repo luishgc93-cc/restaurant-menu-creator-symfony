@@ -224,6 +224,9 @@ background: {{ content.local.colorWeb }}
 	{% if content.userIsAdmin|default(false) %}
 		{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 4', 'idPhoto': 4  } %}
 	{% endif %}
+
+	{% if content.productsAlone|default([])|length > 0 %}
+
 	<section class="ftco-section bg-light" id="productos">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
@@ -255,7 +258,8 @@ background: {{ content.local.colorWeb }}
 			</div>
 		</div>
 	</section>
-
+	{% endif %}
+	
 {% if '1' != content.local.ocultarFormularioContacto|default %}
 	<section class="ftco-section bg-light" id="contactar">
 		<div class="container">

@@ -240,9 +240,7 @@
 			</div>
 		</div>		
 	</div>
-	{% if content.informationForLocal.maps|default(null) %}
-		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
-	{% endif %}
+
 
 	{% if '1' != content.local.ocultarFormularioContacto|default %}
 		<!-- Contact Form -->
@@ -289,6 +287,10 @@
 	</div>
 	{% endif %}
 
+	{% if content.informationForLocal.maps|default(null) %}
+		{% include '/Local/Themes/Components/googleMaps.html.twig' with {'srcMaps': content.informationForLocal.maps|default }%}
+	{% endif %}
+	
 	<!-- Footer -->
 
 	<footer class="footer">
