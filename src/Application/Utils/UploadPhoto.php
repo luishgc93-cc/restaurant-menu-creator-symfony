@@ -13,11 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\Utils;
 
-
-use Cloudinary\Api\ApiResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Cloudinary\Api\Upload\UploadApi;
-use Cloudinary\Configuration\Configuration;
 
 final class UploadPhoto extends AbstractController
 {
@@ -33,19 +29,6 @@ final class UploadPhoto extends AbstractController
             return '';
         }
 
-        $config = Configuration::instance();
-        $config->cloud->cloudName = 'dmo3iliks';
-        $config->cloud->apiKey = '982421683171437';
-        $config->cloud->apiSecret = 'iqY0a7gPn-3ozoBlf6MsmwMI4yo';
-        $config->url->secure = true;
-
-        $uploadApi = new UploadApi();
-        /** @var ApiResponse $response */
-        $response = $uploadApi->upload($filePath);
-
-        if ($response['url'] ?? '') {
-            unlink($filePath);
-        }
-        return $response['url'];
+        return '/uploads/' . $fileName;
     }
 }
