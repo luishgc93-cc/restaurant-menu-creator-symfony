@@ -83,8 +83,8 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
           <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
-          <li><a class="nav-link scrollto" href="#menu">Menú</a></li>
-          <li><a class="nav-link scrollto" href="#gallery">Productos</a></li>
+            {% if content.menus|default([])|length > 0 %}<li><a class="nav-link scrollto" href="#menu">Menú</a></li>{% endif %}
+            {% if content.productsAlone|default([])|length > 0 %}<li><a class="nav-link scrollto" href="#gallery">Productos</a></li>{% endif %}
           <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -140,6 +140,7 @@
 
     <!-- End About Section -->
 
+    {% if content.menus|default([])|length > 0 %}
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu section-bg">
       <div class="container" data-aos="fade-up">
@@ -178,7 +179,9 @@
         </div>
 
       </div>
-    </section><!-- End Menu Section -->
+    </section>
+    <!-- End Menu Section -->
+    {% endif %}
 
     {% if content.productsAlone|default([])|length > 0 %}
     <!-- ======= Gallery Section ======= -->
@@ -211,7 +214,7 @@
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>Google Maps</h2>
-          <p>Pudes encontrarnos por Google Maps</p>
+          <p>Puedes encontrarnos por Google Maps</p>
         </div>
       </div>
       <div data-aos="fade-up">
@@ -411,7 +414,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Restaurantly</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>{{ content.local.nombreLocal }}</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
