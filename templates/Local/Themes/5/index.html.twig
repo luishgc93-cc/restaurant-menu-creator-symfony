@@ -2,16 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Restaurantly Bootstrap Template - Index</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="themes/5/assets/img/favicon.png" rel="icon">
-  <link href="themes/5/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	{% include '/Local/Themes/Components/SEO/metas.html.twig' %}
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -189,89 +180,47 @@
       </div>
     </section><!-- End Menu Section -->
 
+    {% if content.productsAlone|default([])|length > 0 %}
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
-
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>Productos</h2>
           <p>Algunos de nuestros Productos</p>
         </div>
       </div>
-
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row g-0">
-
+        {% for producto in content.productsAlone %} 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-1.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+              <a href="{{  producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" class="gallery-lightbox" data-gall="gallery-item">
+                <img src="{{  producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" alt="{{ producto.nombreProducto|default }}" class="img-fluid">
               </a>
             </div>
           </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-2.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-3.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-4.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-5.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-6.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-7.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-8.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="themes/5/assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-          </div>
-
+        {% endfor %}
         </div>
-
       </div>
-    </section><!-- End Gallery Section -->
+    </section>
+    <!-- End Gallery Section -->
+	{% endif %}
 
+    {% if '1' == content.local.ocultarFormularioContacto|default and content.informationForLocal.maps|default %}
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Google Maps</h2>
+          <p>Pudes encontrarnos por Google Maps</p>
+        </div>
+      </div>
+      <div data-aos="fade-up">
+        <iframe style="border:0; width: 100%; height: 350px;" src="{{content.informationForLocal.maps|default}}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+	{% endif %}
+
+    {% if '1' != content.local.ocultarFormularioContacto|default %}
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -284,7 +233,7 @@
 
 	{% if content.informationForLocal.maps|default(null) %}
       <div data-aos="fade-up">
-        <iframe style="border:0; width: 100%; height: 350px;" src=" content.informationForLocal.maps|default" frameborder="0" allowfullscreen></iframe>
+        <iframe style="border:0; width: 100%; height: 350px;" src="{{content.informationForLocal.maps|default}}" frameborder="0" allowfullscreen></iframe>
       </div>
 	{% endif %}
 
@@ -298,15 +247,6 @@
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
                 <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-
-              <div class="open-hours">
-                <i class="bi bi-clock"></i>
-                <h4>Open Hours:</h4>
-                <p>
-                  Monday-Saturday:<br>
-                  11:00 AM - 2300 PM
-                </p>
               </div>
 
               <div class="email">
@@ -355,7 +295,9 @@
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section>
+    <!-- End Contact Section -->
+	{% endif %}
 
   </main><!-- End #main -->
 
@@ -370,9 +312,9 @@
               <h3>Restaurantly</h3>
               <p>
                 A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
+                NY 535022, USA<br><br>  
+                <strong>Phone:</strong>{{ content.informationForLocal.telefono }} <br>
+                <strong>Email:</strong> {{ content.informationForLocal.email }} <br>
               </p>
               <div class="social-links mt-3">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -383,15 +325,83 @@
               </div>
             </div>
           </div>
+					{% set lunesHorarioApertura = '' %}
+					{% set lunesHorarioCierre = '' %}
+					{% set lunesNoMostrarHorario = '' %}
 
+					{% set martesHorarioApertura = '' %}
+					{% set martesHorarioCierre ='' %}
+					{% set martesNoMostrarHorario = '' %}
+
+					{% set miercolesHorarioApertura = '' %}
+					{% set miercolesHorarioCierre = '' %}
+					{% set miercolesNoMostrarHorario = '' %}
+
+					{% set juevesHorarioApertura = '' %}
+					{% set juevesHorarioCierre ='' %}
+					{% set juevesNoMostrarHorario = '' %}
+
+					{% set viernesHorarioApertura = '' %}
+					{% set viernesHorarioCierre ='' %}
+					{% set viernesNoMostrarHorario = '' %}
+
+					{% set sabadoHorarioApertura = '' %}
+					{% set sabadoHorarioCierre = '' %}
+					{% set sabadoNoMostrarHorario = '' %}
+
+					{% set domingoHorarioApertura ='' %}
+					{% set domingoHorarioCierre = '' %}
+					{% set domingoNoMostrarHorario = '' %}
+
+				{% for horario in content.informationForLocal.horariosLocal|default %}
+				    {% if horario.diaSemana == 'Lunes' %}
+						{% set lunesHorarioApertura = horario.horaApertura|default %}
+						{% set lunesHorarioCierre = horario.horaCierre|default %}
+						{% set lunesNoMostrarHorario = horario.noMostrarHora|default %}
+
+					{% elseif horario.diaSemana == 'Martes' %}
+						{% set martesHorarioApertura = horario.horaApertura|default %}
+						{% set martesHorarioCierre = horario.horaCierre|default %}
+						{% set martesNoMostrarHorario = horario.noMostrarHora|default %}
+
+					{% elseif horario.diaSemana == 'Miercoles' %}
+
+						{% set miercolesHorarioApertura = horario.horaApertura|default %}
+						{% set miercolesHorarioCierre = horario.horaCierre|default %}
+						{% set miercolesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Jueves' %}
+
+						{% set juevesHorarioApertura = horario.horaApertura|default %}
+						{% set juevesHorarioCierre = horario.horaCierre|default %}
+						{% set juevesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Viernes' %}
+
+						{% set viernesHorarioApertura = horario.horaApertura|default %}
+						{% set viernesHorarioCierre = horario.horaCierre|default %}
+						{% set viernesNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Sabado' %}
+
+						{% set sabadoHorarioApertura = horario.horaApertura|default %}
+						{% set sabadoHorarioCierre = horario.horaCierre|default %}	
+						{% set sabadoNoMostrarHorario = horario.noMostrarHora|default %}
+					{% elseif horario.diaSemana == 'Domingo' %}
+
+						{% set domingoHorarioApertura = horario.horaApertura|default %}
+						{% set domingoHorarioCierre = horario.horaCierre|default %}		
+						{% set domingoNoMostrarHorario = horario.noMostrarHora|default %}
+					{% endif %}
+				{% endfor %}
+                
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Horarios de apertura:</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                <li><i class="bx bx-chevron-right"></i>  Lunes: {% if lunesNoMostrarHorario|default %} Cerrado {% endif %} {% if not lunesNoMostrarHorario|default %} {{ lunesHorarioApertura|date('H:i') }} - {{ lunesHorarioCierre|date('H:i') }} {% endif %} </li>
+                <li><i class="bx bx-chevron-right"></i> Martes:{% if martesNoMostrarHorario|default %} Cerrado {% endif %}  {% if not martesNoMostrarHorario|default %} {{ martesHorarioApertura|date('H:i') }} - {{ martesHorarioCierre|date('H:i') }} {% endif %} </li>
+                <li><i class="bx bx-chevron-right"></i> Miércoles: {% if miercolesNoMostrarHorario|default %} Cerrado {% endif %} {% if not miercolesNoMostrarHorario|default %} {{ miercolesHorarioApertura|date('H:i') }} - {{ miercolesHorarioCierre|date('H:i') }} {% endif %} </li>
+                <li><i class="bx bx-chevron-right"></i> Jueves: {% if juevesNoMostrarHorario|default %} Cerrado {% endif %} {% if not juevesNoMostrarHorario|default %} {{ juevesHorarioApertura|date('H:i') }} - {{ juevesHorarioCierre|date('H:i') }} {% endif %} </li>
+                <li><i class="bx bx-chevron-right"></i> Viernes: {% if viernesNoMostrarHorario|default %} Cerrado {% endif %} {% if not viernesNoMostrarHorario|default %} {{ viernesHorarioApertura|date('H:i') }} - {{ viernesHorarioCierre|date('H:i') }} {% endif %} </li>
+                <li><i class="bx bx-chevron-right"></i> Sábado: {% if sabadoNoMostrarHorario|default %} Cerrado {% endif %} {% if not sabadoNoMostrarHorario|default %} {{ sabadoHorarioApertura|date('H:i') }} - {{ sabadoHorarioCierre|date('H:i') }} {% endif %} </li>
+                <li><i class="bx bx-chevron-right"></i> Domingo: {% if domingoNoMostrarHorario|default %} Cerrado {% endif %} {% if not domingoNoMostrarHorario|default %} {{ domingoHorarioApertura|date('H:i') }} - {{ domingoHorarioCierre|date('H:i') }} {% endif %} </li>
             </ul>
           </div>
 
