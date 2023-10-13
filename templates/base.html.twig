@@ -29,8 +29,12 @@
 
 {% include '/Panel/Sections/JsComponents/showPhotosReviewOnForm.html.twig' %}
 
-{% if 'panel-new-menu' == route %}
+{% if route in ['panel-edit-menu-and-show-products','panel-new-menu'] %}
     {% include '/Panel/Sections/JsComponents/preventFormEmptyOnNewMenu.html.twig' %}
+{% endif %}
+
+{% if route in ['panel-new-product','panel-new-product-alone', 'panel-edit-product','panel-edit-product-alone', 'panel-new-product'] %}
+    {% include '/Panel/Sections/JsComponents/preventFormEmptyOnProducts.html.twig' %}
 {% endif %}
 
 {% if 'panel-modify-config-local' == route %}

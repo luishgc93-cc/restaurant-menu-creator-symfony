@@ -148,9 +148,9 @@ final class ProductOrchestrator extends AbstractController
             if ($saveProductWithIdInformation) {
                 $producto->setInformacion($informacion);
             }
-            $producto->setNombreProducto($datosForm['nombre_producto'] ?? '');
-            $producto->setInformacionProducto($datosForm['informacion_producto'] ?? '');
-            $producto->setPrecioProducto($datosForm['precio_producto'] ?? '');
+            $producto->setNombreProducto($datosForm['producto'] ?? '');
+            $producto->setInformacionProducto($datosForm['informacion'] ?? '');
+            $producto->setPrecioProducto($datosForm['precioProducto'] ?? '');
 
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
