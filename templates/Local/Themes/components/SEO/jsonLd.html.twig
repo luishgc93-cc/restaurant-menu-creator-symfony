@@ -1,3 +1,4 @@
+{{dump(content.menus)}}
 <script type="application/ld+json">
 {
    "@context":"http://schema.org",
@@ -16,67 +17,39 @@
     "postalCode" : "ZIP CODE"
   },
    "servesCuisine":[
-      "American cuisine"
+      "{{content.local.descripcionLocal}}"
    ],
    "hasMenu":{
       "@type":"Menu",
-      "name":"Dine-In Menu",
-      "description":"Menu for in-restaurant dining only.",
+      "name":"{{content.local.nombreLocal}} Menu",
+      "description":"{{content.local.informacion.descripcion}}",
       "hasMenuSection":[
          {
             "@type":"MenuSection",
             "name":"Dinner",
             "description":"Dinner dishes",
-            "image":"https://thisisarestaurant.com/dinner_dishes.jpg",
-            "offers":{
-               "@type":"Offer",
-               "availabilityEnds":"T8:22:00",
-               "availabilityStarts":"T8:22:00"
-            },
             "hasMenuSection":[
+               {% for menu in content.menus %}
                {
                   "@type":"MenuSection",
-                  "name":"Starters",
-                  "description":"Appetizers and such",
-                  "image":"https://thisisarestaurant.com/starter_dishes.jpg",
-                  "offers":{
-                     "@type":"Offer",
-                     "availabilityEnds":"T8:22:00",
-                     "availabilityStarts":"T8:22:00"
-                  },
+                  "name":"{{ menu.nombreMenu }}",
+                  "description":"{{ menu.informacionMenu }}",
+                  {% for producto in menu.productos %}
                   "hasMenuItem":{
                      "@type":"MenuItem",
-                     "name":"Potato Skins",
-                     "description":"Small serving of stuffed potato skins.",
+                     "name":"{{ producto.nombreProducto }}",
+                     "description":"{{ producto.informacionProducto }}",
                      "offers":{
                         "@type":"Offer",
-                        "price":"7.49",
-                        "priceCurrency":"USD"
-                     },
-                     "suitableForDiet":"http://schema.org/GlutenFreeDiet"
-                  }
-               },
-               {
-                  "@type":"MenuSection",
-                  "name":"Soups & Salads",
-                  "description":"Salads and a few choices of soup",
-                  "image":"https://thisisarestaurant.com/soup_and_salad_dishes.jpg",
-                  "offers":{
-                     "@type":"Offer",
-                     "availabilityEnds":"T8:22:00",
-                     "availabilityStarts":"T8:22:00"
-                  },
-                  "hasMenuItem":{
-                     "@type":"MenuItem",
-                     "name":"Pea Soup",
-                     "description":"Creamy pea soup topped with melted cheese and sourdough croutons.",
-                     "offers":{
-                        "@type":"Offer",
-                        "price":"3.49",
-                        "priceCurrency":"USD"
+                        "price":"{{ producto.precioProducto }}",
+                        "priceCurrency":"EUR"
                      }
                   }
+                  {% if not loop.last %},{% endif %}
+                  {% endfor %}
                }
+               {% if not loop.last %},{% endif %}
+               {% endfor %}
             ]
          }
       ]
