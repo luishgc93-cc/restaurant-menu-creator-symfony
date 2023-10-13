@@ -214,7 +214,7 @@ final class ProductOrchestrator extends AbstractController
 
         return true;
     }
-    public function showProductsCreated(Request $request, bool $getProductsFromMenu = false)
+    public function showProductsCreated(Request $request, bool $getProductsFromMenu = false):array
     {
         $idMenu = (int)$request->attributes->get('menuId');
         $productos = $this->productRepository->findBy(array('menus' => $idMenu));
