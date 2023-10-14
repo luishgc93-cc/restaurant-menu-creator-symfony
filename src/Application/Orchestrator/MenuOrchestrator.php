@@ -20,27 +20,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
-use App\Application\Utils\UploadPhoto;
+use App\Application\Utils\ManagePhoto;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class MenuOrchestrator extends AbstractController
 {
     private MenuRepository $menuRepository;
-    private UploadPhoto $uploadPhoto;
+    private ManagePhoto $managePhoto;
     private InformationRepository $informationRepository;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
         MenuRepository $menuRepository,
-        UploadPhoto $uploadPhoto,
+        ManagePhoto $managePhoto,
         InformationRepository  $informationRepository,
         EntityManagerInterface $entityManager,
     )
 
     {
         $this->menuRepository = $menuRepository;
-        $this->uploadPhoto = $uploadPhoto;
+        $this->managePhoto = $managePhoto;
         $this->informationRepository = $informationRepository;
         $this->entityManager = $entityManager;
     }
@@ -81,7 +81,7 @@ final class MenuOrchestrator extends AbstractController
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
                 $menuPhoto = new MenuPhoto();
-                $photo = $this->uploadPhoto->upload($photoRequest);
+                $photo = $this->managePhoto->upload($photoRequest);
                 if('' !== $photo){
                     $menuPhoto->setPhotoPath($photo);
                     $menu->addPhoto($menuPhoto);
@@ -132,7 +132,7 @@ final class MenuOrchestrator extends AbstractController
 
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
-                $photo = $this->uploadPhoto->upload($photoRequest);
+                $photo = $this->managePhoto->upload($photoRequest);
                 
                 if('' !== $photo){
                     $menuPhoto = $menu->getPhotos()->first();

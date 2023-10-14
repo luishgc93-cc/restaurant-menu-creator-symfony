@@ -24,7 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
-use App\Application\Utils\UploadPhoto;
+use App\Application\Utils\ManagePhoto;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 final class PanelOrchestrator extends AbstractController
@@ -32,20 +32,20 @@ final class PanelOrchestrator extends AbstractController
     private LocalRepository $localRepository;
     private InformationRepository $informationRepository;
     private EntityManagerInterface $entityManager;
-    private UploadPhoto $uploadPhoto;
+    private ManagePhoto $managePhoto;
 
     public function __construct(
         LocalRepository        $localRepository,
         InformationRepository  $informationRepository,
         EntityManagerInterface $entityManager,
-        UploadPhoto $uploadPhoto
+        ManagePhoto $managePhoto
     )
 
     {
         $this->localRepository = $localRepository;
         $this->informationRepository = $informationRepository;
         $this->entityManager = $entityManager;
-        $this->uploadPhoto = $uploadPhoto;
+        $this->managePhoto = $managePhoto;
     }
 
     public function createLocal(Request $request): bool
@@ -116,7 +116,7 @@ final class PanelOrchestrator extends AbstractController
 
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
-                $photo = $this->uploadPhoto->upload($photoRequest);
+                $photo = $this->managePhoto->upload($photoRequest);
                 
                 if('' !== $photo){
                     $local->setLogo($photo);
@@ -272,7 +272,7 @@ final class PanelOrchestrator extends AbstractController
             $informacion = $this->informationRepository->findOneBy(array('local' => $local->getId()));
             $informacionPhoto = $this->entityManager->getRepository(InformacionPhoto::class)->findOneBy(array('informacion' => $informacion->getId(), 'orden'=> $orden));
 
-            $photo = $this->uploadPhoto->upload($photoRequests);
+            $photo = $this->managePhoto->upload($photoRequests);
             if('' === $photo){
                 $this->addFlash(
                     'error',

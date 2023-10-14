@@ -15,13 +15,17 @@ namespace App\Application\Utils;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-final class UploadPhoto extends AbstractController
+final class ManagePhoto extends AbstractController
 {
     public function upload($files) : String
     {
-        $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/';
+        $destination = $this->getParameter('uploads_photos_directory');
         $fileName = uniqid().'.'.$files->guessExtension();
-        $files->move($destination, $fileName);
+        $files->move(
+            $this->getParameter('uploads_photos_directory'),
+            $fileName
+        );
+
         $filePath = $destination.$fileName;
         
         if(filesize($filePath) > 1500000){

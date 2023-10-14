@@ -22,7 +22,7 @@ use App\Domain\Model\ProductoPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\Application\Utils\UploadPhoto;
+use App\Application\Utils\ManagePhoto;
 use App\Application\Utils\MultipleUtils;
 
 final class ProductOrchestrator extends AbstractController
@@ -32,7 +32,7 @@ final class ProductOrchestrator extends AbstractController
     private ProductRepository $productRepository;
     private MenuRepository $menuRepository;
     private EntityManagerInterface $entityManager;
-    private UploadPhoto $uploadPhoto;
+    private ManagePhoto $managePhoto;
     private MultipleUtils $multipleUtils;
 
     public function __construct(
@@ -41,7 +41,7 @@ final class ProductOrchestrator extends AbstractController
         MenuRepository         $menuRepository,
         ProductRepository      $productRepository,
         EntityManagerInterface $entityManager,
-        UploadPhoto $uploadPhoto,
+        ManagePhoto $managePhoto,
         MultipleUtils $multipleUtils
     )
 
@@ -51,7 +51,7 @@ final class ProductOrchestrator extends AbstractController
         $this->menuRepository = $menuRepository;
         $this->productRepository = $productRepository;
         $this->entityManager = $entityManager;
-        $this->uploadPhoto = $uploadPhoto;
+        $this->managePhoto = $managePhoto;
         $this->multipleUtils = $multipleUtils;
     }
 
@@ -97,7 +97,7 @@ final class ProductOrchestrator extends AbstractController
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
                 $productoPhoto = new ProductoPhoto();
-                $photo = $this->uploadPhoto->upload($photoRequest);
+                $photo = $this->managePhoto->upload($photoRequest);
                 
                 if('' !== $photo){
                     $productoPhoto->setPhotoPath($photo);
@@ -154,7 +154,7 @@ final class ProductOrchestrator extends AbstractController
 
             $photoRequest = $request->files->get('file-upload');
             if($photoRequest){
-                $photo = $this->uploadPhoto->upload($photoRequest);
+                $photo = $this->managePhoto->upload($photoRequest);
                 $productoPhoto = $producto->getPhotos()->first();
                 
                 if(!$productoPhoto){
