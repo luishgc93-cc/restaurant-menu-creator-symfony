@@ -25,7 +25,11 @@
         {% endif %}
 
           <div class="lg:col-span-3">
+            {% if 'panel-edit-product-alone' == app.request.attributes.get('_route') %}
+            <form  action="{{ path('panel-edit-product-alone',{'local': local, 'productoId' : app.request.attributes.get('productoId')|default(0)}) }}" method="post" enctype="multipart/form-data">
+            {% else %}
             <form  action="{{ path('panel-edit-product',{'local': local, 'menuId': app.request.attributes.get('menuId')|default(0), 'productoId' : app.request.attributes.get('productoId')|default(0)}) }}" method="post" enctype="multipart/form-data">
+            {% endif %}
               <div class="space-y-22">
                 <div class="border-b border-gray-900/10 pb-12">
                   <div class="border-b border-gray-900/10">
