@@ -64,7 +64,7 @@
           <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div class="text-center">
 
-              <img src="{{ datos.logo|default }}" with="50px" heigth="50px">
+              {% if datos.logo|default %}<img src="/uploads/{{ datos.logo|default }}" with="50px" heigth="50px">{% endif %}
 
               {% if not datos.logo|default(null)  %}
               <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -74,6 +74,7 @@
               <div class="mt-4 flex text-sm leading-6 text-gray-600">
                 <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                   <span>{{ datos.logo|default(null)  ? 'reemplaza la foto' : 'sube una foto'}}</span>
+                  <span><a href="{{ path('panel-modify-config-local-delete-logo',{'local': local }) }}">{{  datos.logo|default(null)  ? '| Borrar foto' : ''}}</span>  </a>
                   <input id="file-upload" name="file-upload" type="file" class="sr-only">
                 </label>
               </div>

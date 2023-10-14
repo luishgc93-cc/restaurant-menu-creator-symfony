@@ -41,8 +41,13 @@ panel-select-theme:
   path: /panel/editar-informacion-local/{local}/seleccionar-plantilla/
   controller: App\Infrastructure\Controller\PanelController::selectThemeOfLocalAction
   methods: [GET, POST]
-#Escoger diseño del local
+#Modificar configuración del Local
 panel-modify-config-local:
   path: /panel/editar-local/{local}/
   controller: App\Infrastructure\Controller\PanelController::configLocalAction
   methods: [GET, POST]
+#Borrar foto del logo del Local
+panel-modify-config-local-delete-logo:
+  path: /panel/editar-local/{local}/borrar-logo/
+  controller: App\Infrastructure\Controller\PanelController::configLocalDeleteLogoAction
+  methods: [GET, POST]  

@@ -141,6 +141,41 @@ final class PanelOrchestrator extends AbstractController
         }
         return $local;
     }
+    public function editConfigLocalForDeleteLogo(Request $request) : ?Local
+    {
+        $userId = $this->getUser()->getId();
+        $idLocal = intval($request->attributes->get('local'));
+
+        $local = $this->localRepository->findOneBy(array('id' => $idLocal));
+
+        $userOwnerOfLocal = $local->getUsuario()->getId();
+
+        if ($userId !== $userOwnerOfLocal) {
+            throw new HttpException(404, 'Página no encontrada');
+        }
+
+        $localPhoto = $local->getLogo() ?? '';
+        $deletePhoto = $this->managePhoto->deletePhoto($localPhoto);
+        
+        if($deletePhoto){
+            $local->setLogo(null);
+            $this->localRepository->save($local, true);
+            $this->addFlash(
+                'success',
+                'Foto borrada correctamente'
+            );
+        }
+
+        if(!$deletePhoto){
+            $this->addFlash(
+                'error',
+                'Error borrando la foto'
+            );
+        }
+
+        return $local;
+    }
+
 
     public function showLocal(): ?Local
     {
