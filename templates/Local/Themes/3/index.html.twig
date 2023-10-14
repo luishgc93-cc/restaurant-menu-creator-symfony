@@ -30,15 +30,15 @@
 
 {% for photo in photosTheme %}
 	{% if photo.orden == 1 %}
-		{% set photo1 = photo.photoPath %}
+		{% set photo1 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 2 %}
-		{% set photo2 = photo.photoPath %}
+		{% set photo2 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 3 %}
-		{% set photo3 = photo.photoPath %}
+		{% set photo3 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 4 %}
-		{% set photo4 = photo.photoPath %}		
+		{% set photo4 = '/uploads/' ~ photo.photoPath %}		
 	{% elseif photo.orden == 5 %}
-		{% set photo5 = photo.photoPath %}		
+		{% set photo5 = '/uploads/' ~ photo.photoPath %}		
 	{% endif %}
 {% endfor %}
 
@@ -111,7 +111,7 @@ color: #ffffff;
 			<div class="container">
 				<a class="navbar-brand" href="#slides">
 				{% if content.local.logo|default %}
-					<img src="{{ content.local.logo }}" alt="{{ content.local.nombreLocal }}" with="50px" height="50px"/>
+					<img src="{{ '/uploads/' ~ content.local.logo }}" alt="{{ content.local.nombreLocal }}" with="50px" height="50px"/>
 				{% else %}
 					<p>{{ content.local.nombreLocal }}</p>
 				{% endif %}
@@ -230,7 +230,7 @@ color: #ffffff;
 								{% for producto in menu.productos %}
 								<div class="col-lg-4 col-md-6 special-grid drinks">
 									<div class="gallery-single fix">
-										<img src="{{ producto.photos.0.photoPath|default('themes/3/images/img-01.jpg') }} " class="img-fluid" alt="Image">
+										<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default('themes/3/images/img-01.jpg') }} " class="img-fluid" alt="Image">
 										<div class="why-text">
 											<h4>{{ producto.nombreProducto }}</h4>
 											<p>{{ producto.informacionProducto }}</p>
@@ -267,7 +267,7 @@ color: #ffffff;
 					{% for producto in content.productsAlone|slice(0, 5) %}
 					<div class="col-sm-12 col-md-4 col-lg-4">
 						<a class="lightbox">
-							<img class="img-fluid" src="{{ producto.photos.0.photoPath|default }}" alt="{{ producto.nombreProducto }}">
+							<img class="img-fluid" src="{{ '/uploads/' ~ producto.photos.0.photoPath|default }}" alt="{{ producto.nombreProducto }}">
 						</a>
 					</div>
 					{% endfor %}

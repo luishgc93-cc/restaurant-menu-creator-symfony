@@ -62,9 +62,9 @@
 
 {% for photo in photosTheme %}
 	{% if photo.orden == 1 %}
-		{% set photo1 = photo.photoPath %}
+		{% set photo1 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 2 %}
-		{% set photo2 = photo.photoPath %}	
+		{% set photo2 = '/uploads/' ~ photo.photoPath %}	
 	{% endif %}
 {% endfor %}
 
@@ -87,7 +87,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto active" href="#image-1">Inicio</a></li>
           <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
             {% if content.menus|default([])|length > 0 %}<li><a class="nav-link scrollto" href="#menu">Menú</a></li>{% endif %}
             {% if content.productsAlone|default([])|length > 0 %}<li><a class="nav-link scrollto" href="#gallery">Productos</a></li>{% endif %}
@@ -171,7 +171,7 @@
         {% for menu in content.menus %}
           <div class="col-lg-6 menu-item filter-{{ menu.nombreMenu|replace({' ' : '-'}) }}">
             {% for producto in menu.productos %}
-            {% if producto.photos.0.photoPath|default(null) %}<img src="{{  producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="">{% endif %}
+            {% if producto.photos.0.photoPath|default(null) %}<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="">{% endif %}
             <div class="menu-content">
              {{ producto.nombreProducto }}<span>{{ producto.precioProducto }}€</span>
             </div>
@@ -203,8 +203,8 @@
         {% for producto in content.productsAlone %} 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{  producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="{{  producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" alt="{{ producto.nombreProducto|default }}" class="img-fluid">
+              <a href="{{  '/uploads/' ~ producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" class="gallery-lightbox" data-gall="gallery-item">
+                <img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" alt="{{ producto.nombreProducto|default }}" class="img-fluid">
               </a>
             </div>
           </div>

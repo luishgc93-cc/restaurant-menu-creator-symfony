@@ -41,7 +41,7 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         {% if content.local.logo|default %}
-					<img src="{{ content.local.logo }}" alt="{{ content.local.nombreLocal }}" with="50px" height="50px"/>
+					<img src="{{ '/uploads/' ~ content.local.logo }}" alt="{{ content.local.nombreLocal }}" with="50px" height="50px"/>
 				{% else %}
           <a class="navbar-brand page-scroll" href="#page-top" style="color: {{ content.local.colorWeb }}">{{ content.local.nombreLocal }}</a> 
 				{% endif %}
@@ -69,15 +69,15 @@
 
 {% for photo in photosTheme %}
 	{% if photo.orden == 1 %}
-		{% set photo1 = photo.photoPath %}
+		{% set photo1 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 2 %}
-		{% set photo2 = photo.photoPath %}
+		{% set photo2 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 3 %}
-		{% set photo3 = photo.photoPath %}
+		{% set photo3 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 4 %}
-		{% set photo4 = photo.photoPath %}		
+		{% set photo4 = '/uploads/' ~ photo.photoPath %}		
 	{% elseif photo.orden == 5 %}
-		{% set photo5 = photo.photoPath %}		
+		{% set photo5 = '/uploads/' ~ photo.photoPath %}		
 	{% endif %}
 {% endfor %}
 

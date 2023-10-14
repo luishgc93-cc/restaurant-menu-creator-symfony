@@ -47,15 +47,15 @@
 
 {% for photo in photosTheme %}
 	{% if photo.orden == 1 %}
-		{% set photo1 = photo.photoPath %}
+		{% set photo1 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 2 %}
-		{% set photo2 = photo.photoPath %}
+		{% set photo2 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 3 %}
-		{% set photo3 = photo.photoPath %}
+		{% set photo3 = '/uploads/' ~ photo.photoPath %}
 	{% elseif photo.orden == 4 %}
-		{% set photo4 = photo.photoPath %}		
+		{% set photo4 = '/uploads/' ~ photo.photoPath %}		
 	{% elseif photo.orden == 5 %}
-		{% set photo5 = photo.photoPath %}		
+		{% set photo5 = '/uploads/' ~ photo.photoPath %}		
 	{% endif %}
 {% endfor %}
 	
@@ -214,7 +214,7 @@ a {
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											{% if producto.photos.0.photoPath|default(null) %}<img src="{{  producto.photos.0.photoPath|default('themes/6/images/res_img_5.jpg')  }}" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co"> {% endif %}
+											{% if producto.photos.0.photoPath|default(null) %}<img src="{{ '/uploads/' ~  producto.photos.0.photoPath|default('themes/6/images/res_img_5.jpg')  }}" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co"> {% endif %}
 										</figure>
 										<div>
 											<h3>{{ producto.nombreProducto }}</h3>
