@@ -82,19 +82,8 @@ final class PanelController extends AbstractController
 
     public function configLocalDeleteLogoAction(Request $request): Response
     {
-        $datos = $this->panelOrchestrator->editConfigLocalForDeleteLogo($request);
-
-        $title = 'Edita la Configuración de tu Local';
-
-        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
-
-        return $this->render(
-            '/Panel/Sections/localOptions.html.twig',
-            ['local' => $request->attributes->get('local'), 
-            'datos'=> $datos, 
-            'title'=>$title,
-            'urlLocal' => $urlLocal]
-        );
+        $this->panelOrchestrator->editConfigLocalForDeleteLogo($request);
+        return $this->redirectToRoute('panel-modify-config-local', ['local' => $request->attributes->get('local')]);
     }
 
     public function editInformationLocalAction(Request $request): Response
