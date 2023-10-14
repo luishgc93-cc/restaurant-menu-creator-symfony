@@ -184,7 +184,44 @@ final class ProductOrchestrator extends AbstractController
         }
         return $producto;
     }
+    public function editProductForDeletePhoto(Request $request, bool $saveProductWithIdInformation = false): bool|array|Producto
+    {
+        $idProducto = intval($request->attributes->get('productoId'));
+        $producto = $this->productRepository->findOneBy(array('id' => $idProducto));
 
+        $userGrantedForEdit = $producto->getUserId() === $this->getUser()->getId();
+        
+        if (!$userGrantedForEdit) {
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
+
+        $informacion = $this->informationRepository->findOneBy(array('local' => $idProducto));
+
+        if ($saveProductWithIdInformation && $request->isMethod('GET')) {
+            return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
+        }
+        
+        $productoPhoto = $producto->getPhotos()->first()->getPhotoPath() ?? '';
+        $deletePhoto = $this->managePhoto->deletePhoto($productoPhoto);
+        if($deletePhoto){
+            $this->addFlash(
+                'success',
+                'Foto borrada correctamente del Producto'
+            );
+            $producto->removePhoto($producto->getPhotos()->first());
+            $this->productRepository->save($producto, true);
+
+        }
+        if(!$deletePhoto){
+            $this->addFlash(
+                'error',
+                'Error borrando la foto del Producto'
+            );
+        }
+
+        return $producto;
+    }
+    
     public function deleteProduct(Request $request)
     {
         $userId = $this->getUser()->getId();

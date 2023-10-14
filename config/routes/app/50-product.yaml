@@ -28,3 +28,8 @@ panel-delete-product-alone:
   path: /panel/editar-informacion-local/{local}/borrar-producto/{productoId}
   controller: App\Infrastructure\Controller\ProductController::deleteProductAloneOfLocalAction
   methods: [GET, POST]   
+#editar Producto solitario
+panel-edit-product-delete-photo:
+  path: /panel/editar-informacion-local/{local}/editar-menu/{menuId}/editar-producto/{productoId}/borar-foto/
+  controller: App\Infrastructure\Controller\ProductController::editProductForDeletePhotoOfLocalAction
+  methods: [GET, POST]       
