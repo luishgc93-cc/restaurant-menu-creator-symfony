@@ -97,23 +97,11 @@ final class MenuController extends AbstractController
     }
     public function editMenuForDeletePhotoOfLocalAction(Request $request): Response
     {
-        $menu = $this->menuOrchestrator->editMenuForDeletePhoto($request);
-
-        $products = $this->productOrchestrator->showProductsCreated($request, true);
-
-        $title = 'Edita el Menú seleccionado o el Producto asociado';
-
-        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
-
-        return $this->render(
-            '/Panel/Sections/editMenu.html.twig',
-            ['local' => $request->attributes->get('local'), 
-            'menu'=> $menu, 
-            'title'=>$title,
-            'productos'=>$products,
-            'urlLocal' => $urlLocal
-            ]
-        );
+        $this->menuOrchestrator->editMenuForDeletePhoto($request);
+        return $this->redirectToRoute('panel-edit-menu-and-show-products', 
+        ['local' => $request->attributes->get('local'),
+        'menuId' => $request->attributes->get('menuId')
+        ]);
     }
 
     public function deleteMenuOfLocalAction(Request $request): Response
