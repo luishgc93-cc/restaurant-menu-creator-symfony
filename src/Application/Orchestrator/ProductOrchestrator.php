@@ -241,7 +241,7 @@ final class ProductOrchestrator extends AbstractController
             );
             return;
         }
-
+        $this->managePhoto->deletePhoto($product->getPhotos()->first()->getPhotoPath());
         $this->productRepository->remove($product, true);
         
         $this->addFlash(

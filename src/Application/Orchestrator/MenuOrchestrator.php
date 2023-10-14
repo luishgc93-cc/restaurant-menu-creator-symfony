@@ -214,7 +214,7 @@ final class MenuOrchestrator extends AbstractController
             );
             return;
         }
-
+        $this->managePhoto->deletePhoto($menu->getPhotos()->first()->getPhotoPath());
         $this->menuRepository->remove($menu, true);
         
         $this->addFlash(
