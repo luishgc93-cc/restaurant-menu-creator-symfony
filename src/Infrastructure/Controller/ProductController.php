@@ -88,25 +88,23 @@ final class ProductController extends AbstractController
             ]
         );
     }
+    
     public function editProductForDeletePhotoOfLocalAction(Request $request): Response
     {
+        $this->productOrchestrator->editProductForDeletePhoto($request);
 
-        $productToEdit = $this->productOrchestrator->editProductForDeletePhoto($request);
-        $productsRelated = $this->productOrchestrator->showProductsCreated($request);
-
-        $title = 'Edita el Producto seleccionado o escoge otro para editar';
-        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
-
-        return $this->render(
-            '/Panel/Sections/editProduct.html.twig',
+        if(!$request->query->get('menuId')){
+            return $this->redirectToRoute('panel-edit-product-alone',
+             ['local' => $request->attributes->get('local'), 
+             'productoId' => $request->attributes->get('productoId')]);
+        } else{
+            return $this->redirectToRoute('panel-edit-product', 
             ['local' => $request->attributes->get('local'), 
-            'title'=>$title,
-            'productToEdit'=>$productToEdit,
-            'productsRelated' => $productsRelated,
-            'urlLocal' => $urlLocal
-            ]
-        );
+            'menuId' => $request->attributes->get('menuId'), 
+            'productoId' => $request->attributes->get('productoId')]);
+        }
     }    
+
     public function editProductAloneAction(Request $request): Response
     {
         $productToEdit = $this->productOrchestrator->editProduct($request);
