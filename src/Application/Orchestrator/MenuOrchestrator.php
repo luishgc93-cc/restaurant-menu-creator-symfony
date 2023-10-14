@@ -167,6 +167,35 @@ final class MenuOrchestrator extends AbstractController
 
         return $menu;
     }
+    public function editMenuForDeletePhoto(Request $request): ?Menu
+    {
+        $menuId = intval($request->attributes->get('menuId'));
+        $menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
+        $userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
+        
+        if (!$userGrantedForEdit) {
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
+
+        $menuPhoto = $menu->getPhotos()->first()->getPhotoPath() ?? '';
+        $deletePhoto = $this->managePhoto->deletePhoto($menuPhoto);
+        if($deletePhoto){
+            $this->addFlash(
+                'success',
+                'Foto borrada correctamente'
+            );
+            $menu->removePhoto($menu->getPhotos()->first());
+            $this->menuRepository->save($menu, true);
+
+        }
+        if(!$deletePhoto){
+            $this->addFlash(
+                'error',
+                'Error borrando la foto'
+            );
+        }
+        return $menu;
+    }
     public function deleteMenu(Request $request)
     {
         $menuId = intval($request->attributes->get('menuId'));

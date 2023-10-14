@@ -18,3 +18,8 @@ panel-delete-menu:
   path: /panel/editar-informacion-local/{local}/borrar-menu/{menuId}
   controller: App\Infrastructure\Controller\MenuController::deleteMenuOfLocalAction
   methods: [GET, POST]        
+#borrar foto de Menus
+panel-edit-menu-delete-photos:
+  path: /panel/editar-informacion-local/{local}/editar-menu/{menuId}/-borrar-foto
+  controller: App\Infrastructure\Controller\MenuController::editMenuForDeletePhotoOfLocalAction
+  methods: [GET, POST]  

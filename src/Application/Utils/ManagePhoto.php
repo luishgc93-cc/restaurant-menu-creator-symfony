@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\Utils;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ManagePhoto extends AbstractController
@@ -33,6 +34,16 @@ final class ManagePhoto extends AbstractController
             return '';
         }
 
-        return '/uploads/' . $fileName;
+        return $fileName;
+    }
+    public function deletePhoto(string $file) : bool
+    {
+        $hrefFile = $this->getParameter('uploads_photos_directory') . $file;
+        try {
+            unlink($hrefFile);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }
