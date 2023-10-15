@@ -26,9 +26,12 @@ final class ManagePhoto extends AbstractController
             $this->getParameter('uploads_photos_directory'),
             $fileName
         );
-
         $filePath = $destination.$fileName;
         
+        if('image/png' !== $files->getClientMimeType()){
+            $this->compressImage($filePath,$filePath, 50);
+        }
+
         if(filesize($filePath) > 1500000){
             unlink($filePath);
             return '';
@@ -45,5 +48,23 @@ final class ManagePhoto extends AbstractController
         } catch (Exception $e) {
             return false;
         }
+    }
+    function compressImage($source, $destination, $quality) { 
+        $imgInfo = getimagesize($source); 
+        $mime = $imgInfo['mime']; 
+         
+        switch($mime){ 
+            case 'image/jpeg': 
+                $image = imagecreatefromjpeg($source); 
+                break; 
+            case 'image/gif': 
+                $image = imagecreatefromgif($source); 
+                break; 
+            default: 
+                $image = imagecreatefromjpeg($source); 
+        } 
+        imagejpeg($image, $destination, $quality); 
+        
+        return $destination; 
     }
 }
