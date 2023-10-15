@@ -31,7 +31,7 @@ class Informacion
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $calle;
+    private $direccionCompleta;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -137,14 +137,14 @@ class Informacion
         $this->descripcion = $descripcion;
     }
 
-    public function getCalle()
+    public function getDireccionCompleta()
     {
-        return $this->calle;
+        return $this->direccionCompleta;
     }
 
-    public function setCalle($calle)
+    public function setDireccionCompleta($direccionCompleta)
     {
-        $this->calle = $calle;
+        $this->direccionCompleta = $direccionCompleta;
     }
 
     public function getLocalidad()

@@ -318,12 +318,12 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>Restaurantly</h3>
+              <h3>{{ content.local.nombreLocal }}</h3>
               <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>  
-                <strong>Phone:</strong>{{ content.informationForLocal.telefono }} <br>
-                <strong>Email:</strong> {{ content.informationForLocal.email }} <br>
+               {{ content.informationForLocal.direccionCompleta }} <br>
+                {{ content.informationForLocal.localidad }} {{ content.informationForLocal.ciudad }} <br><br>  
+                <strong>Phone: </strong>{{ content.informationForLocal.telefono }} <br>
+                <strong>Email: </strong> {{ content.informationForLocal.email }} <br>
               </p>
             {% if content.informationForLocal.facebook|default or content.informationForLocal.facebook|default or content.informationForLocal.instagram|default or content.informationForLocal.youtube|default %}
               <div class="social-links mt-3">

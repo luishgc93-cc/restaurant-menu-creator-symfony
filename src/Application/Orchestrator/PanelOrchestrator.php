@@ -209,7 +209,7 @@ final class PanelOrchestrator extends AbstractController
 
             $informacion->setTelefono($datosForm['telefono'] ?? '');
             $informacion->setDescripcion($datosForm['descripcion'] ?? '');
-            $informacion->setCalle($datosForm['calle'] ?? '');
+            $informacion->setDireccionCompleta($datosForm['direccionCompleta'] ?? '');
             $informacion->setLocalidad($datosForm['localidad'] ?? '');
             $informacion->setCiudad($datosForm['ciudad'] ?? '');
             $informacion->setEmail($datosForm['email'] ?? '');
