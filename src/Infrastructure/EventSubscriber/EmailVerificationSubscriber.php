@@ -32,7 +32,7 @@ final class EmailVerificationSubscriber implements EventSubscriberInterface
         $user = $this->security->getUser();
 
         if ($user && !$user->isVerified()) {
-            // Renderiza la vista Twig
+
             $content = $this->twig->render('/Panel/Sections/resendEmailVerification.html.twig', 
             [
             'title'=>'Verificar Email',
