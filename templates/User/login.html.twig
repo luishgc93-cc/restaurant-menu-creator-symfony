@@ -39,7 +39,7 @@
                     value="{{ csrf_token('authenticate') }}"
                 >
                 <div class="flex justify-end">
-                    <a href="#" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">¿Olvidaste la contraseña?</a>
+                    <a href="{{ path('recoveryAccountUser') }}" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">¿Olvidaste la contraseña?</a>
                 </div>
                 <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Iniciar Sesión</button>
             </form>

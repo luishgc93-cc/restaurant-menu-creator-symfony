@@ -153,7 +153,10 @@ final class UserController extends AbstractController
             'email'=> $userEmail, 
         ]);
     }
-
+    public function recoveryAccountUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
+    {
+              return $this->render('/User/recoveryPassword.html.twig');
+    }
     public function logoutAction(): void
     {
         throw new \Exception('Don\'t forget to activate logout in security.yaml');

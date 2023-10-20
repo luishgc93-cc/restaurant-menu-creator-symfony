@@ -12,7 +12,7 @@
 <body>
 
 {% block menuHeader %}
-    {% if app.request.pathinfo not in ['/login', '/registro', '/'] %}
+    {% if app.user.isVerified|default(null) %}
         {% include '/Includes/menuHeader.html.twig' %}
     {% endif %}
 {% endblock %}

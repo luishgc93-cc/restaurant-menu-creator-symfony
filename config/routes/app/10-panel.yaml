@@ -18,6 +18,10 @@ app_register:
 app_verify_email:
   path: /verify/email
   controller: App\Infrastructure\Controller\UserController::verifyUserEmailAction
+#recuperar cuenta
+recoveryAccountUser:
+  path: /login/recuperar-cuenta
+  controller: App\Infrastructure\Controller\UserController::recoveryAccountUser  
 #Panel de control de usuarios
 panel:
   path: /panel/
