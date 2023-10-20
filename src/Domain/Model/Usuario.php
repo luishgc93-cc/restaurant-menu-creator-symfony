@@ -43,7 +43,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $locales;
 
-    #[ORM\Column(type: 'boolean')]
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $isVerified = false;
 
     public function __construct()
