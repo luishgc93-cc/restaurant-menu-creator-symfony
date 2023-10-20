@@ -170,6 +170,7 @@ final class UserController extends AbstractController
                 $userEmailCheck->addRecoveryToken($usuarioRecovery);
                 $this->userRepository->save($userEmailCheck, true);
                 $this->addFlash('success', 'Revisa tu Buzón de Email para restaurar tu contraseña.');
+                return $this->redirectToRoute('app_login');
             }
 
         }
