@@ -10,7 +10,12 @@
     color: white;
     margin-bottom: 15px;
 }
-
+.success {
+    padding: 20px;
+    background-color: rgb(34, 197, 94);
+    color: white;
+    margin-bottom: 15px;
+}
 /* The close button */
 .closebtn {
     margin-left: 15px;
@@ -54,6 +59,13 @@
 
 {% for flash_message in app.session.flashbag.get('error') %}
 <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+     {{ flash_message }}
+</div>
+{% endfor %}
+
+{% for flash_message in app.session.flashbag.get('success') %}
+<div class="success">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
      {{ flash_message }}
 </div>

@@ -162,12 +162,16 @@ final class UserController extends AbstractController
         if ($request->isMethod('POST') && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
             $datosForm = $request->request->all();
             $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['username']));
-            $uuid = Uuid::v4();
-            $usuarioRecovery = new UsuarioRecovery();
-            $usuarioRecovery->setUsuario($userEmailCheck);
-            $usuarioRecovery->setPin($uuid->__toString());
-            $userEmailCheck->addRecoveryToken($usuarioRecovery);
-            $this->userRepository->save($userEmailCheck, true);
+            if($userEmailCheck){
+                $uuid = Uuid::v4();
+                $usuarioRecovery = new UsuarioRecovery();
+                $usuarioRecovery->setUsuario($userEmailCheck);
+                $usuarioRecovery->setPin($uuid->__toString());
+                $userEmailCheck->addRecoveryToken($usuarioRecovery);
+                $this->userRepository->save($userEmailCheck, true);
+                $this->addFlash('success', 'Revisa tu Buzón de Email para restaurar tu contraseña.');
+            }
+
         }
 
         return $this->render('/User/recoveryPassword.html.twig');
