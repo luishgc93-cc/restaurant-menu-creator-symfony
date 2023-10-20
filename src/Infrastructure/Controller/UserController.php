@@ -164,7 +164,10 @@ final class UserController extends AbstractController
             $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['username']));
             if($userEmailCheck){
                 $uuid = Uuid::v4();
-                $usuarioRecovery = new UsuarioRecovery();
+                $usuarioRecovery = $userEmailCheck->getRecoveryToken()->first() ?? '';
+                if(!$usuarioRecovery){
+                    $usuarioRecovery = new UsuarioRecovery();
+                }
                 $usuarioRecovery->setUsuario($userEmailCheck);
                 $usuarioRecovery->setPin($uuid->__toString());
                 $userEmailCheck->addRecoveryToken($usuarioRecovery);

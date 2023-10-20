@@ -56,6 +56,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->locales = new ArrayCollection();
+        $this->recoveryTokens = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,5 +168,10 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     $recoveryToken->setUsuario($this);
 
     return $this;
+    }
+
+    public function getRecoveryToken()
+    {
+        return $this->recoveryTokens;
     }
 }
