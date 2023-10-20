@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Model\UsuarioRecovery;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Infrastructure\Persistence\Doctrine\Repository\UserRepository;
 use App\Domain\Model\Usuario;
+use Symfony\Component\Uid\Uuid;
 
 final class UserController extends AbstractController
 {
@@ -155,7 +157,20 @@ final class UserController extends AbstractController
     }
     public function recoveryAccountUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
     {
-              return $this->render('/User/recoveryPassword.html.twig');
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
+            $datosForm = $request->request->all();
+            $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['username']));
+            $uuid = Uuid::v4();
+            $usuarioRecovery = new UsuarioRecovery();
+            $usuarioRecovery->setUsuario($userEmailCheck);
+            $usuarioRecovery->setPin($uuid->__toString());
+            $userEmailCheck->addRecoveryToken($usuarioRecovery);
+            $this->userRepository->save($userEmailCheck, true);
+        }
+
+        return $this->render('/User/recoveryPassword.html.twig');
     }
     public function logoutAction(): void
     {

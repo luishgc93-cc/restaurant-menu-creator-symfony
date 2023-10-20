@@ -47,6 +47,11 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\UsuarioRecovery", mappedBy="usuario", cascade={"persist"})
+     */
+    private $recoveryTokens;
 
     public function __construct()
     {
@@ -154,5 +159,13 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function addRecoveryToken(UsuarioRecovery $recoveryToken)
+    {
+    $this->recoveryTokens[] = $recoveryToken;
+    $recoveryToken->setUsuario($this);
+
+    return $this;
     }
 }
