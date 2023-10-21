@@ -12,7 +12,7 @@
 <body>
 
 {% block menuHeader %}
-    {% if app.user.isVerified|default(null) %}
+    {% if app.user.isVerified|default(null) and 'homeController' != app.request.attributes.get("_route") %}
         {% include '/Includes/menuHeader.html.twig' %}
     {% endif %}
 {% endblock %}
