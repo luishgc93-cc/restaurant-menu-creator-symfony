@@ -30,6 +30,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class UserController extends AbstractController
 {
+    const TEXT_EMAIL_VERIFICATION_DEFAULT = 'Revisa tu Buzón de Email para restaurar tu contraseña.';
     private EmailVerifier $emailVerifier;
     private UserRepository $userRepository;
     private EntityManagerInterface $entityManager;
@@ -141,7 +142,7 @@ final class UserController extends AbstractController
             'email'=> $userEmail, 
         ]);
     }
-    public function recoveryAccountUser(Request $request): Response
+    public function recoveryAccountUser(Request $request, String $alertMessage = self::TEXT_EMAIL_VERIFICATION_DEFAULT): Response
     {
         $submittedToken = $request->request->get('token');
 
@@ -160,7 +161,7 @@ final class UserController extends AbstractController
                 $usuarioRecovery->setFechaExpiracionPin($dateTime->modify('+1 day'));
                 $userEmailCheck->addRecoveryToken($usuarioRecovery);
                 $this->userRepository->save($userEmailCheck, true);
-                $this->addFlash('success', 'Revisa tu Buzón de Email para restaurar tu contraseña.');
+                $this->addFlash('success', $alertMessage);
                 return $this->redirectToRoute('app_login');
             }
 
@@ -204,6 +205,7 @@ final class UserController extends AbstractController
             $token = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['pin' => $tokenQuery]);
             $usuario = $token->getUsuario();
             $usuario->setIsVerified(true);
+            $this->entityManager->remove($token);
             $this->userRepository->save($usuario, true);
             $this->addFlash('success', 'Email verificado correctamente.');
             return $this->redirectToRoute('panel');

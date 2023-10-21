@@ -7,16 +7,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
+use App\Infrastructure\Controller\UserController;  
 
 final class EmailVerificationSubscriber implements EventSubscriberInterface
 {
     private $security;
     private $twig;
+    private $UserController;
 
-    public function __construct(Security $security, \Twig\Environment $twig)
+    public function __construct(Security $security, \Twig\Environment $twig, UserController $UserController)
     {
         $this->security = $security;
         $this->twig = $twig;
+        $this->UserController = $UserController;
     }
 
     public static function getSubscribedEvents()
@@ -29,18 +32,28 @@ final class EmailVerificationSubscriber implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event)
     {
         $user = $this->security->getUser();
+        $request = $event->getRequest();
+        $datosForm = $request->request->all();
 
-        if ($user && !$user->isVerified()) {
-
-            $content = $this->twig->render('/Panel/Sections/resendEmailVerification.html.twig', 
-            [
-            'title'=>'Verificar Email',
-            'userEmail' => $user->getEmail()
-            ]);
+        if ($datosForm['username'] ?? null) {
+            $response = $this->UserController->recoveryAccountUser($request,'Revise su Email para verificar la Cuenta.');
+            $event->setResponse($response);
+        } elseif('/verify/email' === $request->getPathInfo()){
+            $response = $this->UserController->verifyUserEmailAction($request);
+            $event->setResponse($response);
+        }elseif ($user && !$user->isVerified()) {
+            $content = $this->twig->render(
+                '/Panel/Sections/resendEmailVerification.html.twig',
+                [
+                    'title' => 'Verificar Email',
+                    'userEmail' => $user->getEmail()
+                ]
+            );
 
             $response = new Response($content);
-
             $event->setResponse($response);
+
         }
+
     }
 }
