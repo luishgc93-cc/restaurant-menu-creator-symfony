@@ -22,14 +22,14 @@
         </section>
 
         <section class="mt-10">
-            <form class="flex flex-col" {{ path('recoveryAccountUser') }} method="post">
+            <form class="flex flex-col" {{ path('app_verify_email') }} method="post">
 
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Email</label>
                     <input readonly="readonly" type="text"id="username" name="username" value="{{ userEmail }}" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                 </div>
 
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="token" value="{{ csrf_token('validateTokenSym') }}" />
 
                 <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Reenvíar código</button>
             </form>
