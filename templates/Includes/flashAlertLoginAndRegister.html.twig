@@ -64,7 +64,7 @@
 </div>
 {% endfor %}
 
-{% for flash_message in app.session.flashbag.get('success') %}
+{% for flash_message in app.session.flashbag.get('sucess') %}
 <div class="success">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
      {{ flash_message }}

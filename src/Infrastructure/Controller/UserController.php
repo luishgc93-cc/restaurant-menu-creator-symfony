@@ -161,7 +161,7 @@ final class UserController extends AbstractController
                 $usuarioRecovery->setFechaExpiracionPin($dateTime->modify('+1 day'));
                 $userEmailCheck->addRecoveryToken($usuarioRecovery);
                 $this->userRepository->save($userEmailCheck, true);
-                $this->addFlash('success', $alertMessage);
+                $this->addFlash('sucess', $alertMessage);
                 return $this->redirectToRoute('app_login');
             }
 
@@ -189,7 +189,7 @@ final class UserController extends AbstractController
                 $this->entityManager->remove($token);
                 $this->userRepository->save($user, true);
                 $this->addFlash(
-                    'success',
+                    'sucess',
                     'Contraseña restablecida correctamente.'
                 );
                 return $this->redirectToRoute('app_login');
@@ -207,7 +207,7 @@ final class UserController extends AbstractController
             $usuario->setIsVerified(true);
             $this->entityManager->remove($token);
             $this->userRepository->save($usuario, true);
-            $this->addFlash('success', 'Email verificado correctamente.');
+            $this->addFlash('sucess', 'Email verificado correctamente.');
             return $this->redirectToRoute('panel');
         }
         return $this->render('/User/recoveryPassword.html.twig');
