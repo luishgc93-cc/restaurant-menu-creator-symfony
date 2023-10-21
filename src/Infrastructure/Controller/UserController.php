@@ -30,7 +30,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class UserController extends AbstractController
 {
-    const TEXT_EMAIL_VERIFICATION_DEFAULT = 'Revisa tu Buzón de Email para restaurar tu contraseña.';
+    const TEXT_EMAIL_VERIFICATION_DEFAULT = 'Revisa tu Buzón de Email para recuperar su contraseña.';
     private EmailVerifier $emailVerifier;
     private UserRepository $userRepository;
     private EntityManagerInterface $entityManager;
@@ -148,7 +148,8 @@ final class UserController extends AbstractController
 
         if ($request->isMethod('POST') && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
             $datosForm = $request->request->all();
-            $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['username']));
+            $emailForm = $request->getPathInfo() === '/login/recuperar-cuenta' ? 'emailParaRecuperarContrasena' : 'username';
+            $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm[$emailForm]));
             if($userEmailCheck){
                 $uuid = Uuid::v4();
                 $usuarioRecovery = $userEmailCheck->getRecoveryToken()->first() ?? '';
