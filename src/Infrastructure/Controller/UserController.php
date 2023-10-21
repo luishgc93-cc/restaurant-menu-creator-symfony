@@ -170,6 +170,8 @@ final class UserController extends AbstractController
                 }
                 $usuarioRecovery->setUsuario($userEmailCheck);
                 $usuarioRecovery->setPin($uuid->__toString());
+                $dateTime = new \DateTime('now');
+                $usuarioRecovery->setFechaExpiracionPin($dateTime->modify('+1 day'));
                 $userEmailCheck->addRecoveryToken($usuarioRecovery);
                 $this->userRepository->save($userEmailCheck, true);
                 $this->addFlash('success', 'Revisa tu Buzón de Email para restaurar tu contraseña.');
