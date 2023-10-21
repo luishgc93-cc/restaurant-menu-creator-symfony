@@ -41,7 +41,7 @@ final class EmailVerificationSubscriber implements EventSubscriberInterface
         } elseif('/verify/email' === $request->getPathInfo()){
             $response = $this->UserController->verifyUserEmailAction($request);
             $event->setResponse($response);
-        }elseif ($user && !$user->isVerified()) {
+        }elseif ($user && !$user->isVerified() && '/' !== $request->getPathInfo()) {
             $content = $this->twig->render(
                 '/Panel/Sections/resendEmailVerification.html.twig',
                 [
