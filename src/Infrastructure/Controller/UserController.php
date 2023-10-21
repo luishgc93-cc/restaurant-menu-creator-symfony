@@ -155,7 +155,7 @@ final class UserController extends AbstractController
             'email'=> $userEmail, 
         ]);
     }
-    public function recoveryAccountUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
+    public function recoveryAccountUser(Request $request): Response
     {
         $submittedToken = $request->request->get('token');
 
@@ -179,7 +179,15 @@ final class UserController extends AbstractController
             }
 
         }
+        return $this->render('/User/recoveryPassword.html.twig');
+    }
+    
+    public function recoveryAccountUserValidateToken(Request $request): Response
+    {
 
+        if($request->query->get('token')){
+
+        }
         return $this->render('/User/recoveryPassword.html.twig');
     }
     public function logoutAction(): void

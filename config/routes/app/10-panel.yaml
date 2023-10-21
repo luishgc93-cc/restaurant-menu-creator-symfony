@@ -22,6 +22,10 @@ app_verify_email:
 recoveryAccountUser:
   path: /login/recuperar-cuenta
   controller: App\Infrastructure\Controller\UserController::recoveryAccountUser  
+#recuperar cuenta validar token
+recoveryAccountUserValidateToken:
+  path: /login/recuperar-cuenta/validar
+  controller: App\Infrastructure\Controller\UserController::recoveryAccountUserValidateToken  
 #Panel de control de usuarios
 panel:
   path: /panel/
