@@ -26,16 +26,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Infrastructure\Persistence\Doctrine\Repository\UserRepository;
 use App\Domain\Model\Usuario;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class UserController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
     private UserRepository $userRepository;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(EmailVerifier $emailVerifier, UserRepository $userRepository)
+    public function __construct(EmailVerifier $emailVerifier, UserRepository $userRepository,  EntityManagerInterface $entityManager)
     {
         $this->emailVerifier = $emailVerifier;
         $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
     }
 
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils, EmailVerifier $emailVerifier): Response
@@ -111,23 +114,6 @@ final class UserController extends AbstractController
         return $this->render('/Registration/register.html.twig');
     }
 
-    public function verifyUserEmailAction(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
-
-            return $this->redirectToRoute('app_register');
-        }
-
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('app_register');
-    }
-
     public function cuentaUsuarioControllerAction(Request $request,  UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $title = 'Edita tu Cuenta de Usuario';
@@ -182,11 +168,45 @@ final class UserController extends AbstractController
         return $this->render('/User/recoveryPassword.html.twig');
     }
     
-    public function recoveryAccountUserValidateToken(Request $request): Response
+    public function recoveryAccountUserValidateToken(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
+        $tokenQuery = $request->query->get('token');
+        $datosForm = $request->request->all();
 
-        if($request->query->get('token')){
+        if($tokenQuery){
+            $token = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['pin' => $tokenQuery]);
+            $password = $datosForm['password'] ?? null;
+            
+            if($tokenQuery && $password){
+                $user = $this->userRepository->findOneBy(array('id' => $token->getUsuario()->getId()));
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $datosForm['password']
+                    )
+                );
+                $this->entityManager->remove($token);
+                $this->userRepository->save($user, true);
+                $this->addFlash(
+                    'success',
+                    'Contraseña restablecida correctamente.'
+                );
+                return $this->redirectToRoute('app_login');
+            }
+        }
+        return $this->render('/User/recoveryPasswordForReset.html.twig');
+    }
 
+    public function verifyUserEmailAction(Request $request): Response
+    {
+        $tokenQuery = $request->query->get('token');
+        if($tokenQuery){
+            $token = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['pin' => $tokenQuery]);
+            $usuario = $token->getUsuario();
+            $usuario->setIsVerified(true);
+            $this->userRepository->save($usuario, true);
+            $this->addFlash('success', 'Email verificado correctamente.');
+            return $this->redirectToRoute('panel');
         }
         return $this->render('/User/recoveryPassword.html.twig');
     }
