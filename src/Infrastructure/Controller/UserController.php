@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
@@ -31,18 +30,16 @@ use Doctrine\ORM\EntityManagerInterface;
 final class UserController extends AbstractController
 {
     const TEXT_EMAIL_VERIFICATION_DEFAULT = 'Revisa tu Buzón de Email para recuperar su contraseña.';
-    private EmailVerifier $emailVerifier;
     private UserRepository $userRepository;
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EmailVerifier $emailVerifier, UserRepository $userRepository,  EntityManagerInterface $entityManager)
+    public function __construct(UserRepository $userRepository,  EntityManagerInterface $entityManager)
     {
-        $this->emailVerifier = $emailVerifier;
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
     }
 
-    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils, EmailVerifier $emailVerifier): Response
+    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('panel');
