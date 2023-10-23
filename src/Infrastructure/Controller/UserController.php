@@ -95,7 +95,10 @@ final class UserController extends AbstractController
             );
 
             $this->userRepository->save($user, true);
-
+            $this->addFlash(
+                'sucess',
+                'Cuenta creada correctamente, comprueba tu Email para validarlo.'
+            );
             return $this->redirectToRoute('panel');
         }
 
