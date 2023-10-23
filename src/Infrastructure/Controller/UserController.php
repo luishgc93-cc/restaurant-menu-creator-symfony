@@ -96,16 +96,6 @@ final class UserController extends AbstractController
 
             $this->userRepository->save($user, true);
 
-            $this->emailVerifier->sendEmailConfirmation(
-                'app_verify_email',
-                $user,
-                (new TemplatedEmail())
-                    ->from(new Address('mail@mail.er', 'luis'))
-                    ->to($datosForm['email'])
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('Registration/confirmation_email.html.twig')
-            );
-
             return $this->redirectToRoute('panel');
         }
 
