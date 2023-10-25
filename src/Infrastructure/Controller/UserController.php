@@ -169,6 +169,14 @@ final class UserController extends AbstractController
             $token = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['pin' => $tokenQuery]);
             $password = $datosForm['password'] ?? null;
             
+            if( (bool) ($token->getFechaExpiracion() < new \DateTime('now')) ){
+                $this->addFlash(
+                    'error',
+                    'El enlace ha caducado, reenvía de nuevo la solicitud de restablecimiento de contraseña.'
+                );
+                return $this->redirectToRoute('recoveryAccountUser');
+            }
+
             if($tokenQuery && $password){
                 $user = $this->userRepository->findOneBy(array('id' => $token->getUsuario()->getId()));
                 $user->setPassword(
