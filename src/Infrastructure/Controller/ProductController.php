@@ -35,7 +35,8 @@ final class ProductController extends AbstractController
 
     public function newProductAction(Request $request): Response
     {
-        $datos = $this->productOrchestrator->newProduct($request);
+        $this->productOrchestrator->newProduct($request);
+        $productsRelated = $this->productOrchestrator->showProductsCreated($request);
 
         $title = 'Añade un Producto a tu Local';
 
@@ -45,7 +46,7 @@ final class ProductController extends AbstractController
             '/Panel/Sections/newProduct.html.twig',
             ['local' => $request->attributes->get('local'), 
             'menuId' => $request->attributes->get('menuId'), 
-            'datos'=> $datos, 
+            'datos'=> $productsRelated, 
             'title'=>$title,
             'urlLocal' => $urlLocal]
         );
