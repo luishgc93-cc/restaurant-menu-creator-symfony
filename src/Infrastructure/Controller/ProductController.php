@@ -36,7 +36,7 @@ final class ProductController extends AbstractController
     public function newProductAction(Request $request): Response
     {
         $this->productOrchestrator->newProduct($request);
-        $productsRelated = $this->productOrchestrator->showProductsCreated($request);
+        $productsRelated = $this->productOrchestrator->showProductsCreated($request,true);
 
         $title = 'Añade un Producto a tu Local';
 

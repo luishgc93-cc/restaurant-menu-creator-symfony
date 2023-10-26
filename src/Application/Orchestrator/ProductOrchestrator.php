@@ -68,14 +68,6 @@ final class ProductOrchestrator extends AbstractController
         $local = intval($request->attributes->get('local'));
         $menu = $this->menuRepository->findOneBy(array('id' => $idMenu));
         $informacion = $this->informationRepository->findOneBy(array('local' => $local));
-
-        if ($saveProductWithIdInformation && $request->isMethod('GET')) {
-            return $this->productRepository->findBy(array('informacion' => $informacion->getId()));
-        }
-
-        if (!$saveProductWithIdInformation && $request->isMethod('GET')) {
-            return $this->productRepository->findBy(array('menus' => $menu->getId()));
-        }
         $submittedToken = $request->request->get('token');
 
         if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
