@@ -108,6 +108,11 @@ final class MenuController extends AbstractController
     {
         $menu = $this->menuOrchestrator->deleteMenu($request);
         $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+        
+        if($menu){
+            return $this->redirectToRoute('panel-new-menu', 
+            ['local' => $request->attributes->get('local')]);
+        }
 
         return $this->render(
             '/Panel/Sections/editMenu.html.twig',

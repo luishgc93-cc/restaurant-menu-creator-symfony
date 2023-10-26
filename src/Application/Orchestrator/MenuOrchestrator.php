@@ -196,7 +196,7 @@ final class MenuOrchestrator extends AbstractController
         }
         return $menu;
     }
-    public function deleteMenu(Request $request)
+    public function deleteMenu(Request $request) : bool
     {
         $menuId = intval($request->attributes->get('menuId'));
         $menu = $this->menuRepository->findOneBy(array('id' => $menuId));
@@ -212,7 +212,7 @@ final class MenuOrchestrator extends AbstractController
                 'error',
                 'El menú no ha podido ser borrado, no se ha encontrado...'
             );
-            return;
+            return false;
         }
         if($menu->getPhotos()->first()){
             $this->managePhoto->deletePhoto($menu->getPhotos()->first()->getPhotoPath());
