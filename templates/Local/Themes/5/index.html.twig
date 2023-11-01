@@ -91,7 +91,7 @@
           <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
             {% if content.menus|default([])|length > 0 %}<li><a class="nav-link scrollto" href="#menu">Menú</a></li>{% endif %}
             {% if content.productsAlone|default([])|length > 0 %}<li><a class="nav-link scrollto" href="#gallery">Productos</a></li>{% endif %}
-          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+            {% if '1' != content.local.ocultarFormularioContacto|default %}<li><a class="nav-link scrollto" href="#contact">Contacto</a></li>{% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

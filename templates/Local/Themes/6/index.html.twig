@@ -179,7 +179,7 @@ a {
 					</div>
 					<div class="fh5co-menu-2">
 						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="reservation">Contactar</a>
+						{% if '1' != content.local.ocultarFormularioContacto|default %}<a href="#" data-nav-section="reservation">Contactar</a>{% endif %}
 					</div>
 				</div>
 				
