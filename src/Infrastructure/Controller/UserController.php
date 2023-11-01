@@ -72,9 +72,17 @@ final class UserController extends AbstractController
             if($userEmailCheck){
                 $this->addFlash(
                     'error',
-                    'Este email ya está registrado'
+                    'Este email ya está registrado.'
                 );
                 return $this->render('/Registration/register.html.twig');
+            }
+
+            if (!filter_var($datosForm['email'], FILTER_VALIDATE_EMAIL)) {
+              $this->addFlash(
+                'error',
+                'Introduzca un email válido.'
+            );
+            return $this->render('/Registration/register.html.twig');
             }
 
             if(null == $datosForm['email'] && null == $datosForm['plainPassword'] ){
