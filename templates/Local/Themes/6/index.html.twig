@@ -196,6 +196,9 @@ a {
 			{% if content.userIsAdmin|default(false) %}
 				{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'idPhoto': 2 }%}
 			{% endif %}
+
+			{% if content.menus|default %}
+
 		<div id="fh5co-menus" data-section="menu">
 			<div class="container">
 				<div class="row text-center fh5co-heading row-padded">
@@ -233,7 +236,8 @@ a {
 				</div>
 			</div>
 		</div>
-
+			{% endif %}
+			
 		{% if '1' != content.local.ocultarFormularioContacto|default %}
 		<div id="fh5co-contact" data-section="reservation">
 			<div class="container">

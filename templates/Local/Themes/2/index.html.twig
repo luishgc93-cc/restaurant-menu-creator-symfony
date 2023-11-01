@@ -198,8 +198,8 @@
 		</div>
 	</div>
 
+	{% if content.menus|default %}
 	<!-- The Menu -->
-
 	<div class="themenu" id="menus">
 		<div class="container">
 			<div class="row">
@@ -236,7 +236,7 @@
 			</div>
 		</div>		
 	</div>
-
+	{% endif %}
 
 	{% if '1' != content.local.ocultarFormularioContacto|default %}
 		<!-- Contact Form -->

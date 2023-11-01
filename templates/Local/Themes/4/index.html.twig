@@ -163,6 +163,8 @@
     </div>
   </div>
 </div>
+
+{% if content.menus|default %}
 <!-- Restaurant Menu Section -->
 <div id="restaurant-menu">
   <div id="image-3" style="background:url({{ photo3|default('themes/4/menu-bg.jpg') }} ) center center no-repeat fixed ; background-size : cover"class="section-title text-center center">
@@ -188,8 +190,8 @@
 
               <div class="menu-item">
                 <div class="menu-item-name"> {{ producto.nombreProducto }} </div>
-                <div class="menu-item-price"> $35 </div>
-                <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
+                <div class="menu-item-price"> {{ producto.precioProducto }} </div>
+                <div class="menu-item-description">{{ producto.informacionProducto }} </div>
               </div>
 
 					{% endfor %}
@@ -202,6 +204,7 @@
 
   </div>
 </div>
+{% endif %}
 
 {% if '1' != content.local.ocultarFormularioContacto|default %}
 <!-- Contact Section -->

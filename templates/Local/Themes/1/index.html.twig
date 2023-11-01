@@ -160,6 +160,7 @@ background: {{ content.local.colorWeb }}
 		</div>
 	</section>
 
+	{% if content.menus|default %}
 	<section class="ftco-section" id="menu">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
@@ -203,7 +204,7 @@ background: {{ content.local.colorWeb }}
 		</div>
 
 	</section>
-
+	{% endif %}
 	<section id="image-4"class="ftco-section ftco-intro" style="background-image: url({{ photo4 }});">
 		<div class="overlay"></div>
 		<div class="container">
