@@ -69,6 +69,12 @@ final class ProductOrchestrator extends AbstractController
         $menu = $this->menuRepository->findOneBy(array('id' => $idMenu));
         $informacion = $this->informationRepository->findOneBy(array('local' => $local));
         $submittedToken = $request->request->get('token');
+        
+        $local = $this->localRepository->findOneBy(array('id' => $local));
+
+        if($local->getUsuario()->getId() !== $this->getUser()->getId() ){
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
 
         if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
             $datosForm = $request->request->all();

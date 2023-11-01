@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Application\Utils\ManagePhoto;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 
 final class MenuOrchestrator extends AbstractController
 {
@@ -30,12 +31,14 @@ final class MenuOrchestrator extends AbstractController
     private ManagePhoto $managePhoto;
     private InformationRepository $informationRepository;
     private EntityManagerInterface $entityManager;
+    private LocalRepository $localRepository;
 
     public function __construct(
         MenuRepository $menuRepository,
         ManagePhoto $managePhoto,
         InformationRepository  $informationRepository,
         EntityManagerInterface $entityManager,
+        LocalRepository $localRepository, 
     )
 
     {
@@ -43,6 +46,7 @@ final class MenuOrchestrator extends AbstractController
         $this->managePhoto = $managePhoto;
         $this->informationRepository = $informationRepository;
         $this->entityManager = $entityManager;
+        $this->localRepository = $localRepository;
     }
 
     public function showMenusCreated(Request $request): ?array
@@ -63,6 +67,12 @@ final class MenuOrchestrator extends AbstractController
         $idLocal = intval($request->attributes->get('local'));
 
         $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        $local = $this->localRepository->findOneBy(array('id' => $idLocal));
+
+        if($local->getUsuario()->getId() !== $this->getUser()->getId() ){
+            throw new HttpException(404, 'Usuario no Autorizado');
+        }
+        
         $menu = $this->entityManager->getRepository(Menu::class)->find($informacion);
 
         $submittedToken = $request->request->get('token');
