@@ -62,8 +62,8 @@ final class MenuOrchestrator extends AbstractController
     {
         $idLocal = intval($request->attributes->get('local'));
 
-        $idLocal = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $menu = $this->entityManager->getRepository(Menu::class)->find($idLocal);
+        $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
+        $menu = $this->entityManager->getRepository(Menu::class)->find($informacion);
 
         $submittedToken = $request->request->get('token');
 
@@ -75,7 +75,7 @@ final class MenuOrchestrator extends AbstractController
 
             if (!$menu) {
                 $menu = new Menu();
-                $menu->setInformacion($idLocal);
+                $menu->setInformacion($informacion);
             }
 
             $photoRequest = $request->files->get('file-upload');
