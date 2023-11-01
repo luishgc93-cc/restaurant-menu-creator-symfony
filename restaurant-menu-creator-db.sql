@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 23-10-2023 a las 17:39:42
+-- Tiempo de generación: 01-11-2023 a las 10:25:17
 -- Versión del servidor: 8.0.27
 -- Versión de PHP: 8.1.0
 
@@ -80,8 +80,9 @@ INSERT INTO `informacion` (`id`, `telefono`, `descripcion`, `direccion_completa`
 DROP TABLE IF EXISTS `informacion_photo`;
 CREATE TABLE IF NOT EXISTS `informacion_photo` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `path` varchar(255) NOT NULL,
+  `photo_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `informacion_id` int NOT NULL,
+  `orden` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_53902D7A7DD608D1` (`informacion_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -132,14 +133,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_4F0B3F152A1239DE` (`informacion_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `menu`
---
-
-INSERT INTO `menu` (`id`, `nombre_menu`, `informacion_menu`, `precio_menu`, `informacion_id`, `estilo`, `user_id`) VALUES
-(1, 'otro menu', 'ffsdfs', '3', 1, NULL, 1);
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -156,13 +150,6 @@ CREATE TABLE IF NOT EXISTS `menu_photo` (
   KEY `FK_37AB59B2A76ED395` (`menu_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Volcado de datos para la tabla `menu_photo`
---
-
-INSERT INTO `menu_photo` (`id`, `photo_path`, `menu_id`) VALUES
-(1, '6536ac1a3922f.png', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -176,13 +163,6 @@ CREATE TABLE IF NOT EXISTS `menu_producto` (
   PRIMARY KEY (`menu_id`,`producto_id`),
   KEY `FK_42E9D7C3BAE0B209` (`producto_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `menu_producto`
---
-
-INSERT INTO `menu_producto` (`menu_id`, `producto_id`) VALUES
-(1, 2);
 
 -- --------------------------------------------------------
 
@@ -203,16 +183,17 @@ CREATE TABLE IF NOT EXISTS `producto` (
   PRIMARY KEY (`id`),
   KEY `FK_2E2DB30D8F28E27` (`menus_id`),
   KEY `FK_2E2DB309A76ED395` (`informacion_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
 INSERT INTO `producto` (`id`, `nombre_producto`, `informacion_producto`, `precio_producto`, `estilo`, `menus_id`, `informacion_id`, `user_id`) VALUES
-(1, 'df', 'sfsfsdfs', '3', NULL, 1, NULL, 1),
-(2, 'df', 'sfsfsdfs', '3', NULL, 1, NULL, 1),
-(3, 'sd', 'fsfsd', '3', NULL, NULL, 1, 1);
+(27, 'c', 'd', '2', NULL, NULL, 1, 1),
+(28, 'd', 'd', '2', NULL, NULL, 1, 1),
+(25, 'a', 'a', '2', NULL, NULL, 1, 1),
+(26, 'b', 'b', '2', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -234,7 +215,6 @@ CREATE TABLE IF NOT EXISTS `producto_photo` (
 --
 
 INSERT INTO `producto_photo` (`id`, `photo_path`, `producto_id`) VALUES
-(1, '6536ac57345e7.png', 2),
 (2, '6536afcb7d7e5.png', 3);
 
 -- --------------------------------------------------------
@@ -252,14 +232,15 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `email`, `roles`, `password`, `is_verified`) VALUES
-(1, 'a@a.com', '[\"ROLE_USER\"]', '$2y$13$vMGFMJgJhVnZIQ30MQkaWeGysi9udTA6GvQIM9/sIXg7pqhd3sV.G', 1);
+(1, 'a@a.com', '[\"ROLE_USER\"]', '$2y$13$vMGFMJgJhVnZIQ30MQkaWeGysi9udTA6GvQIM9/sIXg7pqhd3sV.G', 3),
+(2, 'b@b.com', '[\"ROLE_USER\"]', '$2y$13$GdKahDp2aQGrHBlgnCb2i.WhFKgjRJtbrPIDFCTDocVxlruXbxnrG', 0);
 
 -- --------------------------------------------------------
 
@@ -275,7 +256,14 @@ CREATE TABLE IF NOT EXISTS `usuario_recovery` (
   `pin` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_D7152B7A76ED395` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `usuario_recovery`
+--
+
+INSERT INTO `usuario_recovery` (`id`, `fecha_expiracion`, `user_id`, `pin`) VALUES
+(5, '2023-10-27 16:54:54', 1, '9f0edfc6-c551-49e6-b61b-0906f45b54e5');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
