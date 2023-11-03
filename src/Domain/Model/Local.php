@@ -29,7 +29,7 @@ class Local
     private $descripcionLocal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Usuario")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Usuario", inversedBy="locales")
      * @ORM\JoinColumn(nullable=false)
      */
     private $usuario;
