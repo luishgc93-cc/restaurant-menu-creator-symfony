@@ -223,5 +223,20 @@ final class UserController extends AbstractController
     {
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
+    public function confirmationDeleteAccountUserControllerAction(Request $request): Response
+    {
+        $title = 'Confirmar borrado de cuenta de Usuario';
 
+        $submittedToken = $request->request->get('token');
+
+        if ($request->isMethod('POST') && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
+            //ENVIAR EMAIL 
+            $this->addFlash('sucess', 'Comrpruebe su Email en unos minutos para verificar su baja de nuestra plataforma.');
+            return $this->redirectToRoute('panel');
+        }
+
+        return $this->render('/Panel/Sections/confirmationDeleteAccount.html.twig', [
+            'title'=>$title
+        ]);
+    }
 }

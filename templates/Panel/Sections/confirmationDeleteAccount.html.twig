@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmar Borrado de cuenta de Usuario{% endblock %}
+
+{% block body %}
+
+<section class="relative isolate overflow-hidden bg-white px-6 lg:px-8 mb-12">
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
+  <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+  <div class="mx-auto max-w-2xl lg:max-w-4xl">
+
+{% include '/Panel/Sections/Components/flashAlert.html.twig' %}
+
+
+<form  action="{{ path('panel-confirm-delete-account-user') }}" method="post">
+<input type="hidden" name="token" value="{{ csrf_token('validateTokenSym') }}" />
+
+Aviso de Borrado de Cuenta<br>
+
+<br>Estimado Usuario,<br>
+
+<br>Le informamos que usted ha solicitado el borrado de su cuenta de usuario en nuestra plataforma. Agradecemos su confianza en nuestros servicios y lamentamos que haya tomado esta decisión.<br>
+
+<br>Por favor, tenga en cuenta lo siguiente:<br>
+
+<br> <b>1. Borrado de Cuenta:</b> Una vez que su cuenta sea borrada, no podrá recuperarla, y todos los datos asociados a la misma serán eliminados de manera permanente de nuestro sistema.<br>
+
+<br><b>2. Información Importante:</b> Antes de proceder con la eliminación de su cuenta, le recomendamos que descargue y guarde cualquier información importante o datos relacionados con su cuenta, ya que no podrá acceder a ellos después del proceso de borrado.<br>
+
+<br><b>3. Perdida de Acceso:</b> Después de que su cuenta sea eliminada, perderá su acceso a todas las funcionalidades y servicios de nuestra plataforma, incluyendo su historial de actividad, mensajes, archivos, y cualquier otro contenido asociado a su cuenta.<br>
+
+<br>Si ha reconsiderado su decisión o si necesita asistencia adicional, no dude en ponerse en contacto con nuestro equipo de soporte en <a class="text-purple-700" href="/soporte/"> SOPORTE </a>. Estaremos encantados de ayudarle en lo que necesite.<br>
+
+<br> Por favor, <b>confirme su solicitud de borrado de cuenta respondiendo a este correo electrónico con la palabra "CONFIRMO".</b> Si no confirmamos su solicitud dentro de los siguientes 3 días, su cuenta no será eliminada y seguirá activa.<br>
+
+<br>Si tiene problemas para recibir el correo, contacte con  <a class="text-purple-700" href="/soporte/"> SOPORTE </a>. <br>
+
+<br>Le agradecemos por haber formado parte de nuestra comunidad y esperamos que su experiencia con nosotros haya sido satisfactoria. Si en el futuro decide regresar, estaremos aquí para asistirle.<br>
+
+<br>Un cordial saludo. <br> 
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <button type="submit" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Borrar cuenta y todos los datos asociados</button>
+  </div>
+</form>
+  </div>
+</section>
+
+
+{% endblock %}

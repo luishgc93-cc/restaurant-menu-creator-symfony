@@ -34,6 +34,10 @@ panel:
 cuenta-usuario:
   path: /cuenta/
   controller: App\Infrastructure\Controller\UserController::cuentaUsuarioControllerAction  
+#Cuenta usuario confirmacion de borrado de cuenta
+panel-confirm-delete-account-user:
+  path: /cuenta/confirmar-borrado-cuenta/
+  controller: App\Infrastructure\Controller\UserController::confirmationDeleteAccountUserControllerAction  
 #Panel nuevo local
 panel-new-local:
   path: /panel/nuevo-local/

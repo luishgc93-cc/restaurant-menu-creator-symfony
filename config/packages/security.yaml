@@ -22,3 +22,4 @@ security:
     access_control:
         - { path: ^/panel, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN] }              
         - { path: ^/panel/*, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN] }               
+        - { path: ^/cuenta/*, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN] }               
