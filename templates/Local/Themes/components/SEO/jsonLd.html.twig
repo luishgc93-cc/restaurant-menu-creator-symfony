@@ -1,57 +1,44 @@
 <script type="application/ld+json">
 {
-   "@context":"http://schema.org",
-   "@type":"Restaurant",
-   "url":"http://www.thisisarestaurant.com",
-   "name":"{{content.local.nombreLocal}}",
-   "image":"http://www.example.com/image-of-some-restaurant.jpg",
-   "telephone":"{{content.local.informacion.telefono}}",
-   "priceRange" : "$100 - $200",
-   "description" : "{{content.local.descripcionLocal}}",
-   "address" : {
-    "@type" : "PostalAddress",
-    "streetAddress" : "STREET ADDRESS",
-    "addressLocality" : "CITY",
-    "addressRegion" : "STATE ABBREVIATION",
-    "postalCode" : "ZIP CODE"
+  "@context": "http://schema.org",
+  "@type": "Restaurant",
+  "name": "{{content.local.nombreLocal|default}}",
+  "description": "{{content.local.descripcionLocal|default}}",
+  "image": "URL de la imagen del restaurante",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{content.local.informacion.direccionCompleta|default}}",
+    "addressLocality": "{{content.local.informacion.localidad|default}}",
+    "addressRegion": "{{content.local.informacion.ciudad|default}}",
+    "addressCountry": "ESP"
   },
-   "servesCuisine":[
-      "{{content.local.descripcionLocal}}"
-   ],
-   "hasMenu":{
-      "@type":"Menu",
-      "name":"{{content.local.nombreLocal}} Menu",
-      "description":"{{content.local.informacion.descripcion}}",
-      "hasMenuSection":[
-         {
-            "@type":"MenuSection",
-            "name":"Dinner",
-            "description":"Dinner dishes",
-            "hasMenuSection":[
-               {% for menu in content.menus %}
-               {
-                  "@type":"MenuSection",
-                  "name":"{{ menu.nombreMenu }}",
-                  "description":"{{ menu.informacionMenu }}",
-                  {% for producto in menu.productos %}
-                  "hasMenuItem":{
-                     "@type":"MenuItem",
-                     "name":"{{ producto.nombreProducto }}",
-                     "description":"{{ producto.informacionProducto }}",
-                     "offers":{
-                        "@type":"Offer",
-                        "price":"{{ producto.precioProducto }}",
-                        "priceCurrency":"EUR"
-                     }
-                  }
-                  {% if not loop.last %},{% endif %}
-                  {% endfor %}
-               }
-               {% if not loop.last %},{% endif %}
-               {% endfor %}
-            ]
-         }
+  "telephone": "{{content.local.informacion.telefono|default}}",
+  "url": "{{ app.request.schemeAndHttpHost ~ '/' ~ content.local.url|default }}",
+  "servesCuisine": "{{content.local.descripcionLocal|default}}",
+  "menu": [
+    {% for menu in content.menus|default %}
+    {
+      "@type": "Menu",
+      "name": "Menú Degustación",
+      "description": "Descripción del menú",
+      "hasMenuItem": [
+        {% for producto in menu.productos|default %}
+        {
+          "@type": "MenuItem",
+          "name": "{{ producto.nombreProducto }}",
+          "description": "{{ producto.informacionProducto }}",
+          "offers": {
+            "@type": "Offer",
+            "price": "{{ producto.precioProducto }}",
+            "priceCurrency": "EUR"
+          }
+        }{% if not loop.last %},{% endif %} 
+        {% endfor %}
       ]
-   }
+    }{% if not loop.last %},{% endif %} 
+    {% endfor %}
+  ],
+  "paymentAccepted": "Efectivo, Tarjeta de crédito",
+  "openingHours": "Horario de apertura del restaurante"
 }
 </script>
