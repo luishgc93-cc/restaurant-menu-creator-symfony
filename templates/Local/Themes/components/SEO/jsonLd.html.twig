@@ -4,7 +4,7 @@
   "@type": "Restaurant",
   "name": "{{content.local.nombreLocal|default}}",
   "description": "{{content.local.descripcionLocal|default}}",
-  "image": "URL de la imagen del restaurante",
+  "image": "{{app.request.schemeAndHttpHost ~ '/uploads/' ~ content.local.logo|default}}",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "{{content.local.informacion.direccionCompleta|default}}",
@@ -15,13 +15,15 @@
   "telephone": "{{content.local.informacion.telefono|default}}",
   "url": "{{ app.request.schemeAndHttpHost ~ '/' ~ content.local.url|default }}",
   "servesCuisine": "{{content.local.descripcionLocal|default}}",
+  {% if content.menus|default %}
   "menu": [
     {% for menu in content.menus|default %}
     {
       "@type": "Menu",
       "name": "Menú Degustación",
-      "description": "Descripción del menú",
-      "hasMenuItem": [
+      "description": "Descripción del menú"
+      {% if menu.productos|default %}
+      ,"hasMenuItem": [
         {% for producto in menu.productos|default %}
         {
           "@type": "MenuItem",
@@ -35,9 +37,11 @@
         }{% if not loop.last %},{% endif %} 
         {% endfor %}
       ]
+      {% endif %}
     }{% if not loop.last %},{% endif %} 
     {% endfor %}
   ],
+  {% endif %}
   "paymentAccepted": "Efectivo, Tarjeta de crédito",
   "openingHours": "Horario de apertura del restaurante"
 }
