@@ -260,7 +260,7 @@ final class PanelOrchestrator extends AbstractController
 
             $this->addFlash(
                 'sucess',
-                '¡Tus cambios se han guardado! Ahora puedes crear los menos de tu local.'
+                '¡Tus cambios se han guardado! Ahora puedes crear los Menús de tu Local.'
             );
 
         }
