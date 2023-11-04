@@ -68,27 +68,13 @@ final class UserController extends AbstractController
 
             $datosForm = $request->request->all();
             $userEmailCheck = $this->userRepository->findOneBy(array('email' => $datosForm['email']));
+           
+            $invalidRegisterUser = $this->registerAlertsForInvalidEmailUser($userEmailCheck, $datosForm);        
             
-            if($userEmailCheck){
+            if('' !== $invalidRegisterUser) {
                 $this->addFlash(
                     'error',
-                    'Este email ya está registrado.'
-                );
-                return $this->render('/Registration/register.html.twig');
-            }
-
-            if (!filter_var($datosForm['email'], FILTER_VALIDATE_EMAIL)) {
-              $this->addFlash(
-                'error',
-                'Introduzca un email válido.'
-            );
-            return $this->render('/Registration/register.html.twig');
-            }
-
-            if(null == $datosForm['email'] && null == $datosForm['plainPassword'] ){
-                $this->addFlash(
-                    'error',
-                    'Rellena todos los campos.'
+                    $invalidRegisterUser
                 );
                 return $this->render('/Registration/register.html.twig');
             }
@@ -111,6 +97,29 @@ final class UserController extends AbstractController
         }
 
         return $this->render('/Registration/register.html.twig');
+    }
+
+    private function registerAlertsForInvalidEmailUser(?Usuario $userEmailCheck, array $dataForm): string
+    {
+        if($userEmailCheck){
+            return 'Este email ya está registrado.';
+        }
+
+        if (!filter_var($dataForm['email'], FILTER_VALIDATE_EMAIL)) {
+            return 'Introduzca un email válido.';
+        }
+
+        $password = $dataForm['plainPassword'];
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+
+        if(!$uppercase || !$lowercase || !$number || strlen($password) < 6) {
+            return 'La contraseña debe tener al menos 6 caracteres y debe incluir al menos una letra mayúscula, 
+            un número.';
+        }
+
+        return '';
     }
 
     public function cuentaUsuarioControllerAction(Request $request,  UserPasswordHasherInterface $userPasswordHasher): Response
