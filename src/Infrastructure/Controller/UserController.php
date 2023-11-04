@@ -27,17 +27,33 @@ use App\Infrastructure\Persistence\Doctrine\Repository\UserRepository;
 use App\Domain\Model\Usuario;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
+use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
+use App\Infrastructure\Persistence\Doctrine\Repository\ProductRepository;
 
 final class UserController extends AbstractController
 {
     const TEXT_EMAIL_VERIFICATION_DEFAULT = 'Revisa tu Buzón de Email para recuperar su contraseña.';
     private UserRepository $userRepository;
     private EntityManagerInterface $entityManager;
+    private LocalRepository $localRepository;
+    private MenuRepository $menuRepository;
+    private ProductRepository $productRepository;
 
-    public function __construct(UserRepository $userRepository,  EntityManagerInterface $entityManager)
+    public function __construct(
+    UserRepository $userRepository,  
+    EntityManagerInterface $entityManager,
+    LocalRepository $localRepository,
+    MenuRepository $menuRepository,
+    ProductRepository      $productRepository,
+    )
+    
     {
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->localRepository = $localRepository;
+        $this->menuRepository = $menuRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils): Response
@@ -291,7 +307,32 @@ final class UserController extends AbstractController
             $dateToken = $token->getFechaExpiracion();
 
             if($userIdSession === $userIdToken && (bool) ($dateToken > new \DateTime('now')) ){
-                $this->addFlash('sucess', 'Cuenta borrada correctamente junto a todos sus datos asociados.');
+                $local = $this->localRepository->findOneBy(array('usuario' => $userIdSession));
+                $this->localRepository->remove($local, true);
+
+                $menuData = $this->menuRepository->findBy(array('userId' => $userIdSession));
+                foreach($menuData as $menu){
+                    $this->menuRepository->remove($menu, true);
+                }
+
+                $productsData = $this->productRepository->findBy(array('userId' => $userIdSession));
+                foreach($productsData as $product){
+                    $this->productRepository->remove($product, true);
+                }
+
+                $usuarioRecovery = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['usuario' => $userIdSession]);
+                $this->entityManager->remove($usuarioRecovery);
+
+                $usuarioDeleteAccount = $this->entityManager->getRepository(UsuarioDeleteAccount::class)->findOneBy(['usuario' => $userIdSession]);
+                $this->entityManager->remove($usuarioDeleteAccount);
+
+                $user = $this->userRepository->findOneBy(array('id' => $userIdSession));
+                $this->userRepository->remove($user, true);
+                $request->getSession()->invalidate();
+                $this->container->get('security.token_storage')->setToken(null);
+
+                $this->addFlash('sucess', 'Cuenta borrada correctamente.');
+                return $this->redirect($this->generateUrl('app_register'));
             }
         }
 
