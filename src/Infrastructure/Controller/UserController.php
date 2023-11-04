@@ -99,13 +99,13 @@ final class UserController extends AbstractController
         return $this->render('/Registration/register.html.twig');
     }
 
-    private function registerAlertsForInvalidEmailUser(?Usuario $userEmailCheck, array $dataForm): string
+    private function registerAlertsForInvalidEmailUser(?Usuario $userEmailCheck, array $dataForm, bool $onlyValidatePassword = false): string
     {
-        if($userEmailCheck){
+        if($userEmailCheck && !$onlyValidatePassword){
             return 'Este email ya está registrado.';
         }
 
-        if (!filter_var($dataForm['email'], FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($dataForm['email'] ?? '', FILTER_VALIDATE_EMAIL) && !$onlyValidatePassword) {
             return 'Introduzca un email válido.';
         }
 
@@ -129,6 +129,20 @@ final class UserController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $datosForm = $request->request->all();
+
+            $invalidRegisterUser = $this->registerAlertsForInvalidEmailUser(null, $datosForm, true);        
+            
+            if('' !== $invalidRegisterUser) {
+                $this->addFlash(
+                    'error',
+                    $invalidRegisterUser
+                );
+                return $this->render('/Panel/Sections/panelUsuario.html.twig', [
+                    'title'=>$title,
+                    'email'=> $userEmail, 
+                ]);
+            }
+
             $user = $this->userRepository->findOneBy(array('id' => $this->getUser()->getId()));
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
