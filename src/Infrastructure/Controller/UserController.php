@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Model\UsuarioDeleteAccount;
 use App\Domain\Model\UsuarioRecovery;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -253,8 +254,25 @@ final class UserController extends AbstractController
         $submittedToken = $request->request->get('token');
 
         if ($request->isMethod('POST') && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
-            //ENVIAR EMAIL 
-            $this->addFlash('sucess', 'Comrpruebe su Email en unos minutos para verificar su baja de nuestra plataforma.');
+            
+            //ENVIAR EMAIL CON EL TOKEN
+        
+            $user = $this->userRepository->findOneBy(array('id' => $this->getUser()->getId()));
+            $userDeleteAccount = $user->getUsuarioDeleteAccount()->first() ?? '';
+            
+            if(!$userDeleteAccount){
+                $userDeleteAccount = new UsuarioDeleteAccount();
+            }
+
+            $userDeleteAccount->setUsuario($user);
+            $uuid = Uuid::v4();
+            $userDeleteAccount->setPin($uuid->__toString());
+            $dateTime = new \DateTime('now');
+            $userDeleteAccount->setFechaExpiracionPin($dateTime->modify('+1 day'));
+            $user->addUsuarioDeleteAccount($userDeleteAccount);
+            
+            $this->userRepository->save($user, true);
+            $this->addFlash('sucess', 'Compruebe su Email en unos minutos para verificar su baja de nuestra plataforma.');
             return $this->redirectToRoute('panel');
         }
 

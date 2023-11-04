@@ -52,6 +52,11 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity="App\Domain\Model\UsuarioRecovery", mappedBy="usuario", cascade={"persist"})
      */
     private $recoveryTokens;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Model\UsuarioDeleteAccount", mappedBy="usuario", cascade={"persist"})
+     */
+    private $usuarioDeleteAccount;
 
     public function __construct()
     {
@@ -173,5 +178,25 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRecoveryToken()
     {
         return $this->recoveryTokens;
+    }
+
+    public function getUsuarioDeleteAccount()
+    {
+        return $this->usuarioDeleteAccount;
+    }
+
+    public function setUsuarioDeleteAccount($usuarioDeleteAccount): self
+    {
+        $this->usuarioDeleteAccount = $usuarioDeleteAccount;
+
+        return $this;
+    }
+
+    public function addUsuarioDeleteAccount(UsuarioDeleteAccount $usuarioDeleteAccount)
+    {
+    $this->usuarioDeleteAccount[] = $usuarioDeleteAccount;
+    $usuarioDeleteAccount->setUsuario($this);
+
+    return $this;
     }
 }
