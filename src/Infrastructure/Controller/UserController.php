@@ -280,4 +280,22 @@ final class UserController extends AbstractController
             'title'=>$title
         ]);
     }
+
+    public function deleteAccountValidateTokenUserControllerAction(Request $request): Response
+    {
+        $tokenQuery = $request->query->get('token') ?? '';
+        $token = $this->entityManager->getRepository(UsuarioDeleteAccount::class)->findOneBy(['pin' => $tokenQuery]);
+        if($token){
+            $userIdSession = $this->getUser()->getId();
+            $userIdToken = $token->getUsuario()->getId();
+            $dateToken = $token->getFechaExpiracion();
+
+            if($userIdSession === $userIdToken && (bool) ($dateToken > new \DateTime('now')) ){
+                $this->addFlash('sucess', 'Cuenta borrada correctamente junto a todos sus datos asociados.');
+            }
+        }
+
+        $this->addFlash('error', 'El token ha cadudado.');
+        return $this->redirect($this->generateUrl('panel'));
+    }
 }
