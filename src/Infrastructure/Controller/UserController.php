@@ -30,6 +30,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
 use App\Infrastructure\Persistence\Doctrine\Repository\ProductRepository;
+use App\Application\Utils\ManagePhoto;
 
 final class UserController extends AbstractController
 {
@@ -39,6 +40,7 @@ final class UserController extends AbstractController
     private LocalRepository $localRepository;
     private MenuRepository $menuRepository;
     private ProductRepository $productRepository;
+    private ManagePhoto $managePhoto;
 
     public function __construct(
     UserRepository $userRepository,  
@@ -46,6 +48,7 @@ final class UserController extends AbstractController
     LocalRepository $localRepository,
     MenuRepository $menuRepository,
     ProductRepository      $productRepository,
+    ManagePhoto $managePhoto
     )
     
     {
@@ -54,6 +57,7 @@ final class UserController extends AbstractController
         $this->localRepository = $localRepository;
         $this->menuRepository = $menuRepository;
         $this->productRepository = $productRepository;
+        $this->managePhoto = $managePhoto;
     }
 
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils): Response
@@ -307,16 +311,26 @@ final class UserController extends AbstractController
             $dateToken = $token->getFechaExpiracion();
 
             if($userIdSession === $userIdToken && (bool) ($dateToken > new \DateTime('now')) ){
+                
                 $local = $this->localRepository->findOneBy(array('usuario' => $userIdSession));
+                if($local->getLogo()){
+                    $this->managePhoto->deletePhoto($local->getLogo());
+                }
                 $this->localRepository->remove($local, true);
 
                 $menuData = $this->menuRepository->findBy(array('userId' => $userIdSession));
                 foreach($menuData as $menu){
+                    if($menu->getPhotos()->first()){
+                        $this->managePhoto->deletePhoto($menu->getPhotos()->first()->getPhotoPath());
+                    }
                     $this->menuRepository->remove($menu, true);
                 }
 
                 $productsData = $this->productRepository->findBy(array('userId' => $userIdSession));
                 foreach($productsData as $product){
+                    if($product->getPhotos()->first()){
+                        $this->managePhoto->deletePhoto($product->getPhotos()->first()->getPhotoPath());
+                    }
                     $this->productRepository->remove($product, true);
                 }
 
