@@ -12,7 +12,8 @@
 <body>
 
 {% block menuHeader %}
-    {% if app.user.isVerified|default(null) and 'homeController' != app.request.attributes.get("_route") %}
+    {% if app.user.isVerified|default(null) and 'homeController' != app.request.attributes.get("_route") or
+     app.request.attributes.get("_route") in ['static-politica-privacidad', 'static-terminos-y-condiciones', 'static-aviso-legal', 'static-faq', 'contacto-faq', 'soporte-faq']  %}
         {% include '/Includes/menuHeader.html.twig' %}
     {% endif %}
 {% endblock %}
