@@ -321,7 +321,9 @@ final class UserController extends AbstractController
                 }
 
                 $usuarioRecovery = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['usuario' => $userIdSession]);
-                $this->entityManager->remove($usuarioRecovery);
+                if($usuarioRecovery){
+                    $this->entityManager->remove($usuarioRecovery);
+                }
 
                 $usuarioDeleteAccount = $this->entityManager->getRepository(UsuarioDeleteAccount::class)->findOneBy(['usuario' => $userIdSession]);
                 $this->entityManager->remove($usuarioDeleteAccount);
