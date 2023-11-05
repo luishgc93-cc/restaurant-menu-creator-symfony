@@ -1,12 +1,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>{{ content.local.descripcionLocal }} | {{ content.local.nombreLocal }}</title>  
+<title>{{ content.local.nombreLocal|default }} {{  content.local.descripcionLocal|default ? '| ' ~ content.local.descripcionLocal : '' }}</title>  
 <meta name="description" content="{{ content.informationForLocal.descripcion }}">
-<meta name="author" content="">
-<meta data-ue-u="keywords" name="keywords" content="sssss"/>
-<link data-ue-c="href" data-ue-u="canonical" rel="canonical" Href="ssss"/>
+<meta name="author" content="{{ content.local.nombreLocal }}">
+<link data-ue-c="href" data-ue-u="canonical" rel="canonical" Href="{{ app.request.schemeAndHttpHost ~ '/' ~ content.local.url }}"/>
 <meta name="robots" content="index,follow,max-image-preview:large"/>
-<meta name="author" content="ss">
 <!-- Favicons -->
 <link href="themes/5/assets/img/favicon.png" rel="icon">
 <link href="themes/5/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
