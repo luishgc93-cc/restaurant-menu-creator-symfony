@@ -147,7 +147,7 @@ color: #ffffff;
 		<div class="slides-control" style="position: relative; height: 100%; width: 100%; left: -1393px;">
 			<ul class="slides-container" style="margin: 0px; padding: 0px; list-style: none; position: relative; height: 100%; display: block;">
 				<li class="text-left" style="display: block; left: 1393px; position: absolute; overflow: hidden; height: 100%; width:100%; top: 0px; z-index: 2; opacity: 1;">
-					<img id="image-1" src="{{ photo1|default('themes/3/images/slider-01.jpg') }} " alt="" style="backface-visibility: hidden; position: absolute; top: 0px; z-index: -1; max-width: none; height: 931px; {{ deviceMobile|default ? '' : 'width: 100%' }};">
+					<img id="image-1" src="{{ photo1|default('themes/3/images/slider-01.jpg') }} " alt="{{ content.local.nombreLocal }}" style="backface-visibility: hidden; position: absolute; top: 0px; z-index: -1; max-width: none; height: 931px; {{ deviceMobile|default ? '' : 'width: 100%' }};">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
@@ -175,7 +175,7 @@ color: #ffffff;
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12">
-					<img id="image-2" src="{{ photo2|default('themes/3/images/about-img.jpg') }}" alt="" class="img-fluid" style="box-shadow: 20px 20px 0px {{ content.local.colorWeb|default('#d65106') }}" >
+					<img id="image-2" src="{{ photo2|default('themes/3/images/about-img.jpg') }}" alt="{{ content.local.nombreLocal }}" class="img-fluid" style="box-shadow: 20px 20px 0px {{ content.local.colorWeb|default('#d65106') }}" >
 				{% if content.userIsAdmin|default(false) %}
 					{% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2  } %}
 				{% endif %}
@@ -230,7 +230,7 @@ color: #ffffff;
 								{% for producto in menu.productos %}
 								<div class="col-lg-4 col-md-6 special-grid drinks">
 									<div class="gallery-single fix">
-										<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default('themes/3/images/img-01.jpg') }} " class="img-fluid" alt="Image">
+										<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default('themes/3/images/img-01.jpg') }} " class="img-fluid" alt="{{ content.local.nombreLocal }}">
 										<div class="why-text">
 											<h4>{{ producto.nombreProducto }}</h4>
 											<p>{{ producto.informacionProducto }}</p>

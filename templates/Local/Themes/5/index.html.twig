@@ -82,9 +82,6 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
       <h1 class="logo me-auto me-lg-0"><a href="index.html">{{ content.local.nombreLocal }}</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="#image-1">Inicio</a></li>
@@ -128,7 +125,7 @@
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
             <div class="about-img">
-              <img id="image-2" src="{{ photo2|default('themes/5/assets/img/about.jpg') }}" alt="">
+              <img id="image-2" src="{{ photo2|default('themes/5/assets/img/about.jpg') }}" alt="{{ content.local.nombreLocal }}">
               {% if content.userIsAdmin|default(false) %}
                 {% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2 } %}
                 {% endif %}
@@ -171,7 +168,7 @@
         {% for menu in content.menus %}
           <div class="col-lg-6 menu-item filter-{{ menu.nombreMenu|replace({' ' : '-'}) }}">
             {% for producto in menu.productos %}
-            {% if producto.photos.0.photoPath|default(null) %}<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="">{% endif %}
+            {% if producto.photos.0.photoPath|default(null) %}<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="{{ content.local.nombreLocal }}">{% endif %}
             <div class="menu-content">
              {{ producto.nombreProducto }}<span>{{ producto.precioProducto }}€</span>
             </div>
