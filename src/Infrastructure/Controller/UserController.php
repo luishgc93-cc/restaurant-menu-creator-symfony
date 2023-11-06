@@ -140,6 +140,11 @@ final class UserController extends AbstractController
             un número.';
         }
 
+        $passwordVerify = $dataForm['plainPasswordVerify'];
+        if($passwordVerify !== $password){
+            return 'La contraseñas no cooinciden.';
+        }
+
         return '';
     }
 
