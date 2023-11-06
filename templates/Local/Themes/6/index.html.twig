@@ -217,7 +217,7 @@ a {
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											{% if producto.photos.0.photoPath|default(null) %}<img src="{{ '/uploads/' ~  producto.photos.0.photoPath|default('themes/6/images/res_img_5.jpg')  }}" class="img-responsive" alt="{{ content.local.nombreLocal }}"> {% endif %}
+											{% if producto.photos.0.photoPath|default(null) %}<img loading="lazy" src="{{ '/uploads/' ~  producto.photos.0.photoPath|default('themes/6/images/res_img_5.jpg')  }}" class="img-responsive" alt="{{ content.local.nombreLocal }}"> {% endif %}
 										</figure>
 										<div>
 											<h3>{{ producto.nombreProducto }}</h3>

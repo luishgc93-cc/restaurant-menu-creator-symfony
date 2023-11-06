@@ -125,7 +125,7 @@
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
             <div class="about-img">
-              <img id="image-2" src="{{ photo2|default('themes/5/assets/img/about.jpg') }}" alt="{{ content.local.nombreLocal }}">
+              <img loading="lazy" id="image-2" src="{{ photo2|default('themes/5/assets/img/about.jpg') }}" alt="{{ content.local.nombreLocal }}">
               {% if content.userIsAdmin|default(false) %}
                 {% include '/Local/Themes/Components/buttonChangePhoto.html.twig'  with {'textButton': 'Cambiar Foto 2', 'idPhoto': 2 } %}
                 {% endif %}
@@ -168,7 +168,7 @@
         {% for menu in content.menus %}
           <div class="col-lg-6 menu-item filter-{{ menu.nombreMenu|replace({' ' : '-'}) }}">
             {% for producto in menu.productos %}
-            {% if producto.photos.0.photoPath|default(null) %}<img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="{{ content.local.nombreLocal }}">{% endif %}
+            {% if producto.photos.0.photoPath|default(null) %}<img loading="lazy" src="{{ '/uploads/' ~ producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="{{ content.local.nombreLocal }}">{% endif %}
             <div class="menu-content">
              {{ producto.nombreProducto }}<span>{{ producto.precioProducto }}€</span>
             </div>
@@ -201,7 +201,7 @@
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
               <a href="{{  '/uploads/' ~ producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" class="gallery-lightbox" data-gall="gallery-item">
-                <img src="{{ '/uploads/' ~ producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" alt="{{ producto.nombreProducto|default }}" class="img-fluid">
+                <img loading="lazy" src="{{ '/uploads/' ~ producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" alt="{{ producto.nombreProducto|default }}" class="img-fluid">
               </a>
             </div>
           </div>
