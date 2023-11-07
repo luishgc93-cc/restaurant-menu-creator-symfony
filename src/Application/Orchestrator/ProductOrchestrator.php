@@ -145,6 +145,10 @@ final class ProductOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
+            
+            if( '' === $datosForm['producto']){
+                throw new HttpException(404, 'No puedes dejar el nombre del Producto vacío.');
+            }
 
             if(!$producto){
                 $producto = new Producto();

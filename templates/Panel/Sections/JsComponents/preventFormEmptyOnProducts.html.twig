@@ -4,9 +4,6 @@
 
     form.addEventListener("submit", function (event) {
       const productoNombre = document.getElementById("producto").value;
-      const productoInformacion = document.getElementById("informacion").value;
-      const productoPrecio = document.getElementById("precioProducto").value;
-
       if (productoNombre.trim() === "") {
         event.preventDefault();
         alert("Rellena el nombre del Producto");
