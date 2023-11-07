@@ -4,21 +4,9 @@
 
     form.addEventListener("submit", function (event) {
       const menuName = document.getElementById("nombre_menu").value;
-      const menuInformation = document.getElementById("informacion_menu").value;
-      const menuPrice = document.getElementById("precio_menu").value;
       if (menuName.trim() === "") {
         event.preventDefault();
         alert("Rellena el nombre del Menú");
-      }
-
-      if (menuInformation.trim() === "") {
-        event.preventDefault();
-        alert("Rellena la información del Menú");
-      }
-
-      if (menuPrice.trim() === "") {
-        event.preventDefault();
-        alert("Indica el precio del Menú");
       }
     });
   });
