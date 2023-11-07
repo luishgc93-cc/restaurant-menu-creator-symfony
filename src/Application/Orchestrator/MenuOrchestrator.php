@@ -79,8 +79,12 @@ final class MenuOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
-            if( '' === $datosForm['nombre_menu']){
-                throw new HttpException(404, 'No puedes dejar el nombre del Menú vacío');
+            if( '' === $datosForm['nombre_menu']){                
+                $this->addFlash(
+                    'error',
+                    'El nombre del menú esta vacío.'
+                );
+                return $menu;
             }
 
             if (!$menu) {
@@ -132,8 +136,12 @@ final class MenuOrchestrator extends AbstractController
         if ($request->isMethod('POST') && $userGrantedForEdit && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
 
-            if( '' === $datosForm['nombre_menu']){
-                throw new HttpException(404, 'No puedes dejar el nombre del Menú vacío');
+            if( '' === $datosForm['nombre_menu']){                
+                $this->addFlash(
+                    'error',
+                    'El nombre del menú esta vacío.'
+                );
+                return $menu;
             }
 
             if (!$menu) {
