@@ -24,6 +24,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Application\Utils\ManagePhoto;
 use App\Application\Utils\MultipleUtils;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class ProductOrchestrator extends AbstractController
 {
@@ -78,6 +79,11 @@ final class ProductOrchestrator extends AbstractController
 
         if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken)) {
             $datosForm = $request->request->all();
+            
+            if( '' === $datosForm['producto']){
+                throw new HttpException(404, 'No puedes dejar el nombre del Producto vacío.');
+            }
+
             $producto = new Producto();
             $producto->setMenus($menu);
             if ($saveProductWithIdInformation) {

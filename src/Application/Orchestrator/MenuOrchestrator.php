@@ -132,8 +132,8 @@ final class MenuOrchestrator extends AbstractController
         if ($request->isMethod('POST') && $userGrantedForEdit && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
             $datosForm = $request->request->all();
 
-            if( '' === $datosForm['nombre_menu'] ||  '' === $datosForm['informacion_menu'] ||  '' === $datosForm['precio_menu']){
-                throw new HttpException(Response::HTTP_BAD_REQUEST, 'No puedes dejar campos vacios');
+            if( '' === $datosForm['nombre_menu']){
+                throw new HttpException(404, 'No puedes dejar el nombre del Menú vacío');
             }
 
             if (!$menu) {
