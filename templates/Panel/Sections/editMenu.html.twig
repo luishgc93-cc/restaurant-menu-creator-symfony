@@ -75,7 +75,7 @@
                           {% endif %}
                           <div class="mt-4 flex text-sm leading-6 text-gray-600">
                             <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                              <span>{{ menu.photos.0.photoPath|default(null)  ? 'Reemplaza la foto' : 'Sube una foto'}}</span>
+                              <span class="text-center">{{ menu.photos.0.photoPath|default(null)  ? 'Reemplaza la foto' : 'Sube una foto'}}</span>
                               <span><a href="{{ path('panel-edit-menu-delete-photos',{'local': local , 'menuId': app.request.attributes.get('menuId')|default(0)}) }}">{{ menu.photos.0.photoPath|default(null)  ? '| Borrar foto' : ''}}</span>  </a>
                               <input id="file-upload" name="file-upload" type="file" class="sr-only">
                             </label>
