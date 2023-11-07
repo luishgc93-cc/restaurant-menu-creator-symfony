@@ -82,7 +82,7 @@ final class MenuOrchestrator extends AbstractController
             if( '' === $datosForm['nombre_menu']){                
                 $this->addFlash(
                     'error',
-                    'El nombre del menú esta vacío.'
+                    'El nombre del Menú esta vacío.'
                 );
                 return $menu;
             }
@@ -139,7 +139,7 @@ final class MenuOrchestrator extends AbstractController
             if( '' === $datosForm['nombre_menu']){                
                 $this->addFlash(
                     'error',
-                    'El nombre del menú esta vacío.'
+                    'El nombre del Menú esta vacío.'
                 );
                 return $menu;
             }
