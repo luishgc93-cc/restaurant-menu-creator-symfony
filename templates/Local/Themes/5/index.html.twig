@@ -81,7 +81,7 @@
   <header id="header" class="fixed-top d-flex align-items-cente">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">{{ content.local.nombreLocal }}</a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="">{{ content.local.nombreLocal }}</a></h1>
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="#image-1">Inicio</a></li>
@@ -200,6 +200,7 @@
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
         <div class="row g-0">
         {% for producto in content.productsAlone %} 
+        {% if producto.photos.0.photoPath|default %}
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
               <a href="{{  '/uploads/' ~ producto.photos.0.photoPath|default('themes/5/assets/img/gallery/gallery-1.jpg') }}" class="gallery-lightbox" data-gall="gallery-item">
@@ -207,6 +208,7 @@
               </a>
             </div>
           </div>
+          {% endif %}
         {% endfor %}
         </div>
       </div>
