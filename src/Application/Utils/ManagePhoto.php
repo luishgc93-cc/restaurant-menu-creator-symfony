@@ -15,11 +15,18 @@ namespace App\Application\Utils;
 
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class ManagePhoto extends AbstractController
 {
     public function upload($files) : String
     {
+        $fileType = $files->getClientMimeType(); 
+        $allowedFiles = array("image/jpeg", "image/gif", "image/png");
+        if(!in_array($fileType, $allowedFiles)) {
+            throw new HttpException(404, 'Error, fichero no autorizado');
+        }
+
         $destination = $this->getParameter('uploads_photos_directory');
         $fileName = uniqid().'.'.$files->guessExtension();
         $files->move(
