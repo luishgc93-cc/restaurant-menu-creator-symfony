@@ -221,12 +221,14 @@ a {
 										</figure>
 										<div>
 											<h3>{{ producto.nombreProducto }}</h3>
-											<p>{{ producto.informacionProducto }}</p>
+											{% if producto.informacionProducto|default %}<p>{{ producto.informacionProducto }}</p>{% endif %}
 										</div>
 									</div>
+									{% if producto.precioProducto|default %}
 									<div class="fh5co-food-pricing">
 										{{ producto.precioProducto }}€
 									</div>
+									{% endif %}
 								</li>
 								{% endfor %}
 							</ul>

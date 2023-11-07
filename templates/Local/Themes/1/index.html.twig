@@ -184,11 +184,13 @@ background: {{ content.local.colorWeb }}
 									<div class="one-half">
 										<h3>{{ producto.nombreProducto }}</h3>
 									</div>
+									{% if producto.precioProducto|default %}
 									<div class="one-forth">
 										<span class="price" style="color: {{ content.local.colorWeb }}">{{ producto.precioProducto }}€</span>
 									</div>
+									{% endif %}
 								</div>
-								<p>{{ producto.informacionProducto }}</p>
+								{% if producto.informacionProducto|default %} <p>{{ producto.informacionProducto }}</p> {% endif %}
 							</div>
 						</div>
 						<span class="flat flaticon-bread" style="left: 0;"></span>

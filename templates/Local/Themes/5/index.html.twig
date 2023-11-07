@@ -170,11 +170,13 @@
             {% for producto in menu.productos %}
             {% if producto.photos.0.photoPath|default(null) %}<img loading="lazy" src="{{ '/uploads/' ~ producto.photos.0.photoPath|default(null) }}" class="menu-img" alt="{{ content.local.nombreLocal }}">{% endif %}
             <div class="menu-content">
-             {{ producto.nombreProducto }}<span>{{ producto.precioProducto }}€</span>
+             {{ producto.nombreProducto }}	{% if producto.precioProducto|default %} <span>{{ producto.precioProducto }}€</span> {% endif %}
             </div>
+            {% if producto.precioProducto|default %}
             <div class="menu-ingredients">
-             {{ producto.informacionProducto }}
+             {{ producto.precioProducto }}
             </div>
+            	{% endif %}
             {% endfor %}
           </div>
         {% endfor %}
