@@ -235,15 +235,9 @@ background: {{ content.local.colorWeb }}
 						{% if producto.photos.0.photoPath|default %}<div class="img" style="background-image: url({{ '/uploads/' ~ producto.photos.0.photoPath|default }});"></div>{% endif %}
 						<div class="text px-4 pt-2">
 							<h3>{{ producto.nombreProducto }}</h3>
-							<span class="position mb-2">{{ producto.precioProducto }}€</span>
+							{% if producto.precioProducto|default(null) %}<span class="position mb-2">{{ producto.precioProducto }}€</span>{% endif %}
 							<div class="faded">
-								<p>{{ producto.informacionProducto }}</p>
-								<ul class="ftco-social d-flex">
-									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-twitter"></span></a></li>
-									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-facebook"></span></a></li>
-									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-google-plus"></span></a></li>
-									<li class="ftco-animate fadeInUp ftco-animated"><a href="#"><span class="icon-instagram"></span></a></li>
-								</ul>
+								{% if producto.informacionProducto|default(null) %}<p>{{ producto.informacionProducto }}</p>{% endif %}
 							</div>
 						</div>
 					</div>

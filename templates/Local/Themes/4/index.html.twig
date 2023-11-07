@@ -345,9 +345,10 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="social">
         <ul>
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+          {% if content.informationForLocal.facebook|default %}<li><a href="https://www.facebook.com/{{ content.informationForLocal.facebook }}" target="_blank"  rel="nofollow"><i class="fa fa-facebook"></i></a></li>{% endif %}
+          {% if content.informationForLocal.twiter|default %}<li><a href="https://twitter.com/{{ content.informationForLocal.twiter }}"  target="_blank"  rel="nofollow"><i class="fa fa-twitter"></i></a></li>{% endif %}
+          {% if content.informationForLocal.instagram|default %}<li><a href="https://www.instagram.com/{{ content.informationForLocal.instagram }}"  target="_blank"  rel="nofollow"><i class="fa fa-instagram"></i></a></li>{% endif %}
+          {% if content.informationForLocal.youtube|default %}<li><a href="https://www.youtube.com/@{{ content.informationForLocal.youtube }}"  target="_blank"  rel="nofollow"><i class="fa fa-google-plus"></i></a></li>{% endif %}
         </ul>
       </div>
       <p>&copy; 2024 {{ content.local.nombreLocal }}. All rights reserved. Designed by <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a> |					<a href="/politica-de-privacidad/" rel="nofollow">Política de Privacidad</a> |
