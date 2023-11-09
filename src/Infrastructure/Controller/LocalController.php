@@ -13,41 +13,36 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Application\Orchestrator\LocalOrchestrator;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Application\Orchestrator\LocalOrchestrator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class LocalController extends AbstractController
 {
-    private LocalOrchestrator $localOrchestrator;
+	private LocalOrchestrator $localOrchestrator;
 
-    public function __construct(localOrchestrator $localOrchestrator)
-    {
-        $this->localOrchestrator = $localOrchestrator;
-    }
+	public function __construct(localOrchestrator $localOrchestrator)
+	{
+		$this->localOrchestrator = $localOrchestrator;
+	}
 
-    public function localControllerAction(): Response
-    {
+	public function localControllerAction(): Response
+	{
+		return $this->render('/Panel/panel.html.twig');
+	}
 
-        return $this->render('/Panel/panel.html.twig');
+	public function showLocalAction(Request $request): Response
+	{
+		$content = $this->localOrchestrator->showLocal($request);
+		$estile = $content['estile'] ?? 1;
 
-    }
+		return $this->render(
+			'/Local/Themes/' . $estile . '/index.html.twig',
+			['content' => $content]
+		);
 
-    public function showLocalAction(Request $request): Response
-    {
-        $content = $this->localOrchestrator->showLocal($request);
-        $estile = $content['estile'] ?? 1;
-
-        return $this->render(
-            '/Local/Themes/' . $estile . '/index.html.twig',
-            ['content' => $content ]
-        );
-
-        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
-
-    }
-
+		throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+	}
 }

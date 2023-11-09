@@ -13,30 +13,27 @@ declare(strict_types=1);
 
 namespace App\Application\Utils;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class MultipleUtils extends AbstractController
 {
-    private LocalRepository $localRepository;
+	private LocalRepository $localRepository;
 
-    public function __construct(
-    LocalRepository $localRepository, 
-    )
-    
-    {
-    $this->localRepository = $localRepository;
-    }
+	public function __construct(
+		LocalRepository $localRepository,
+	) {
+		$this->localRepository = $localRepository;
+	}
 
-    public function getUrlOfLocalForMenuNavigation(string $localId) :string
-    {
-        $localRepository = $this->localRepository->findOneBy(array('id' => $localId));
+	public function getUrlOfLocalForMenuNavigation(string $localId): string
+	{
+		$localRepository = $this->localRepository->findOneBy(['id' => $localId]);
 
-        if($localRepository){
-            return $localRepository->getUrl() ?? '';
-        }
+		if ($localRepository) {
+			return $localRepository->getUrl() ?? '';
+		}
 
-        return '';
-    }
-    
+		return '';
+	}
 }

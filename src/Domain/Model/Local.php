@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,165 +12,165 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Local
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+	/**
+	 * @ORM\Id
+	 * @ORM\GeneratedValue
+	 * @ORM\Column(type="integer")
+	 */
+	private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nombreLocal;
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $nombreLocal;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $descripcionLocal;
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $descripcionLocal;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Usuario", inversedBy="locales")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $usuario;
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Domain\Model\Usuario", inversedBy="locales")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private $usuario;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Domain\Model\Informacion", mappedBy="local", cascade={"persist", "remove"})
-     */
-    private $informacion;
+	/**
+	 * @ORM\OneToOne(targetEntity="App\Domain\Model\Informacion", mappedBy="local", cascade={"persist", "remove"})
+	 */
+	private $informacion;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $estilo;
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $estilo;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $url;
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $url;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $bloquearWeb;
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $bloquearWeb;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $ocultarFormularioContacto;
-    
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $logo;
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $ocultarFormularioContacto;
+	
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $logo;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $colorWeb;
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $colorWeb;
 
-    public function getId()
-    {
-        return $this->id;
-    }
+	public function getId()
+	{
+		return $this->id;
+	}
 
-    public function getNombreLocal()
-    {
-        return $this->nombreLocal;
-    }
+	public function getNombreLocal()
+	{
+		return $this->nombreLocal;
+	}
 
-    public function setNombreLocal($nombreLocal)
-    {
-        $this->nombreLocal = $nombreLocal;
-    }
+	public function setNombreLocal($nombreLocal)
+	{
+		$this->nombreLocal = $nombreLocal;
+	}
 
-    public function getDescripcionLocal()
-    {
-        return $this->descripcionLocal;
-    }
+	public function getDescripcionLocal()
+	{
+		return $this->descripcionLocal;
+	}
 
-    public function setDescripcionLocal($descripcionLocal)
-    {
-        $this->descripcionLocal = $descripcionLocal;
-    }
+	public function setDescripcionLocal($descripcionLocal)
+	{
+		$this->descripcionLocal = $descripcionLocal;
+	}
 
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
+	public function getUsuario()
+	{
+		return $this->usuario;
+	}
 
-    public function setUsuario($usuario)
-    {
-        $this->usuario = $usuario;
-    }
+	public function setUsuario($usuario)
+	{
+		$this->usuario = $usuario;
+	}
 
-    public function getInformacion()
-    {
-        return $this->informacion;
-    }
+	public function getInformacion()
+	{
+		return $this->informacion;
+	}
 
-    public function setInformacion($informacion)
-    {
-        $this->informacion = $informacion;
-    }
+	public function setInformacion($informacion)
+	{
+		$this->informacion = $informacion;
+	}
 
-    public function getEstilo()
-    {
-        return $this->estilo;
-    }
+	public function getEstilo()
+	{
+		return $this->estilo;
+	}
 
-    public function setEstilo($estilo)
-    {
-        $this->estilo = $estilo;
-    }
+	public function setEstilo($estilo)
+	{
+		$this->estilo = $estilo;
+	}
 
-    public function getUrl()
-    {
-        return $this->url;
-    }
+	public function getUrl()
+	{
+		return $this->url;
+	}
 
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-    public function getBloquearWeb()
-    {
-        return $this->bloquearWeb;
-    }
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+	public function getBloquearWeb()
+	{
+		return $this->bloquearWeb;
+	}
 
-    public function setBloquearWeb($bloquearWeb)
-    {
-        $this->bloquearWeb = $bloquearWeb;
-    }
+	public function setBloquearWeb($bloquearWeb)
+	{
+		$this->bloquearWeb = $bloquearWeb;
+	}
 
-    public function getOcultarFormularioContacto()
-    {
-        return $this->ocultarFormularioContacto;
-    }
+	public function getOcultarFormularioContacto()
+	{
+		return $this->ocultarFormularioContacto;
+	}
 
-    public function setOcultarFormularioContacto($ocultarFormularioContacto)
-    {
-        $this->ocultarFormularioContacto = $ocultarFormularioContacto;
-    }
+	public function setOcultarFormularioContacto($ocultarFormularioContacto)
+	{
+		$this->ocultarFormularioContacto = $ocultarFormularioContacto;
+	}
 
-    public function getLogo()
-    {
-        return $this->logo;
-    }
+	public function getLogo()
+	{
+		return $this->logo;
+	}
 
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-    }
-    
-    public function getColorWeb()
-    {
-        return $this->colorWeb;
-    }
+	public function setLogo($logo)
+	{
+		$this->logo = $logo;
+	}
+	
+	public function getColorWeb()
+	{
+		return $this->colorWeb;
+	}
 
-    public function setColorWeb($colorWeb)
-    {
-        $this->colorWeb = $colorWeb;
-    }
+	public function setColorWeb($colorWeb)
+	{
+		$this->colorWeb = $colorWeb;
+	}
 }

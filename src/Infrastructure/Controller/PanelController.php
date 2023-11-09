@@ -13,130 +13,125 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Application\Orchestrator\PanelOrchestrator;
+use App\Application\Utils\MultipleUtils;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Application\Orchestrator\PanelOrchestrator;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use App\Application\Utils\MultipleUtils;
 
 final class PanelController extends AbstractController
 {
-    private PanelOrchestrator $panelOrchestrator;
-    private MultipleUtils $multipleUtils;
+	private PanelOrchestrator $panelOrchestrator;
+	private MultipleUtils $multipleUtils;
 
-    public function __construct(
-        panelOrchestrator $panelOrchestrator, 
-        MultipleUtils $multipleUtils
-    )
+	public function __construct(
+		panelOrchestrator $panelOrchestrator,
+		MultipleUtils $multipleUtils
+	) {
+		$this->panelOrchestrator = $panelOrchestrator;
+		$this->multipleUtils = $multipleUtils;
+	}
 
-    {
-        $this->panelOrchestrator = $panelOrchestrator;
-        $this->multipleUtils = $multipleUtils;
-    }
+	public function panelControllerAction(): Response
+	{
+		$title = 'Panel de Control';
+		
+		$local = $this->panelOrchestrator->showLocal();
 
-    public function panelControllerAction() : Response
-    {
-        $title = 'Panel de Control';
-        
-        $local = $this->panelOrchestrator->showLocal();
+		if (!$local) {
+			return $this->redirect($this->generateUrl('panel-new-local'));
+		}
 
-        if(!$local){
-            return $this->redirect($this->generateUrl('panel-new-local'));
-        }
+		return $this->render('/Panel/panel.html.twig', ['title' => $title, 'local' => $local]);
+	}
 
-        return $this->render('/Panel/panel.html.twig', ['title' => $title, 'local' => $local]);
-    }
+	public function createLocalAction(Request $request): Response
+	{
+		$requestUserSendForm = $this->panelOrchestrator->createLocal($request);
 
-    public function createLocalAction(Request $request): Response
-    {
+		if ($requestUserSendForm) {
+			return $this->redirect($this->generateUrl('panel'));
+		}
 
-        $requestUserSendForm = $this->panelOrchestrator->createLocal($request);
+		$title = 'Crear un Local';
 
-        if ($requestUserSendForm) {
-            return $this->redirect($this->generateUrl('panel'));
-        }
+		return $this->render('/Panel/Sections/newLocal.html.twig', ['title' => $title]);
+	}
 
-        $title = 'Crear un Local';
+	public function configLocalAction(Request $request): Response
+	{
+		$datos = $this->panelOrchestrator->editConfigLocal($request);
 
-        return $this->render('/Panel/Sections/newLocal.html.twig', ['title' => $title]);
+		$title = 'Edita la Configuración de tu Local';
 
-    }
+		$urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
 
-    public function configLocalAction(Request $request): Response
-    {
-        $datos = $this->panelOrchestrator->editConfigLocal($request);
+		return $this->render(
+			'/Panel/Sections/localOptions.html.twig',
+			['local' => $request->attributes->get('local'),
+				'datos' => $datos,
+				'title' => $title,
+				'urlLocal' => $urlLocal]
+		);
+	}
 
-        $title = 'Edita la Configuración de tu Local';
+	public function configLocalDeleteLogoAction(Request $request): Response
+	{
+		$this->panelOrchestrator->editConfigLocalForDeleteLogo($request);
+		return $this->redirectToRoute('panel-modify-config-local', ['local' => $request->attributes->get('local')]);
+	}
 
-        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+	public function editInformationLocalAction(Request $request): Response
+	{
+		$datos = $this->panelOrchestrator->editInformationLocal($request);
 
-        return $this->render(
-            '/Panel/Sections/localOptions.html.twig',
-            ['local' => $request->attributes->get('local'), 
-            'datos'=> $datos, 
-            'title'=>$title,
-            'urlLocal' => $urlLocal]
-        );
-    }
+		$title = 'Información de tu Local';
 
-    public function configLocalDeleteLogoAction(Request $request): Response
-    {
-        $this->panelOrchestrator->editConfigLocalForDeleteLogo($request);
-        return $this->redirectToRoute('panel-modify-config-local', ['local' => $request->attributes->get('local')]);
-    }
+		$urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
 
-    public function editInformationLocalAction(Request $request): Response
-    {
-        $datos = $this->panelOrchestrator->editInformationLocal($request);
+		return $this->render(
+			'/Panel/Sections/newInformation.html.twig',
+			['local' => $request->attributes->get('local'),
+				'datos' => $datos,
+				'title' => $title,
+				'urlLocal' => $urlLocal]
+		);
+	}
 
-        $title = 'Información de tu Local';
+	public function selectThemeOfLocalAction(Request $request): Response
+	{
+		$content = $this->panelOrchestrator->selectThemeOfLocal($request);
+		$title = 'Escoge la plantilla web para tu Local';
+		$urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
 
-        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+		return $this->render('/Panel/Sections/selectThemeOfLocal.html.twig', [
+			'title' => $title,
+			'content' => $content,
+			'urlLocal' => $urlLocal,
+		]);
 
-        return $this->render(
-            '/Panel/Sections/newInformation.html.twig',
-            ['local' => $request->attributes->get('local'), 
-            'datos'=> $datos, 
-            'title'=>$title,
-            'urlLocal' => $urlLocal]
-        );
-    }
+		throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
+	}
+	public function panelChangePhotoThemeFromLocalAction(Request $request): RedirectResponse
+	{
+		$uploadPhotoOnTheme = $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
 
-    public function selectThemeOfLocalAction(Request $request): Response
-    {
-        $content = $this->panelOrchestrator->selectThemeOfLocal($request);
-        $title = 'Escoge la plantilla web para tu Local';
-        $urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+		if ($uploadPhotoOnTheme === 1) {
+			$this->addFlash(
+				'sucess',
+				'Tu Foto ha sido actualizada correctamente.'
+			);
+		}
 
-        return $this->render('/Panel/Sections/selectThemeOfLocal.html.twig',[
-            'title'=>$title,
-            'content' => $content,
-            'urlLocal' => $urlLocal
-        ]);
-
-        throw new HttpException(Response::HTTP_BAD_REQUEST, 'Error en url');
-
-    }
-    public function panelChangePhotoThemeFromLocalAction(Request $request): RedirectResponse
-    {
-        $uploadPhotoOnTheme = $this->panelOrchestrator->panelChangePhotoThemeFromLocal($request);
-
-        if($uploadPhotoOnTheme === 1){
-            $this->addFlash(
-                'sucess',
-                'Tu Foto ha sido actualizada correctamente.'
-            );
-        }
-
-        return new RedirectResponse(
-            $this->generateUrl(
-                'panel-show-local-online',
-                array(
-                'local' => $request->attributes->get('local'),
-                'edit-photos' => 'true'
-                )
-            )
-        );
-    }  
+		return new RedirectResponse(
+			$this->generateUrl(
+				'panel-show-local-online',
+				[
+					'local' => $request->attributes->get('local'),
+					'edit-photos' => 'true',
+				]
+			)
+		);
+	}
 }

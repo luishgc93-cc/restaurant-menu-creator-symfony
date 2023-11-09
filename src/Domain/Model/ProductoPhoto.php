@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,46 +11,46 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ProductoPhoto
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+	/**
+	 * @ORM\Id
+	 * @ORM\GeneratedValue
+	 * @ORM\Column(type="integer")
+	 */
+	private $id;
 
-    /**
-     * @ORM\Column(type="string", length=1000)
-     */
-    private $photoPath;
+	/**
+	 * @ORM\Column(type="string", length=1000)
+	 */
+	private $photoPath;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Model\Producto", inversedBy="photos")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $producto;
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Domain\Model\Producto", inversedBy="photos")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private $producto;
 
-    public function getId()
-    {
-        return $this->id;
-    }
+	public function getId()
+	{
+		return $this->id;
+	}
 
-    public function getPhotoPath()
-    {
-        return $this->photoPath;
-    }
+	public function getPhotoPath()
+	{
+		return $this->photoPath;
+	}
 
-    public function setPhotoPath($photoPath)
-    {
-        $this->photoPath = $photoPath;
-    }
+	public function setPhotoPath($photoPath)
+	{
+		$this->photoPath = $photoPath;
+	}
 
-    public function getProducto()
-    {
-        return $this->producto;
-    }
+	public function getProducto()
+	{
+		return $this->producto;
+	}
 
-    public function setProducto($producto)
-    {
-        $this->producto = $producto;
-    }
+	public function setProducto($producto)
+	{
+		$this->producto = $producto;
+	}
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Persistence\Doctrine\Repository;
 
 use App\Domain\Model\Usuario;
@@ -17,43 +19,42 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  * @method Usuario[]    findAll()
  * @method Usuario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Usuario::class);
-    }
+	public function __construct(ManagerRegistry $registry)
+	{
+		parent::__construct($registry, Usuario::class);
+	}
 
-    public function save(Usuario $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+	public function save(Usuario $entity, bool $flush = false): void
+	{
+		$this->getEntityManager()->persist($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+		if ($flush) {
+			$this->getEntityManager()->flush();
+		}
+	}
 
-    public function remove(Usuario $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
+	public function remove(Usuario $entity, bool $flush = false): void
+	{
+		$this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+		if ($flush) {
+			$this->getEntityManager()->flush();
+		}
+	}
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
-    {
-        if (!$user instanceof Usuario) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
-        }
+	/**
+	 * Used to upgrade (rehash) the user's password automatically over time.
+	 */
+	public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+	{
+		if (!$user instanceof Usuario) {
+			throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+		}
 
-        $user->setPassword($newHashedPassword);
+		$user->setPassword($newHashedPassword);
 
-        $this->save($user, true);
-    }
-
+		$this->save($user, true);
+	}
 }

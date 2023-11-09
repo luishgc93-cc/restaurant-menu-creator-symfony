@@ -13,18 +13,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 final class HomeController extends AbstractController
 {
-    public function homeAction(): Response
-    {
-
-        return $this->render('/Home/home.html.twig');
-
-    }
-
+	public function homeAction(): Response
+	{
+		return $this->render('/Home/home.html.twig');
+	}
 }

@@ -13,235 +13,237 @@ declare(strict_types=1);
 
 namespace App\Application\Orchestrator;
 
-use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
+use App\Application\Utils\ManagePhoto;
 use App\Domain\Model\Menu;
 use App\Domain\Model\MenuPhoto;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
-use App\Application\Utils\ManagePhoto;
 use App\Infrastructure\Persistence\Doctrine\Repository\InformationRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Infrastructure\Persistence\Doctrine\Repository\LocalRepository;
+use App\Infrastructure\Persistence\Doctrine\Repository\MenuRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class MenuOrchestrator extends AbstractController
 {
-    private MenuRepository $menuRepository;
-    private ManagePhoto $managePhoto;
-    private InformationRepository $informationRepository;
-    private EntityManagerInterface $entityManager;
-    private LocalRepository $localRepository;
+	private MenuRepository $menuRepository;
+	private ManagePhoto $managePhoto;
+	private InformationRepository $informationRepository;
+	private EntityManagerInterface $entityManager;
+	private LocalRepository $localRepository;
 
-    public function __construct(
-        MenuRepository $menuRepository,
-        ManagePhoto $managePhoto,
-        InformationRepository  $informationRepository,
-        EntityManagerInterface $entityManager,
-        LocalRepository $localRepository, 
-    )
+	public function __construct(
+		MenuRepository $menuRepository,
+		ManagePhoto $managePhoto,
+		InformationRepository $informationRepository,
+		EntityManagerInterface $entityManager,
+		LocalRepository $localRepository,
+	) {
+		$this->menuRepository = $menuRepository;
+		$this->managePhoto = $managePhoto;
+		$this->informationRepository = $informationRepository;
+		$this->entityManager = $entityManager;
+		$this->localRepository = $localRepository;
+	}
 
-    {
-        $this->menuRepository = $menuRepository;
-        $this->managePhoto = $managePhoto;
-        $this->informationRepository = $informationRepository;
-        $this->entityManager = $entityManager;
-        $this->localRepository = $localRepository;
-    }
+	public function showMenusCreated(Request $request): ?array
+	{
+		$idLocal = intval($request->attributes->get('local'));
+		$informationId = $this->informationRepository->findOneBy(['local' => $idLocal]);
+		$menuData = $this->menuRepository->findBy(['informacion' => $informationId->getId()]);
 
-    public function showMenusCreated(Request $request): ?array
-    {
-        $idLocal = intval($request->attributes->get('local'));
-        $informationId = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $menuData = $this->menuRepository->findBy(array('informacion' => $informationId->getId()));
+		if ($menuData) {
+			return $menuData;
+		}
 
-        if ($menuData) {
-            return $menuData;
-        }
+		return null;
+	}
 
-        return null;
-    }
+	public function newMenu(Request $request)
+	{
+		$idLocal = intval($request->attributes->get('local'));
 
-    public function newMenu(Request $request)
-    {
-        $idLocal = intval($request->attributes->get('local'));
+		$informacion = $this->informationRepository->findOneBy(['local' => $idLocal]);
+		$local = $this->localRepository->findOneBy(['id' => $idLocal]);
 
-        $informacion = $this->informationRepository->findOneBy(array('local' => $idLocal));
-        $local = $this->localRepository->findOneBy(array('id' => $idLocal));
+		if ($local->getUsuario()->getId() !== $this->getUser()->getId()) {
+			throw new HttpException(404, 'Usuario no Autorizado');
+		}
+		
+		$menu = $this->entityManager->getRepository(Menu::class)->find($informacion);
 
-        if($local->getUsuario()->getId() !== $this->getUser()->getId() ){
-            throw new HttpException(404, 'Usuario no Autorizado');
-        }
-        
-        $menu = $this->entityManager->getRepository(Menu::class)->find($informacion);
+		$submittedToken = $request->request->get('token');
 
-        $submittedToken = $request->request->get('token');
+		if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid(
+			'validateTokenSym',
+			$submittedToken
+		)) {
+			$datosForm = $request->request->all();
+			if ($datosForm['nombre_menu'] === '') {
+				$this->addFlash(
+					'error',
+					'El nombre del Menú esta vacío.'
+				);
+				return $menu;
+			}
 
-        if ($request->isMethod('POST') && $this->getUser() && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
-            $datosForm = $request->request->all();
-            if( '' === $datosForm['nombre_menu']){                
-                $this->addFlash(
-                    'error',
-                    'El nombre del Menú esta vacío.'
-                );
-                return $menu;
-            }
+			if (!$menu) {
+				$menu = new Menu();
+				$menu->setInformacion($informacion);
+			}
 
-            if (!$menu) {
-                $menu = new Menu();
-                $menu->setInformacion($informacion);
-            }
+			$photoRequest = $request->files->get('file-upload');
+			if ($photoRequest) {
+				$menuPhoto = new MenuPhoto();
+				$photo = $this->managePhoto->upload($photoRequest);
+				if ($photo !== '') {
+					$menuPhoto->setPhotoPath($photo);
+					$menu->addPhoto($menuPhoto);
+				}
+				if ($photo === '') {
+					$this->addFlash(
+						'error',
+						'La foto pesa más de mega y medio, bajala de peso.'
+					);
+				}
+			}
+			$menu->setUserId($this->getUser()->getId());
+			$menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
+			$menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
+			$menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
+			
+			$this->addFlash(
+				'sucess',
+				'Menu creado correctamente.'
+			);
 
-            $photoRequest = $request->files->get('file-upload');
-            if($photoRequest){
-                $menuPhoto = new MenuPhoto();
-                $photo = $this->managePhoto->upload($photoRequest);
-                if('' !== $photo){
-                    $menuPhoto->setPhotoPath($photo);
-                    $menu->addPhoto($menuPhoto);
-                }
-                if('' === $photo){
-                    $this->addFlash(
-                        'error',
-                        'La foto pesa más de mega y medio, bajala de peso.'
-                    );
-                }    
-            }
-            $menu->setUserId($this->getUser()->getId());
-            $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
-            $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
-            $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
-            
-            $this->addFlash(
-                'sucess',
-                'Menu creado correctamente.'
-            );
+			$this->menuRepository->save($menu, true);
+		}
 
-            $this->menuRepository->save($menu, true);
-        }
+		return $menu;
+	}
+	public function editMenu(Request $request): ?Menu
+	{
+		$menuId = intval($request->attributes->get('menuId'));
+		$menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
+		$userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
+		
+		if (!$userGrantedForEdit) {
+			throw new HttpException(404, 'Usuario no Autorizado');
+		}
+		$submittedToken = $request->request->get('token');
 
-        return $menu;
-    }
-    public function editMenu(Request $request): ?Menu
-    {
-        $menuId = intval($request->attributes->get('menuId'));
-        $menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
-        $userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
-        
-        if (!$userGrantedForEdit) {
-            throw new HttpException(404, 'Usuario no Autorizado');
-        }
-        $submittedToken = $request->request->get('token');
+		if ($request->isMethod('POST') && $userGrantedForEdit && $this->isCsrfTokenValid(
+			'validateTokenSym',
+			$submittedToken
+		)) {
+			$datosForm = $request->request->all();
 
-        if ($request->isMethod('POST') && $userGrantedForEdit && $this->isCsrfTokenValid('validateTokenSym', $submittedToken) ) {
-            $datosForm = $request->request->all();
+			if ($datosForm['nombre_menu'] === '') {
+				$this->addFlash(
+					'error',
+					'El nombre del Menú esta vacío.'
+				);
+				return $menu;
+			}
 
-            if( '' === $datosForm['nombre_menu']){                
-                $this->addFlash(
-                    'error',
-                    'El nombre del Menú esta vacío.'
-                );
-                return $menu;
-            }
+			if (!$menu) {
+				$menu = new Menu();
+			}
 
-            if (!$menu) {
-                $menu = new Menu();
-            }
+			$photoRequest = $request->files->get('file-upload');
+			if ($photoRequest) {
+				$photo = $this->managePhoto->upload($photoRequest);
+				
+				if ($photo !== '') {
+					$menuPhoto = $menu->getPhotos()->first();
+				
+					if (!$menuPhoto) {
+						$menuPhoto = new MenuPhoto();
+					}
+	
+					$menuPhoto->setPhotoPath($photo);
+					$menu->addPhoto($menuPhoto);
+				}
 
-            $photoRequest = $request->files->get('file-upload');
-            if($photoRequest){
-                $photo = $this->managePhoto->upload($photoRequest);
-                
-                if('' !== $photo){
-                    $menuPhoto = $menu->getPhotos()->first();
-                
-                    if(!$menuPhoto){
-                    $menuPhoto = new MenuPhoto();
-                    }
-    
-                    $menuPhoto->setPhotoPath($photo);
-                    $menu->addPhoto($menuPhoto);
-                }   
+				if ($photo === '') {
+					$this->addFlash(
+						'error',
+						'La foto pesa más de mega y medio, bajala de peso.'
+					);
+				}
+			}
 
-                if('' === $photo){
-                    $this->addFlash(
-                        'error',
-                        'La foto pesa más de mega y medio, bajala de peso.'
-                    );
-                }               
-            }
+			$menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
+			$menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
+			$menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
+			
+			$this->addFlash(
+				'sucess',
+				'Menu editado correctamente.'
+			);
+			
+			$this->menuRepository->save($menu, true);
+		}
 
-            $menu->setNombreMenu($datosForm['nombre_menu'] ?? '');
-            $menu->setInformacionMenu($datosForm['informacion_menu'] ?? '');
-            $menu->setPrecioMenu($datosForm['precio_menu'] ?? '');
-            
-            $this->addFlash(
-                'sucess',
-                'Menu editado correctamente.'
-            );
-            
-            $this->menuRepository->save($menu, true);
-        }
+		return $menu;
+	}
+	public function editMenuForDeletePhoto(Request $request): ?Menu
+	{
+		$menuId = intval($request->attributes->get('menuId'));
+		$menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
+		$userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
+		
+		if (!$userGrantedForEdit) {
+			throw new HttpException(404, 'Usuario no Autorizado');
+		}
 
-        return $menu;
-    }
-    public function editMenuForDeletePhoto(Request $request): ?Menu
-    {
-        $menuId = intval($request->attributes->get('menuId'));
-        $menu = $this->entityManager->getRepository(Menu::class)->find($menuId);
-        $userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
-        
-        if (!$userGrantedForEdit) {
-            throw new HttpException(404, 'Usuario no Autorizado');
-        }
+		$menuPhoto = $menu->getPhotos()->first()->getPhotoPath() ?? '';
+		$deletePhoto = $this->managePhoto->deletePhoto($menuPhoto);
+		if ($deletePhoto) {
+			$this->addFlash(
+				'success',
+				'Foto borrada correctamente'
+			);
+			$menu->removePhoto($menu->getPhotos()->first());
+			$this->menuRepository->save($menu, true);
+		}
+		if (!$deletePhoto) {
+			$this->addFlash(
+				'error',
+				'Error borrando la foto'
+			);
+		}
+		return $menu;
+	}
+	public function deleteMenu(Request $request): bool
+	{
+		$menuId = intval($request->attributes->get('menuId'));
+		$menu = $this->menuRepository->findOneBy(['id' => $menuId]);
 
-        $menuPhoto = $menu->getPhotos()->first()->getPhotoPath() ?? '';
-        $deletePhoto = $this->managePhoto->deletePhoto($menuPhoto);
-        if($deletePhoto){
-            $this->addFlash(
-                'success',
-                'Foto borrada correctamente'
-            );
-            $menu->removePhoto($menu->getPhotos()->first());
-            $this->menuRepository->save($menu, true);
+		$userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
+		
+		if (!$userGrantedForEdit) {
+			throw new HttpException(404, 'Usuario no Autorizado');
+		}
 
-        }
-        if(!$deletePhoto){
-            $this->addFlash(
-                'error',
-                'Error borrando la foto'
-            );
-        }
-        return $menu;
-    }
-    public function deleteMenu(Request $request) : bool
-    {
-        $menuId = intval($request->attributes->get('menuId'));
-        $menu = $this->menuRepository->findOneBy(array('id' => $menuId));
+		if (!$menu) {
+			$this->addFlash(
+				'error',
+				'El menú no ha podido ser borrado, no se ha encontrado...'
+			);
+			return false;
+		}
+		if ($menu->getPhotos()->first()) {
+			$this->managePhoto->deletePhoto($menu->getPhotos()->first()->getPhotoPath());
+		}
+		$this->menuRepository->remove($menu, true);
+		
+		$this->addFlash(
+			'sucess',
+			'El menú ha sido borrado correctamente, los productos asociados han sido borrados igualmente.'
+		);
 
-        $userGrantedForEdit = $menu->getUserId() === $this->getUser()->getId();
-        
-        if (!$userGrantedForEdit) {
-            throw new HttpException(404, 'Usuario no Autorizado');
-        }
-
-        if(!$menu){
-            $this->addFlash(
-                'error',
-                'El menú no ha podido ser borrado, no se ha encontrado...'
-            );
-            return false;
-        }
-        if($menu->getPhotos()->first()){
-            $this->managePhoto->deletePhoto($menu->getPhotos()->first()->getPhotoPath());
-        }
-        $this->menuRepository->remove($menu, true);
-        
-        $this->addFlash(
-            'sucess',
-            'El menú ha sido borrado correctamente, los productos asociados han sido borrados igualmente.'
-        );
-
-        return true;
-    }
+		return true;
+	}
 }
