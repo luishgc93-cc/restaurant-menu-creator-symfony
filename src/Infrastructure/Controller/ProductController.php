@@ -70,6 +70,26 @@ final class ProductController extends AbstractController
 			]
 		);
 	}
+
+	public function editProductAloneAction(Request $request): Response
+	{
+		$productToEdit = $this->productOrchestrator->editProduct($request);
+		$productsRelated = $this->productOrchestrator->showProductsCreated($request);
+
+		$title = 'Edita el Producto seleccionado o escoge otro para editar';
+		$urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
+
+		return $this->render(
+			'/Panel/Sections/editProduct.html.twig',
+			['local' => $request->attributes->get('local'),
+				'title' => $title,
+				'productToEdit' => $productToEdit,
+				'productsRelated' => $productsRelated,
+				'urlLocal' => $urlLocal
+			]
+		);
+	}
+
 	public function editProductOfMenuAction(Request $request): Response
 	{
 		$productToEdit = $this->productOrchestrator->editProduct($request);
@@ -105,25 +125,6 @@ final class ProductController extends AbstractController
 			['local' => $request->attributes->get('local'),
 				'menuId' => $request->attributes->get('menuId'),
 				'productoId' => $request->attributes->get('productoId')]
-		);
-	}
-
-	public function editProductAloneAction(Request $request): Response
-	{
-		$productToEdit = $this->productOrchestrator->editProduct($request);
-		$productsRelated = $this->productOrchestrator->showProductsCreated($request);
-
-		$title = 'Edita el Producto seleccionado o escoge otro para editar';
-		$urlLocal = $this->multipleUtils->getUrlOfLocalForMenuNavigation($request->attributes->get('local'));
-
-		return $this->render(
-			'/Panel/Sections/editProduct.html.twig',
-			['local' => $request->attributes->get('local'),
-				'title' => $title,
-				'productToEdit' => $productToEdit,
-				'productsRelated' => $productsRelated,
-				'urlLocal' => $urlLocal,
-			]
 		);
 	}
 
