@@ -24,19 +24,12 @@
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-        <div class="col-span-full">
+        <div class="sm:col-span-3">
           <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Nombre Local</label>
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <input type="text" value="{{ datos.nombreLocal ?? '' }}" name="nombreLocal" id="nombreLocal" autocomplete="nombreLocal" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
             </div>
-          </div>
-        </div>
-
-        <div class="sm:col-span-full">
-          <label for="calle" class="block text-sm font-medium leading-6 text-gray-900">Descripción corta</label>
-          <div class="mt-2">
-            <textarea id="descripcion" name="descripcion" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{ datos.descripcionLocal ?? '' }}</textarea>
           </div>
         </div>
 
@@ -50,18 +43,9 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3">
-          <label for="colorWeb" class="block text-sm font-medium leading-6 text-gray-900">Seleccionar color de la Web</label>
-          <div class="mt-2">
-            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <input  type="color" id="colorWeb" value="{{ datos.colorWeb ? datos.colorWeb : '#0000ff' }}" name="colorWeb" id="colorWeb" autocomplete="colorWeb" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" onkeyup="sanitizeURL(this)">
-            </div>
-          </div>
-        </div>
-
         <div class="col-span-2">
           <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Logo (opcional) </label>
-          <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+          <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-3">
             <div class="text-center">
 
               {% if datos.logo|default %}<img src="/uploads/{{ datos.logo|default }}" with="50px" heigth="50px">{% endif %}
@@ -80,6 +64,22 @@
               </div>
               <div class="imagesToUpload"></div>
                 <p class="text-xs leading-5 text-gray-600">PNG, JPG máximo tamaño 1.5 Megas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-2">
+          <label for="descripcion corta" class="block text-sm font-medium leading-6 text-gray-900">Descripción corta del Local</label>
+          <div class="mt-2">
+            <textarea id="descripcion" name="descripcion" rows="5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{ datos.descripcionLocal ?? '' }}</textarea>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="colorWeb" class="block text-sm font-medium leading-6 text-gray-900">Seleccionar color de la Web</label>
+          <div class="mt-2">
+            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <input type="color" id="colorWeb" value="{{ datos.colorWeb ? datos.colorWeb : '#0000ff' }}" name="colorWeb" id="colorWeb" autocomplete="colorWeb" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" onkeyup="sanitizeURL(this)">
             </div>
           </div>
         </div>
