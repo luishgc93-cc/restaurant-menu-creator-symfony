@@ -1,71 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
-
-{% block head %}
-{{ parent() }}
-<style>
-.body-bg {
-background-color: #9921e8;
-background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
-}
-</style>
-
-{% endblock %}
+{% block title %}Registrate gratuito{% endblock %}
 
 {% block body %}
-{% include '/Includes/flashAlertLoginAndRegister.html.twig' %}
 
-<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
-    <header class="max-w-lg mx-auto">
-        <a href="#">
-            <h1 class="text-4xl font-bold text-white text-center">Registrarse Gratis</h1>
-        </a>
-    </header>
-    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-        <section>
-            <h3 class="font-bold text-2xl">Bienvenido</h3>
-            <p class="text-gray-600 pt-2">Registrate para poder empezar a gestionar tu local</p>
-        </section>
+<section class="flex flex-col md:flex-row h-screen items-center">
 
-        <section class="mt-10">
-            <form class="flex flex-col" {{ path('app_register') }} method="post">
 
-                <div class="mb-6 pt-3 rounded bg-gray-200">
-                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Email</label>
-                    <input type="text"id="email" name="email" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                </div>
+  <div class="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+    <img src="https://source.unsplash.com/random" alt="" class="w-full h-full object-cover">
+  </div>
 
-                <div class="mb-6 pt-3 rounded bg-gray-200">
-                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="plainPassword">Contraseña</label>
-                    <input type="password" id="plainPassword" name="plainPassword" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                </div>
+  <div class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+        flex items-center justify-center">
 
-                <div class="mb-6 pt-3 rounded bg-gray-200">
-                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="plainPasswordVerify">Repite la Contraseña</label>
-                    <input type="password" id="plainPasswordVerify" name="plainPasswordVerify" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                </div>
+    <div class="w-full h-100">
 
-                <div class="flex justify-end">
-                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="legal">He Leido y Acepto la <a class="text-purple-700" href="/politica-de-privacidad/">Politica de Privacidad</a></label>
-                    <input type="checkbox" name="politicaPrivacidad" id="politicaPrivacidad" required>
-                </div>
+      {% include '/Includes/flashAlertLoginAndRegister.html.twig' %}
 
-                <div class="flex justify-end">
-                    <a href="{{ path('recoveryAccountUser') }}" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">¿Olvidaste la Contraseña?</a>
-                </div>
-                <input type="hidden" name="token" value="{{ csrf_token('validateTokenSym') }}" />
+      <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Registrate Gratis</h1>
 
-                <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Crear Cuenta Gratis</button>
-            </form>
 
-        </section>
-    </main>
+      <form class="mt-6" {{ path('app_register') }} method="post">
 
-    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-        <p class="text-white"><a href="{{ path('app_login') }}" class="font-bold hover:underline">¡Ya tengo una cuenta!</a></p>
+        <div>
+          <label class="block text-gray-700">Email</label>
+          <input type="text"id="email" name="email" placeholder="Enter Email Address" class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" autofocus autocomplete required>
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-gray-700">Contraseña (6 caracteres, una letra mayúscula y un número)</label>
+          <input type="password" id="plainPassword" name="plainPassword" placeholder="Introduzca una contraseña" minlength="6" class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                focus:bg-white focus:outline-none" required>
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-gray-700">Repite  la Contraseña</label>
+          <input type="password" id="plainPasswordVerify" name="plainPasswordVerify"  placeholder="Repite la contraseña" minlength="6" class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                focus:bg-white focus:outline-none" required>
+        </div>
+
+        <div class="text-right mt-2">
+            <label class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700" for="legal">He Leido y Acepto la <a class="text-blue-500 hover:text-blue-700 font-semibold" href="/politica-de-privacidad/">Politica de Privacidad</a></label>
+            <input type="checkbox" name="politicaPrivacidad" id="politicaPrivacidad" required>
+        </div>
+
+        <input type="hidden" name="token" value="{{ csrf_token('validateTokenSym') }}" />
+
+        <button type="submit" class="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
+              px-4 py-3 mt-6">Crear cuenta gratis</button>
+      </form>
+
+      <hr class="my-6 border-gray-300 w-full">
+
+      <p class="mt-8">¿Ya tienes cuenta creada?<a href="{{ path('app_login') }}" class="text-blue-500 hover:text-blue-700 font-semibold"> Inicia sesión</a></p>
+
+
     </div>
-</body>
+  </div>
+
+</section>
 
 
 {% endblock %}

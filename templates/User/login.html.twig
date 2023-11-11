@@ -1,56 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login{% endblock %}
-
-{% block head %}
-{{ parent() }}
-<script src="https://cdn.tailwindcss.com"></script>
-{% endblock %}
+{% block title %}Iniciar sesión{% endblock %}
 
 {% block body %}
 
-{% include '/Includes/flashAlertLoginAndRegister.html.twig' %}
+<section class="flex flex-col md:flex-row h-screen items-center">
 
 
-<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
-    <header class="max-w-lg mx-auto">
-        <a href="#">
-            <h1 class="text-4xl font-bold text-white text-center">Iniciar Sesión</h1>
-        </a>
-    </header>
-    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-        <section>
-            <h3 class="font-bold text-2xl">Bienvenido</h3>
-            <p class="text-gray-600 pt-2">Inicia sesión para poder gestionar tu local</p>
-        </section>
+  <div class="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+    <img src="https://source.unsplash.com/random" alt="" class="w-full h-full object-cover">
+  </div>
 
-        <section class="mt-10">
-            <form class="flex flex-col" {{ path('app_login') }} method="post">
+  <div class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+        flex items-center justify-center">
 
-                <div class="mb-6 pt-3 rounded bg-gray-200">
-                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Email</label>
-                    <input type="text"id="username" name="_username" value="{{ last_username }}" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                </div>
-                <div class="mb-6 pt-3 rounded bg-gray-200">
-                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Contraseña</label>
-                    <input type="password" id="password" name="_password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                </div>
+    <div class="w-full h-100">
 
-                <input type="hidden" name="_csrf_token"
-                    value="{{ csrf_token('authenticate') }}"
-                >
-                <div class="flex justify-end">
-                    <a href="{{ path('recoveryAccountUser') }}" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">¿Olvidaste la contraseña?</a>
-                </div>
-                <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Iniciar Sesión</button>
-            </form>
-        </section>
-    </main>
+      {% include '/Includes/flashAlertLoginAndRegister.html.twig' %}
 
-    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-        <p class="text-white">¿No tienes una cuenta gratis? <a href="/registro" class="font-bold hover:underline">Registrarse Gratis</a>.</p>
+      <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Iniciar sesión</h1>
+
+
+      <form class="mt-6" {{ path('app_login') }} method="post">
+
+        <div>
+          <label class="block text-gray-700">Email</label>
+          <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Enter Email Address" class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" autofocus autocomplete required>
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-gray-700">Contraseña</label>
+          <input type="password" id="password" name="_password" placeholder="Introduzca la contraseña" minlength="6" class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                focus:bg-white focus:outline-none" required>
+        </div>
+
+        <div class="text-right mt-2">
+            <label class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700" for="legal"> <a class="text-blue-500 hover:text-blue-700 font-semibold" href="{{ path('recoveryAccountUser') }}">Recuperar contraseña</a></label>
+        </div>
+
+        <input type="hidden" name="token" value="{{ csrf_token('validateTokenSym') }}" />
+
+        <button type="submit" class="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
+              px-4 py-3 mt-6">Inciar sesión</button>
+      </form>
+
+      <hr class="my-6 border-gray-300 w-full">
+
+      <p class="mt-8">¿No tienes una cuenta creada?<a href="{{ path('app_register') }}" class="text-blue-500 hover:text-blue-700 font-semibold"> Registrate totalmente gratis</a></p>
+
+
     </div>
-</body>
+  </div>
+
+</section>
+
+
 {% endblock %}
 
 {% block footer %}

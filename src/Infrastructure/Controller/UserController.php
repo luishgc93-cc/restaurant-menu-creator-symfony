@@ -137,8 +137,7 @@ final class UserController extends AbstractController
 		$number = preg_match('@[0-9]@', $password);
 
 		if (!$uppercase || !$lowercase || !$number || strlen($password) < 6) {
-			return 'La contraseña debe tener al menos 6 caracteres y debe incluir al menos una letra mayúscula, 
-            un número.';
+			return 'La contraseña debe tener al menos 6 caracteres y debe incluir al menos una letra mayúscula y un número.';
 		}
 
 		$passwordVerify = $dataForm['plainPasswordVerify'];
@@ -230,7 +229,7 @@ final class UserController extends AbstractController
 
 		if ($tokenQuery) {
 			$token = $this->entityManager->getRepository(UsuarioRecovery::class)->findOneBy(['pin' => $tokenQuery]);
-			$password = $datosForm['password'] ?? null;
+			$password = $datosForm['plainPassword'] ?? null;
 			
 			if ((bool) ($token->getFechaExpiracion() < new \DateTimeImmutable('now'))) {
 				$this->addFlash(
@@ -241,11 +240,22 @@ final class UserController extends AbstractController
 			}
 
 			if ($tokenQuery && $password) {
+
+				$invalidPassword = $this->registerAlertsForInvalidEmailUser(null, $datosForm, true);
+			
+				if ($invalidPassword !== '') {
+					$this->addFlash(
+						'error',
+						$invalidPassword
+					);
+					return $this->redirect($request->getUri());
+				}
+
 				$user = $this->userRepository->findOneBy(['id' => $token->getUsuario()->getId()]);
 				$user->setPassword(
 					$userPasswordHasher->hashPassword(
 						$user,
-						$datosForm['password']
+						$datosForm['plainPassword']
 					)
 				);
 				$this->entityManager->remove($token);
