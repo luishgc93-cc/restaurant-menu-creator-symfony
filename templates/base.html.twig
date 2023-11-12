@@ -25,6 +25,10 @@
 {% set route = app.request.attributes.get('_route') %}
 
 <div id="footer">
+    {% if 'panel' in app.request.attributes.get("_route")  %}
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+    {% endif %}
+    
     {% include '/Includes/footer.html.twig' %}
 </div>
 
