@@ -172,9 +172,9 @@
             <div class="menu-content">
              {{ producto.nombreProducto }}	{% if producto.precioProducto|default %} <span>{{ producto.precioProducto }}€</span> {% endif %}
             </div>
-            {% if producto.precioProducto|default %}
+            {% if producto.informacionProducto|default %}
             <div class="menu-ingredients">
-             {{ producto.precioProducto }}
+             {{ producto.informacionProducto }}
             </div>
             	{% endif %}
             {% endfor %}
